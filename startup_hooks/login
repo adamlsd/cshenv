@@ -1,0 +1,37 @@
+set login_sourced
+
+if( $?CSHENV_DEBUG ) then
+	echo "Starting login..."
+endif
+
+#if( ! $?CSHENV_DIR ) then
+	#setenv CSHENV_DIR ~/proj/cshenv
+#endif
+
+#echo "Under: " $_
+#echo "Zero: " $0
+
+#if( -n "${_}" ) then
+#	echo $0
+#	setenv CSHENV_LOGIN_PATH $0
+#else
+#	echo ${_}:1
+#	setenv CSHENV_LOGIN_PATH "${_}:1"
+#else
+#endif
+
+#echo login hook lives at: ${CSHENV_LOGIN_PATH}
+
+
+if( $?CSHENV_DEBUG ) then
+	echo "Ending login..."
+endif
+
+###########################
+# vim: ft=tcsh
+###########################
+
+setenv LC_NUMERIC en_US.UTF-8
+setenv LC_MEASUREMENT en_US.UTF-8
+setenv LC_MONETARY en_US.UTF-8
+setenv LC_TIME en_US.UTF-8

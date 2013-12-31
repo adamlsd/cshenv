@@ -1,0 +1,15 @@
+if( $?CSHENV_DEBUG ) then
+	echo "Sourcing tcshrc.system.Linux..."
+endif
+
+# Set the acknowledgement bit, essentially
+setenv CSHENV_SYSTEM_CONFIGURED Linux
+
+if( $?CSHENV_DEBUG ) then
+	echo "Done sourcing tcshrc.system.Linux..."
+endif
+
+###########################
+# vim: ft=tcsh
+###########################
+

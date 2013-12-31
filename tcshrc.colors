@@ -1,0 +1,58 @@
+#######################
+####### COLOURS #######
+#######################
+
+set csi='['
+
+set ansi_bright='1'
+set ansi_dim='0'
+set ansi_color='m'
+
+set ansi_black='30'
+set ansi_red='31'
+set ansi_green='32'
+set ansi_yellow='33'
+set ansi_blue='34'
+set ansi_magenta='35'
+set ansi_cyan='36'
+set ansi_white='37'
+
+
+set bright="$csi$ansi_bright$ansi_color"
+set dim="$csi$ansi_dim$ansi_color"
+
+
+set black="$csi$ansi_black$ansi_color"
+set red="$csi$ansi_red$ansi_color"
+set green="$csi$ansi_green$ansi_color"
+set yellow="$csi$ansi_yellow$ansi_color"
+set blue="$csi$ansi_blue$ansi_color"
+set magenta="$csi$ansi_magenta$ansi_color"
+set cyan="$csi$ansi_cyan$ansi_color"
+set white="$csi$ansi_white$ansi_color"
+
+
+
+set dim_black="$csi$ansi_dim;$ansi_black$ansi_color"
+set dim_red="$csi$ansi_dim;$ansi_red$ansi_color"
+set dim_green="$csi$ansi_dim;$ansi_green$ansi_color"
+set dim_yellow="$csi$ansi_dim;$ansi_yellow$ansi_color"
+set dim_blue="$csi$ansi_dim;$ansi_blue$ansi_color"
+set dim_magenta="$csi$ansi_dim;$ansi_magenta$ansi_color"
+set dim_cyan="$csi$ansi_dim;$ansi_cyan$ansi_color"
+set dim_white="$csi$ansi_dim;$ansi_white$ansi_color"
+
+
+set bright_black="$csi$ansi_bright;$ansi_black$ansi_color"
+set bright_red="$csi$ansi_bright;$ansi_red$ansi_color"
+set bright_green="$csi$ansi_bright;$ansi_green$ansi_color"
+set bright_yellow="$csi$ansi_bright;$ansi_yellow$ansi_color"
+set bright_blue="$csi$ansi_bright;$ansi_blue$ansi_color"
+set bright_magenta="$csi$ansi_bright;$ansi_magenta$ansi_color"
+set bright_cyan="$csi$ansi_bright;$ansi_cyan$ansi_color"
+set bright_white="$csi$ansi_bright;$ansi_white$ansi_color"
+
+
+###########################
+# vim:filetype=tcsh
+###########################

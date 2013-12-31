@@ -1,0 +1,78 @@
+# CSHRC Debugging tests
+if( ( $?CSHENV_DEBUG ) || ( $?CSHENV_VERBOSE_STARTUP ) ) then
+	echo "Currently running tcshrc script"
+endif
+
+
+# Figure out what kind of tcsh we are running.
+if( $?tcsh ) then
+	set tcsh_major=$tcsh:r:r
+	set tcsh_minor=$tcsh:r:e
+	set tcsh_patch=$tcsh:e
+	set tcsh_features=$version:as/ /.:as/,/./
+
+	if( $tcsh_minor < 12 ) then
+		echo "We are on a very ancient TCSH!  There may be many problems..."
+	else
+		if( $tcsh_minor == 14 && $tcsh_patch < 2 ) then
+			if( $?CSHENV_DEBUG ) then
+				echo "We may not have ADAM's patches..."
+			endif
+		endif
+	endif
+
+else
+	# As we develop support for C++sh, we'll need this
+	if( !$?cxxsh ) then
+		echo "What!  We're not even in tcsh or something compatible, like C++sh!!!"
+	endif
+endif
+
+set cur_feature=$tcsh_features:e
+
+if( $?CSHENV_DEBUG ) then
+	echo "Tcsh Featureset probed..."
+endif
+
+
+
+
+
+#The history size for your shell can be set globally now
+if( $?CSHENV_HISTORY_SIZE ) then
+	set history=$HISTORY_SIZE
+endif
+
+# this safe_source alias is incredibly delicate.  It drives the whole
+# optional sourcing mechanism -- DO NOT MESS WITH IT!
+alias safe_source 'eval "if ( -f \!:1 ) then \\
+source \!:1 \\
+endif"'
+
+if( $?CSHENV_DEBUG ) then
+	echo "Tcsh safe-source alias constructed..."
+endif
+
+# Dispatch to find out what our OS is and any fixups
+# This will figure out what system we're on and setup all
+# system specific notions.  From the sourced file,
+# tcshrc.system.???? will be called
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to source tcshrc.system"
+endif
+source ${CSHENV_DIR}/tcshrc.system
+
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to source tcshrc.alias"
+endif
+source ${CSHENV_DIR}/tcshrc.alias
+
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to source tcshrc.prompt"
+endif
+source ${CSHENV_DIR}/tcshrc.prompt
+
+###########################
+# vim: ft=tcsh
+###########################
+

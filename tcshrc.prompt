@@ -1,0 +1,8 @@
+source ${CSHENV_DIR}/tcshrc.colors
+source ${CSHENV_DIR}/tcshrc.prompt.colors
+source ${CSHENV_DIR}/tcshrc.prompt.defs
+
+###########################
+# vim:filetype=csh
+###########################
+

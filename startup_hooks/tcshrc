@@ -1,0 +1,41 @@
+set tcshrc_sourced
+
+if( $?CSHENV_DEBUG ) then
+	echo "Starting tcshrc..."
+endif
+
+if( ! $?CSHENV_DIR ) then
+	setenv CSHENV_DIR ~/proj/cshenv
+endif
+
+if( $?CSHENV_DEBUG ) then
+	echo "Setup CSHENV_DIR to: " ${CSHENV_DIR}
+endif
+
+#if( -z ${_} ) then
+	#echo $0
+	#setenv CSHENV_TCSHRC_PATH $0
+#else
+	#echo ${_}
+	#setenv CSHENV_TCSHRC_PATH "${_}"
+#endif
+
+#echo tcshrc hook lives at: ${CSHENV_TCSHRC_PATH}
+
+if( -c `tty` ) then
+	if( $?CSHENV_DEBUG ) then
+		echo "Going to source core tcshrc..."
+	endif
+	source ${CSHENV_DIR}/tcshrc
+endif
+
+# Not using tcshrc bits for non-login shells.  Will decide what to do later.
+
+if( $?CSHENV_DEBUG ) then
+	echo "Ending tcshrc..."
+endif
+
+###########################
+# vim: ft=tcsh
+###########################
+

@@ -1,0 +1,65 @@
+In-order steps of initialization
+
+
+Initial check for tty or not.
+
+Find core OS name from kernel with "uname".
+
+Different OSes need different uname breakdowns to find out stats.
+
+determine what system fix-ups are needed for common commands.
+
+ -- build a later version of shell?
+
+
+Load basic environment configuration variables (login or not)
+
+decide if login or batch-session.
+
+
+For batch: Load batch-specific settings.
+
+
+
+Otherwise:
+Switch to TCSH loading.
+
+Load login for first login bits.
+Load tcshrc for first login bits.
+
+ -- First launch tcshrc
+
+ -- These are sourced from tcshrc.system
+Load arch specific tcshrc bits
+Load OS specific tcshrc bits
+Load machine speciifc tchsrc bits
+Load organization/network specific tcshrc bits
+Load user specific tcshrc bits
+
+
+-- These get launched by tcshrc.alias
+Load arch specific alias bits
+Load OS specific alias bits
+Load machine speciifc tchsrc bits
+Load organization/network specific alias bits
+Load user specific alias bits
+
+Load arch specific completion bits
+Load OS specific completion bits
+Load machine speciifc tchsrc bits
+Load organization/network specific completion bits
+Load user specific completion bits
+
+Load arch specific bindkey bits
+Load OS specific bindkey bits
+Load machine speciifc tchsrc bits
+Load organization/network specific bindkey bits
+Load user specific bindkey bits
+
+ -- Do prompt last, since it is not that useful beforehand.
+Load tcshrc prompt
+
+----------------------------------------------
+
+
+Start by acknowledging that both login and tcshrc are sourced.

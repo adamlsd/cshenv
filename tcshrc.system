@@ -1,0 +1,40 @@
+if( $?CSHENV_DEBUG ) then
+	echo "Running tcshrc.system..."
+endif
+
+setenv CSHENV_SYSTEM `uname`
+
+if( $?CSHENV_DEBUG ) then
+	echo 'Initially detected that you are running on a "'${CSHENV_SYSTEM}'" system'
+endif
+
+
+
+# Cygwin systems are kinda funky -- so we fix them up to say "Cygwin"
+switch( ${CSHENV_SYSTEM} )
+	case CYGWIN_NT-6.1-WOW64:
+		setenv CSHENV_SYSTEM Cygwin
+	breaksw
+endsw
+
+if( $?CSHENV_DEBUG ) then
+	echo 'Detected that you are running on a "'${CSHENV_SYSTEM}'" system'
+endif
+
+
+# Source the common bits, since many systems often have lots in common.
+# For the moment, everything is in here.
+# This file is DEPRECATED from the start!
+source ${CSHENV_DIR}/tcshrc.system.common
+
+
+# Systems may need many system specific fixes for their systems
+# Such bits go into system-specific files.
+safe_source ${CSHENV_DIR}/tcshrc.system.${CSHENV_SYSTEM}
+if( ! $?CSHENV_SYSTEM_CONFIGURED ) then
+	echo 'Warning- Unable to find a proper system configuration set for "'${CSHENV_SYSTEM}'"'
+endif
+
+###########################
+# vim: ft=tcsh
+###########################

@@ -1,0 +1,148 @@
+if( $?CSHENV_DEBUG ) then
+	echo "Sourcing tcshrc.system.common"
+endif
+
+set uname=`uname`
+set uname_a=`uname -a`
+set uname_p=`uname -p`
+set uname_m=`uname -m`
+
+if( $?CSHENV_DEBUG ) then
+	echo "Setting uname -i tracker, based upon OS."
+endif
+
+switch( ${CSHENV_SYSTEM} )
+	case Cygwin:
+	case Darwin:
+	case Linux
+		set uname_i
+	breaksw
+
+	default:
+		#FALLTHROUGH
+
+	case FreeBSD:
+	case NetBSD:
+		set uname_i="`uname -i`"
+	breaksw
+endsw
+
+if( $?CSHENV_DEBUG ) then
+	echo "Setting CSHENV_BASESYSTEM..."
+endif
+setenv CSHENV_BASESYSTEM "${uname}"
+
+if( $?CSHENV_DEBUG ) then
+	echo "Setting CSHENV_FULLSYSTEM..."
+endif
+setenv CSHENV_FULLSYSTEM "${uname_a}"
+
+switch ( ${CSHENV_SYSTEM} )
+
+	case Cygwin:
+		if( $?CSHENV_DEBUG ) then
+			echo "Using a Cygwin system..."
+		endif
+
+		#Cygwin is like Linux, so we just...
+
+		#FALLTHROUGH
+
+	case Linux:
+		if( $?CSHENV_DEBUG ) then
+			echo "Using a Linux-like system (GLIBC, probably)..."
+		endif
+
+		setenv CSHENV_CPU "${uname_m}"
+		setenv CSHENV_MACH "${uname_p}"
+
+		switch( CSHENV_CPU )
+			case m68k:
+				if( $?CSHENV_DEBUG ) then
+					echo "Running on a m68k based CPU, tweaks for system."
+				endif
+				
+				setenv CSHENV_ARCH ${uname_p}
+			breaksw
+
+			case armv71:
+				if( $?CSHENV_DEBUG ) then
+					echo "Running on an arm based CPU, tweaks for system."
+				endif
+				setenv CSHENV_ARCH arm
+			breaksw
+
+			default:
+				setenv CSHENV_ARCH ${uname_i}
+			breaksw
+		endsw
+
+	breaksw
+
+	case Darwin:
+		if( $?CSHENV_DEBUG ) then
+			echo "Using a Darwin/MacosX system..."
+		endif
+
+		setenv CSHENV_CPU ${uname_p}
+		setenv CSHENV_MACH ${uname_m}
+
+		#TODO: Fix this for intel vs. ppc check.
+		setenv CSHENV_ARCH ppc
+	breaksw
+
+	case FreeBSD:
+		if( $?CSHENV_DEBUG ) then
+			echo "Using a FreeBSD system..."
+		endif
+
+		setenv CSHENV_CPU ${uname_p}
+		setenv CSHENV_MACH ${uname_m}
+		setenv CSHENV_ARCH ${uname_p}
+	breaksw
+
+	default:
+		setenv CSHENV_CPU ${uname_p}
+		setenv CSHENV_MACH ${uname_m}
+		setenv CSHENV_ARCH ${uname_i}
+	breaksw
+endsw
+
+if( $?CSHENV_DEBUG ) then
+	echo "Detecting hostname hacks needed."
+endif
+
+switch( ${CSHENV_SYSTEM} )
+
+	#Broken or Non-BSD like hostname commands:
+	case Cygwin:
+	case SunOS:
+		if( $?CSHENV_DEBUG ) then
+			echo "SYSV hostname hack."
+		endif
+
+		setenv CSHENV_HOSTNAME `hostname | tr "[:upper:]" "[:lower:]"`
+	breaksw
+
+	#BSD like hostnames, and non-broken ones.
+	default:
+		if( $?CSHENV_DEBUG ) then
+			echo "BSD-like hostname hack."
+		endif
+
+		setenv CSHENV_HOSTNAME `hostname -s| tr "[:upper:]" "[:lower:]"`
+	breaksw
+endsw
+
+if( $?CSHENV_DEBUG ) then
+	echo "Hostname detected as ${CSHENV_HOSTNAME}..."
+endif
+
+if( $?CSHENV_DEBUG ) then
+	echo "Done sourcing tcshrc.system.common"
+endif
+
+###########################
+# vim: ft=tcsh
+###########################
+
