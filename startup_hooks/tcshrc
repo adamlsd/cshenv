@@ -1,41 +1,37 @@
-set tcshrc_sourced
+# Only take this file in, if LOGIN is sourced.  LOGIN will be sourced
+# first, therefore, and will chain off to this.
+if( $?CSHENV_LOGIN_SOURCED && ! $?CSHENV_TCSHRC_SOURCED ) then
 
-if( $?CSHENV_DEBUG ) then
-	echo "Starting tcshrc..."
-endif
+    set CSHENV_TCSHRC_SOURCED
 
-if( ! $?CSHENV_DIR ) then
-	setenv CSHENV_DIR ~/proj/cshenv
-endif
+    if( $?CSHENV_DEBUG ) then
+        echo "Starting tcshrc..."
+    endif
 
-if( $?CSHENV_DEBUG ) then
-	echo "Setup CSHENV_DIR to: " ${CSHENV_DIR}
-endif
+    #if( -z ${_} ) then
+        #echo $0
+        #setenv CSHENV_TCSHRC_PATH $0
+    #else
+        #echo ${_}
+        #setenv CSHENV_TCSHRC_PATH "${_}"
+    #endif
 
-#if( -z ${_} ) then
-	#echo $0
-	#setenv CSHENV_TCSHRC_PATH $0
-#else
-	#echo ${_}
-	#setenv CSHENV_TCSHRC_PATH "${_}"
-#endif
+    #echo tcshrc hook lives at: ${CSHENV_TCSHRC_PATH}
 
-#echo tcshrc hook lives at: ${CSHENV_TCSHRC_PATH}
+    if( -c `tty` ) then
+        if( $?CSHENV_DEBUG ) then
+            echo "Going to source core tcshrc..."
+        endif
+        source ${CSHENV_DIR}/tcshrc
+    endif
 
-if( -c `tty` ) then
-	if( $?CSHENV_DEBUG ) then
-		echo "Going to source core tcshrc..."
-	endif
-	source ${CSHENV_DIR}/tcshrc
-endif
+    # Not using tcshrc bits for non-login shells.  Will decide what to do later.
 
-# Not using tcshrc bits for non-login shells.  Will decide what to do later.
-
-if( $?CSHENV_DEBUG ) then
-	echo "Ending tcshrc..."
+    if( $?CSHENV_DEBUG ) then
+        echo "Ending tcshrc..."
+    endif
 endif
 
 ###########################
 # vim: ft=tcsh
 ###########################
-
