@@ -11,11 +11,9 @@ endif
 
 
 # Cygwin systems are kinda funky -- so we fix them up to say "Cygwin"
-switch( ${CSHENV_SYSTEM} )
-	case CYGWIN_NT-6.1-WOW64:
-		setenv CSHENV_SYSTEM Cygwin
-	breaksw
-endsw
+#if( echo ${CSHENV_SYSTEM} | grep -i "cygwin" >& /dev/null ) then
+    #setenv CSHENV_SYSTEM Cygwin
+#endsw
 
 if( $?CSHENV_DEBUG ) then
 	echo 'Detected that you are running on a "'${CSHENV_SYSTEM}'" system'

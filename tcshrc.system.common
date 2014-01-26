@@ -124,6 +124,15 @@ switch( ${CSHENV_SYSTEM} )
 		setenv CSHENV_HOSTNAME `hostname | tr "[:upper:]" "[:lower:]"`
 	breaksw
 
+	#Linux may be different, yet still
+	case Linux:
+		if( $?CSHENV_DEBUG ) then
+			echo "BSD-like hostname hack."
+		endif
+
+		setenv CSHENV_HOSTNAME `hostname | tr "[:upper:]" "[:lower:]"`
+	breaksw
+
 	#BSD like hostnames, and non-broken ones.
 	default:
 		if( $?CSHENV_DEBUG ) then
