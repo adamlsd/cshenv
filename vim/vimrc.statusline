@@ -1,0 +1,51 @@
+function! GetYearGlyph()
+    " TODO Write a full parser which adjusts for some "second centry"
+    " point generates:
+    " 00 - 09 as \`0 - \`9
+    " 10 - 19 as \'0 - \'9
+    " 20 - 29 as \"0 - \"9
+    " 30 - 39 as \^0 - \^9
+    " 40 - 49 as \~0 - \~9
+    " 50 - 59 as \*0 - \*9
+    " return %{strftime('%y')}[1]
+
+    let year= strftime('%Y')
+    let decade= year / 10 % 10
+    let glyph=
+    \    ( year % 1000 ) > 100 ? decade :
+    \        decade == 0 ? "`"     :
+    \        decade == 1 ? "'"     :
+    \        decade == 2 ? '"'     :
+    \        decade == 3 ? "^"     :
+    \        decade == 4 ? "~"     :
+    \        decade == 4 ? "~"     :
+    \        decade == 5 ? "+"     :
+    \        decade == 6 ? "*"     :
+    \        decade == 7 ? "/"     :
+    \        decade == 7 ? "%"     :
+    \        decade == 7 ? "&"     :
+    \        "?"
+
+    let year= year % 10
+
+    return glyph . year
+endfunction
+
+" This is a rebuild of the original vim status line.  I'll put the original
+" one here from globalprefs.  We also have to get vim to reset its environment
+" when I start.
+
+
+set statusline=         " reset the status line, for ADAM's colorful status line
+set statusline+=%1*[%02.03n]%0*          " max/min for buf #, in []
+set statusline+=Pos:\ %4*%3l/%3L%0*       " Pos: '.'/'$',
+set statusline+=\ %2*%c%2V%0*            " Column # and tab detect
+set statusline+=\ %5*@%0*                " Colored @ for percent
+set statusline+=\ %6*%P%0*               " Percent thru file
+set statusline+=\ File:\ %3*%<%-f%0*     " File: Path left trim and align
+set statusline+=%4*%(\ (%M%R%H)%)%0*     " File editing mode (+/-,RO,HLP)
+set statusline+=%=                       " Divider between left & right align
+set statusline+=\ %9*X=%02B              " Current char byte val in hex
+
+"Lastly put the time in classic Magenta, like my TCSH prompt:
+set statusline+=\ %8*%{GetYearGlyph()}-%{strftime('%m-%d\ %H:%M')}

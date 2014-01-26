@@ -1,0 +1,43 @@
+"Color settings
+set background=dark
+
+"Smart indentation settings
+set noautoindent
+set nosmartindent
+set nocindent
+set indentexpr=
+
+"Global editor settings
+set tabstop=4
+set shiftwidth=4
+set sts=4
+set sta
+set expandtab
+set showmatch
+let loaded_matchparen= 1
+set textwidth=200
+
+"Environment look-and-feel settings
+set showmode
+set statusline=%1*[%02n]%8*Pos:\ %4*%3l/%3L%8*,\ %2*%c%2V%8*\ %5*@%8*\ %6*%P\ %8*File:\ %3*%-08.24f%8*%=%4*%(\ (%M%R%H)%)%=%9*\ASCII=%03b\ HEX=%02B%8*
+set laststatus=2
+
+"set ruler
+
+
+set path=.,$VIM_PATH,,
+set foldmethod=marker
+set foldtext=MyFoldText()
+set nohlsearch
+
+set mouse=a
+
+set modeline
+set modelines=16
+
+"Wildcard expansion menu from command-colon line
+set wildmenu
+
+if &term =~ "rxvt"
+    set t_Co=16
+endif
