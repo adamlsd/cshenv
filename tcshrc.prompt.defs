@@ -1,0 +1,138 @@
+##########################
+### PROMPT DEFINITIONS ###
+##########################
+
+if( $?CSHENV_DEBUG ) then
+	echo "Sourcing prompt setup and definitions..."
+endif
+
+
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to fix tty bug"
+endif
+
+if( ! $?unknown_tty ) then
+	set unknown_tty="?"
+	if( $?CSHENV_DEBUG ) then
+		echo "Unknown tty set..."
+	endif
+endif
+
+setenv CSHENV_CACHE_DIR ~/.tcsh_cache
+
+set promptchars='%#'
+
+set default_screen_offset_count=80
+
+set prompt_simple="${oldp_color_seq}[%n@%m: %c]%# "
+
+
+switch( $CSHENV_SYSTEM )
+
+	# All BSD derived systems (and actually most non-GNU tools) have the 6th entry for stty being columns
+	case Darwin:
+		#FALLTHROUGH
+
+    # TODO: Figure out a collapse?
+	#case *BSD: #Is this legal in CSH?
+		#FALLTHROUGH
+
+	case FreeBSD:
+		#FALLTHROUGH
+
+	case NetBSD:
+		#FALLTHROUGH
+
+	case OpenBSD:
+		if( $?CSHENV_DEBUG ) then
+			echo "Using BSDish stty for width"
+		endif
+		set screen_offset_count=`stty -a | head -1 | awk '{print $6}' | sed -e "s/;//g"`
+	breaksw
+
+
+
+	# Linux breaks the typical behavior, and makes the 7th entry be stty
+	case Cygwin:
+	case Linux:
+		if( $?CSHENV_DEBUG ) then
+			echo "Linux prompt width for stty blows..."
+		endif
+		#Some cshes don't like the split line here!
+		set screen_offset_count=`stty -a | head -1 | sed -e 's/;//g' | awk '{print $7}' | sed -e 's/;//g'`
+	breaksw
+
+	default:
+		#We don't know how to handle this case.  Just use a guessed
+		#value of 80, since we cannot tell.
+		set screen_offset_count=$default_screen_offset_count
+		echo "Using a default screen offset value"
+	breaksw
+
+endsw
+
+if( $?CSHENV_DEBUG ) then
+    echo "Screen offset computed to be: ${screen_offset_count}"
+endif
+
+set screen_width=$screen_offset_count
+#echo $screen_offset_count
+@ screen_offset_count = $screen_offset_count - 18
+#echo "A"
+
+set screen_offset=""
+set n="1"
+
+
+if ( ! -d $CSHENV_CACHE_DIR ) then
+	mkdir $CSHENVTCSH_CACHE_DIR
+endif
+#echo $screen_offset_count
+if ( -f ${CSHENV_CACHE_DIR}/screen.$screen_width ) then
+	source ${CSHENV_CACHE_DIR}/screen.$screen_width
+else
+	while ( ${n} < ${screen_offset_count} )
+		set screen_offset="${screen_offset} "
+		@ n = ($n + 1)
+	end
+	echo "set screen_offset='${screen_offset}'" > ${CSHENV_CACHE_DIR}/screen.${screen_width}
+	#echo "Make a manual cache entry for screen width."
+endif
+
+
+set date_prompt_core="${date_color_seq}%Y-%W-%D ${time_color_seq}%P"
+set date_prompt_left="${date_prompt_core}"
+set date_prompt="${screen_offset}${date_prompt_core}"
+#unset edit
+
+if( $?CSHENV_DEBUG ) then
+	echo "Building Cool prompt"
+endif
+
+
+set depth_prompt=" ${depth_color_seq}(${shlvl})"
+if( $?CSHENV_HIDE_SHELL_LEVEL_AT_ONE ) then
+	if( $shlvl == 1 ) then
+		set depth_prompt=""
+	endif
+endif
+
+#we "convert" pts/$number entries to ttypK entries?
+set line_prompt="${line_color_seq}`tty | sed -e 's;/dev/tty;;' -e 's;/dev/pts/;p/;' -e 's;/dev/;;' -e 's/not a tty/${unknown_tty}/'`"
+set user_prompt="${name_color_seq}%n"
+set host_prompt="${host_color_seq}${CSHENV_HOSTNAME}"
+set path_prompt="${path_color_seq}%c02"
+set end_prompt="${prompt_color_seq}%#${command_color_seq} "
+
+
+set prompt_cool="${date_prompt}${text_color_seq}%L${brace_color_seq}\[${line_prompt}${depth_prompt}${text_color_seq}\- ${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
+
+if( ! ${?cshenv_user_prompt_override} ) then
+    set prompt="$prompt_cool"
+endif
+alias oldp 'set prompt="$prompt_simple"; set cshenv_user_prompt_override'
+alias newp 'set prompt="$prompt_cool"; set cshenv_user_prompt_override'
+
+###########################
+# vim:filetype=tcsh
+###########################
