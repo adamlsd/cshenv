@@ -35,7 +35,7 @@ if( $?CSHENV_DEBUG ) then
 endif
 
 
-
+bindkey -v
 
 
 #The history size for your shell can be set globally now
@@ -53,6 +53,9 @@ if( $?CSHENV_DEBUG ) then
 	echo "Tcsh safe-source alias constructed..."
 endif
 
+
+safe_source ${CSHENV_DIR}/tcshrc.conf
+
 # Dispatch to find out what our OS is and any fixups
 # This will figure out what system we're on and setup all
 # system specific notions.  From the sourced file,
@@ -63,14 +66,33 @@ endif
 source ${CSHENV_DIR}/tcshrc.system
 
 if( $?CSHENV_DEBUG ) then
-	echo "Trying to source tcshrc.alias"
+	echo "Trying to source tcshrc.aliases"
 endif
-source ${CSHENV_DIR}/tcshrc.alias
+source ${CSHENV_DIR}/tcshrc.aliases
 
 if( $?CSHENV_DEBUG ) then
 	echo "Trying to source tcshrc.prompt"
 endif
 source ${CSHENV_DIR}/tcshrc.prompt
+
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to source tcshrc.bindkeys"
+endif
+source ${CSHENV_DIR}/tcshrc.bindkeys
+
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to source tcshrc.${CSHENV_SYSTEM}"
+endif
+safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_SYSTEM}
+
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to source tcshrc.${CSHENV_HOSTNAME}"
+endif
+safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_HOSTNAME}
+
+if( $?CSHENV_ORGANIZATION ) then
+    safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_ORGANIZATION}
+endif
 
 ###########################
 # vim: ft=tcsh

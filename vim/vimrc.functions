@@ -1,0 +1,17 @@
+function! MyFoldText()
+
+	" This function attempts to fetch out a definition line
+	" for correct foldtext
+
+	let line = getline( v:foldstart )
+	let typeline = getline( 1 + v:foldstart )
+	let defline = " ".getline( 2 + v:foldstart )."  {".typeline."} "
+	let sub = substitute( line, '/\*\|\*/\|{{{\d\=', '', 'g' )
+	let nm= substitute( sub, ' *\|	*', '', 'g' )
+
+	if ( nm == "func" ) 
+		return v:folddashes . defline
+	else
+		return v:folddashes . sub
+	endif
+endfunction

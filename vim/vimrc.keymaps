@@ -1,0 +1,10 @@
+"Adam Keymaps
+map _ {!}fmt -p -s -w 78
+
+map - ddkP
+map + ddp
+
+"Properly map Y to yank to end of line, instead of yank line.
+map Y y$
+
+map zz zM

@@ -1,0 +1,27 @@
+"au BufNewFile,BufRead		*.i,*.l			setf c
+au BufNewFile,BufRead		mk*			setf make
+"au BufNewFile,BufRead		*.slogo			setf c
+au BufNewFile,BufRead		*.tex		map _ {!}fmt -p -s -w 70 
+au BufNewFile,BufRead		*.tex			set textwidth=78
+au BufNewFile,BufRead		*.java			set tabstop=4
+au BufNewFile,BufRead		*.java			set shiftwidth=4
+au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		setf cpp
+
+" Alephaish
+au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sw=4
+au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set ts=4
+au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set noet
+
+au BufNewFile,BufRead		*/cshenv/tcshrc.*		setf tcsh
+
+" falcish
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set ts=3
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sts=3
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sw=3
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set et
+
+au FileType * setlocal formatoptions=tcq
+
+if has("syntax")
+	syntax on
+endif

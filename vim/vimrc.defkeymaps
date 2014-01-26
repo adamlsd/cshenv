@@ -1,0 +1,38 @@
+" Key Mappings
+map <PageUp>	<C-B>
+map <PageDown>	<C-F>
+
+" "insert"
+map <ESC>[2~	i
+map <ESC>[2~	<insert>
+
+" "home"
+map <ESC>[1~	^
+map <ESC>[1~	0
+map <ESC>[1~	<Home>
+
+" "pgup"
+map <ESC>[5~	<C-B>
+map <ESC>[5~	<PageUp>
+
+" "delete"
+map <ESC>[3~	x
+map <ESC>[3~	<Del>
+" "end"
+map <ESC>[4~	$
+map <ESC>[4~	<END>
+
+" "pgdn"
+map <ESC>[6~	<C-F>
+map <ESC>[6~	<PageDown>
+
+" "UP", "Down", "LEFT", and "RIGHT" arrow keys
+map <ESC>[A	<Up>
+map <ESC>[B	<Down>
+map <ESC>[C	<Right>
+map <ESC>[D	<Left>
+
+imap <ESC>[A	<Up>
+imap <ESC>[B	<Down>
+imap <ESC>[C	<Right>
+imap <ESC>[D	<Left>
