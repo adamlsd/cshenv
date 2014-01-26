@@ -40,7 +40,7 @@ endif
 
 #The history size for your shell can be set globally now
 if( $?CSHENV_HISTORY_SIZE ) then
-	set history=$HISTORY_SIZE
+	set history=${CSHENV_HISTORY_SIZE}
 endif
 
 # this safe_source alias is incredibly delicate.  It drives the whole
@@ -75,4 +75,3 @@ source ${CSHENV_DIR}/tcshrc.prompt
 ###########################
 # vim: ft=tcsh
 ###########################
-
