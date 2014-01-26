@@ -71,11 +71,6 @@ endif
 source ${CSHENV_DIR}/tcshrc.aliases
 
 if( $?CSHENV_DEBUG ) then
-	echo "Trying to source tcshrc.prompt"
-endif
-source ${CSHENV_DIR}/tcshrc.prompt
-
-if( $?CSHENV_DEBUG ) then
 	echo "Trying to source tcshrc.bindkeys"
 endif
 source ${CSHENV_DIR}/tcshrc.bindkeys
@@ -93,6 +88,14 @@ safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_HOSTNAME}
 if( $?CSHENV_ORGANIZATION ) then
     safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_ORGANIZATION}
 endif
+
+# TCSHRC Prompt is the LAST thing we do, since it's the entry to
+# user interface
+
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to source tcshrc.prompt"
+endif
+source ${CSHENV_DIR}/tcshrc.prompt
 
 ###########################
 # vim: ft=tcsh
