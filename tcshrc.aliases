@@ -1,0 +1,69 @@
+#Classic UNIXy aliases
+
+#Dir motion
+alias pd	pushd
+alias pu	pushd
+alias po	popd
+
+#Standard ls aliases that I use:
+alias ll l -l
+alias la l -a
+alias li l -i
+
+#standard long ls aliases that I use
+alias llh l -lh
+alias lli ll -i
+alias llhi llh -i
+alias llih llhi
+
+#{I derive lla from ll, not la, because it's a long ls, similarly for llA}
+alias lla ll -a
+alias lla ll -A
+
+alias llha llh -a
+alias llah llha
+
+alias llhia llhi -a
+alias llahi llhia
+alias lliah llahi
+alias lliha llahi
+alias llaih llahi
+alias llhai llahi
+
+alias lt l -t
+alias llt ll -t
+
+#alias mkdir mkdir -p
+alias md mkdir
+alias rd rmdir
+
+alias . pwd
+
+#Job control aliases  TODO: Update these for arguments
+
+alias , jobs
+alias = "%&"
+alias + "%%"
+alias - stop
+
+
+#More specific aliases
+
+alias show	set
+
+alias lh	l -sh
+
+# Detect and activate vim, if present
+if( -f `which vim` ) then
+	alias vi vim
+    setenv EDITOR vim
+    setenv VISUAL vim
+endif
+
+safe_source ${CSHENV_DIR}/tcshrc.aliases.${CSHENV_SYSTEM}
+safe_source ${CSHENV_DIR}/tcshrc.aliases.${CSHENV_HOSTNAME}
+safe_source ${CSHENV_DIR}/tcshrc.aliases.user
+
+###########################
+# vim:filetype=tcsh
+###########################

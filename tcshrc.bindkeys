@@ -1,0 +1,17 @@
+############################
+### TCSH Bindkey scripts ###
+############################
+
+## Vi keybindings by default
+bindkey -v
+
+if( $?CSHENV_BINDKEY_CHOICE ) then
+	bindkey $CSHENV_BINDKEY_CHOICE
+endif
+
+
+bindkey ^G list-choices
+
+###########################
+# vim:filetype=tcsh
+###########################
