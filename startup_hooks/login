@@ -5,14 +5,6 @@ if( ! $?CSHENV_LOGIN_SOURCED ) then
         echo "Starting login..."
     endif
 
-    if( ! $?CSHENV_DIR ) then
-        setenv CSHENV_DIR ~/cshenv
-    endif
-
-    if( $?CSHENV_DEBUG ) then
-        echo "Set CSHENV_DIR to: " ${CSHENV_DIR}
-    endif
-
     #echo "Under: " $_
     #echo "Zero: " $0
 
@@ -28,17 +20,12 @@ if( ! $?CSHENV_LOGIN_SOURCED ) then
     #echo login hook lives at: ${CSHENV_LOGIN_PATH}
 
 
-    setenv LC_NUMERIC en_US.UTF-8
-    setenv LC_MEASUREMENT en_US.UTF-8
-    setenv LC_MONETARY en_US.UTF-8
-    setenv LC_TIME en_US.UTF-8
-
     if( $?CSHENV_DEBUG ) then
         echo "Ending login..."
     endif
 
     # Chain off to tcshrc, afterwards, if login hasn't been sourced
-    source ${CSHENV_DIR}/startup_hooks/tcshrc
+    # source ${CSHENV_DIR}/startup_hooks/tcshrc
 
 endif
 

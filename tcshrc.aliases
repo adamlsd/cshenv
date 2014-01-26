@@ -1,9 +1,17 @@
+# CSHENV Aliases:
+
+alias resource source ${CSHENV_DIR}/tcshrc
+alias relog resource
+alias rl relog
+
 #Classic UNIXy aliases
 
 #Dir motion
 alias pd	pushd
 alias pu	pushd
 alias po	popd
+
+alias l ls
 
 #Standard ls aliases that I use:
 alias ll l -l

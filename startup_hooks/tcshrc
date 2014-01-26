@@ -1,35 +1,51 @@
-# Only take this file in, if LOGIN is sourced.  LOGIN will be sourced
-# first, therefore, and will chain off to this.
-if( $?CSHENV_LOGIN_SOURCED && ! $?CSHENV_TCSHRC_SOURCED ) then
+# This file will always be taken in.  .login is now
+# vestigial, and doesn't matter if first or second.
 
-    set CSHENV_TCSHRC_SOURCED
+# These are the bits that would be in login:
 
+if( ! $?CSHENV_DIR ) then
+    setenv CSHENV_DIR ~/cshenv
+endif
+
+if( $?CSHENV_DEBUG ) then
+    echo "Set CSHENV_DIR to: " ${CSHENV_DIR}
+endif
+
+setenv LC_NUMERIC en_US.UTF-8
+setenv LC_MEASUREMENT en_US.UTF-8
+setenv LC_MONETARY en_US.UTF-8
+setenv LC_TIME en_US.UTF-8
+
+
+# These are the bits that are in tcshrc
+
+set CSHENV_TCSHRC_SOURCED
+
+if( $?CSHENV_DEBUG ) then
+    echo "Starting tcshrc..."
+endif
+
+#if( -z ${_} ) then
+    #echo $0
+    #setenv CSHENV_TCSHRC_PATH $0
+#else
+    #echo ${_}
+    #setenv CSHENV_TCSHRC_PATH "${_}"
+#endif
+
+#echo tcshrc hook lives at: ${CSHENV_TCSHRC_PATH}
+
+if( -c `tty` ) then
     if( $?CSHENV_DEBUG ) then
-        echo "Starting tcshrc..."
+        echo "Going to source core tcshrc..."
     endif
+    source ${CSHENV_DIR}/tcshrc
+endif
 
-    #if( -z ${_} ) then
-        #echo $0
-        #setenv CSHENV_TCSHRC_PATH $0
-    #else
-        #echo ${_}
-        #setenv CSHENV_TCSHRC_PATH "${_}"
-    #endif
+# Not using tcshrc bits for non-login shells.  Will decide what to do later.
 
-    #echo tcshrc hook lives at: ${CSHENV_TCSHRC_PATH}
-
-    if( -c `tty` ) then
-        if( $?CSHENV_DEBUG ) then
-            echo "Going to source core tcshrc..."
-        endif
-        source ${CSHENV_DIR}/tcshrc
-    endif
-
-    # Not using tcshrc bits for non-login shells.  Will decide what to do later.
-
-    if( $?CSHENV_DEBUG ) then
-        echo "Ending tcshrc..."
-    endif
+if( $?CSHENV_DEBUG ) then
+    echo "Ending tcshrc..."
 endif
 
 ###########################
