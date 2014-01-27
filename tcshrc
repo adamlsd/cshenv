@@ -65,6 +65,21 @@ if( $?CSHENV_DEBUG ) then
 endif
 source ${CSHENV_DIR}/tcshrc.system
 
+#For GNU ls(1) {From coreutils} and tcsh's color ls-F
+#Also, coming soon, my port of ls-F highlighting to FreeBSD's
+#ls(1) -G facility
+if( $?LINUX_SUCKS ) then
+	setenv LS_COLORS 'no=00:fi=00:di=01;34:ln=01;35:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;41;37:ex=00;31:*.tar=01;31:*.tgz=01;31:*.tbz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jpg=01;35:*.png=01;35:*.gif=01;35:*.bmp=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.png=01;35:*.mpg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.cpp=32:*.cc=32:*.c=32:*.l=32:*.cxx=32:*.hpp=33:*.h=33:*.i=33:*.a=31:*.asm=31:*.bin=35:*.sec=36:*.ko=31'
+else
+	setenv LS_COLORS 'no=00:fi=00:di=01;34:ln=01;35:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=01;05;41;37:ex=00;31:*.tar=01;31:*.tgz=01;31:*.tbz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jpg=01;35:*.png=01;35:*.gif=01;35:*.bmp=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.png=01;35:*.mpg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.cpp=32:*.cc=32:*.c=32:*.l=32:*.m=32:*.i=33:*.cxx=32:*.h=33:*.hpp=33:*.a=31:*.asm=31:*.bin=35:*.sec=36:*.ko=31'
+endif
+
+#The LSCOLORS for *BSD is always working, so there's no need to versionify
+#this.  The environment variable's presence is trivial.
+#For FreeBSD's ls(1), and derived utilities {Like MacOS X/Darwin's ls(1)}
+setenv LSCOLORS 'ExFxcxdxbxegedabagacEB'
+setenv CLICOLOR_FORCE
+
 if( $?CSHENV_DEBUG ) then
 	echo "Trying to source tcshrc.aliases"
 endif
