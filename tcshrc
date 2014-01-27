@@ -3,6 +3,8 @@ if( ( $?CSHENV_DEBUG ) || ( $?CSHENV_VERBOSE_STARTUP ) ) then
 	echo "Currently running tcshrc script"
 endif
 
+set path=( ${CSHENV_DIR}/bin ${path} )
+
 
 # Figure out what kind of tcsh we are running.
 if( $?tcsh ) then
@@ -103,6 +105,8 @@ safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_HOSTNAME}
 if( $?CSHENV_ORGANIZATION ) then
     safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_ORGANIZATION}
 endif
+
+set path=( ${path} /usr/sbin /sbin )
 
 # TCSHRC Prompt is the LAST thing we do, since it's the entry to
 # user interface
