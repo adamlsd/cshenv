@@ -37,9 +37,6 @@ if( $?CSHENV_DEBUG ) then
 endif
 
 
-bindkey -v
-
-
 #The history size for your shell can be set globally now
 if( $?CSHENV_HISTORY_SIZE ) then
 	set history=${CSHENV_HISTORY_SIZE}
