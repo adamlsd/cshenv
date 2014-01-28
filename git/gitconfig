@@ -1,0 +1,37 @@
+[core]
+    whitespace = blank-at-eol,tab-in-indent,space-before-tab,trailing-space,tabwidth=4
+    preloadindex = true
+
+[color]
+    diff = always
+	ui = auto
+
+[alias]
+    br = branch
+    ci = commit
+    co = checkout
+    st = status
+    dc = diff --check
+    brm = !git br -a | grep -e master -e $USER -e review/ -e releases/
+    branch-name = !git branch | awk '/\\*/{print $2}'
+    sd = diff --name-status
+    last = cat-file commit HEAD
+
+[color "branch"]
+    current = green
+
+[color "status"]
+    updated = green
+
+[color "diff"]
+	new = 12
+
+[merge]
+	conflictstyle = diff3
+	mergetool = vimdiff
+	tool = vimdiff
+
+[push]
+	default = upstream
+
+# vim: ft=gitconfig
