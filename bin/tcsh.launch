@@ -1,0 +1,16 @@
+#!/bin/sh
+if [ `uname` = "AIX" -a ! -x tcsh ]
+then
+	IBM_CSH=~/cshenv/shells/ibm/bin/tcsh
+	#echo "On an AIX system, so we're using our custom-built TCSH."
+	[ -f ${IBM_CSH} -a -x ${IBM_CSH} ] && exec ${IBM_CSH} $*
+	echo "Failed in trying to start TCSH.  Using a fallback to classic Bourne."
+	exec /bin/sh
+elif [ "" != `which tcsh` -a -f `which tcsh` -a -x `which tcsh` ];
+then
+	#echo "Try using the system TCSH."
+	exec tcsh $*
+else
+	echo "Not going to try starting TCSH.  Using a fallback to classic Bourne."
+	exec /bin/sh
+fi
