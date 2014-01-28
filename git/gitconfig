@@ -18,13 +18,13 @@
     last = cat-file commit HEAD
 
 [color "branch"]
-    current = green
+    current = bold blue
 
 [color "status"]
-    updated = green
+    updated = bold blue
 
 [color "diff"]
-	new = 12
+	new = bold blue
 
 [merge]
 	conflictstyle = diff3
