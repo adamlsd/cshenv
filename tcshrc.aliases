@@ -4,14 +4,98 @@ alias resource source ${CSHENV_DIR}/tcshrc
 alias relog resource
 alias rl relog
 
-#Classic UNIXy aliases
 
 #Dir motion
 alias pd	pushd
 alias pu	pushd
 alias po	popd
 
-alias l ls
+#Figure out where we get our LS from.  TODO: Move this?
+
+#This sets the ls command to the right command to use for that system, to
+#enable colour output, if at all possible
+if( ( $?CSHENV_DEBUG ) || ( $?CSHENV_VERBOSE_STARTUP ) ) then
+	echo "Probing ls(1) options..."
+endif
+
+if( $?CSHENV_USE_GNU_LS ) then
+	if( $?CSHENV_DEBUG ) then
+		echo "Finding gls..."
+	endif
+	if( { which gls } ) > /dev/null then
+		setenv CSHENV_SYSTEM_LS USE_GNU_LS
+	else if( "$CSHENV_SYSTEM" == "Linux" || "$CSHENV_SYSTEM" == "Cygwin" ) then
+		setenv CSHENV_SYSTEM_LS Linux
+
+	else
+		setenv CSHENV_SYSTEM_LS $SYSTEM
+	endif
+	if( $?CSHENV_DEBUG ) then
+		echo "Done with gls probe..."
+	endif
+else
+	if( $?CSHENV_DEBUG ) then
+		echo "Trying for other ls options..."
+	endif
+	if( $?CSHENV_USE_BUILTIN_LS ) then
+		setenv CSHENV_SYSTEM_LS USE_BUILTIN_LS
+	else
+		if( $?CSHENV_DEBUG ) then
+			echo "Defaulting on ls..."
+		endif
+		setenv CSHENV_SYSTEM_LS ${CSHENV_SYSTEM}
+	endif
+endif
+
+switch( $CSHENV_SYSTEM_LS )
+
+	#FreeBSD, Darwin, and possibly others have the "G" option
+	#which uses the LSCOLORS env variable
+	case Darwin:
+		#FALLTHROUGH
+
+	case FreeBSD:
+		alias l ls -FG
+	breaksw
+
+	#DEPRECATED
+	#SunOS has no default ls for color; however, we'll gamble that
+	#/usr/shareware or such has GNU ls(1) installed...
+	case SunOS___DEPRECATED:
+		alias ls gls
+		#FALLTHROUGH
+
+
+	#This is for systems which have GNU ls(1) installed, as gls(1) (when
+	#their native system ls(1) is not gnu, but the USE_GNU_LS variable
+	#is set.  Systems with native ls as GNU ls(1) won't be affected.
+	case USE_GNU_LS:
+		alias ls gls
+		#FALLTHROUGH
+
+	#Linux and other GNU derived systems (or systems using GNU ls(1)
+	#need the --color option to make their ls work with color.
+	#I'll squelch the "--long-names-suck" debate.
+	case Linux:
+		alias l ls -F --color
+	breaksw
+
+	#Anybody else (on other systems) will just have to deal with
+	#boring old ls -F, and hope that's enough distinction to
+	#differentiate file types.  {We'll look into using ls-F(1) builtin,
+	#but if your system's ls doesn't support colour, we won't hold out
+	#much hope.  Just remove the space after ls, before -F, to try that.}
+
+	case USE_BUILTIN_LS:
+			alias l ls-F
+	breaksw
+
+	default:
+		alias l ls -F
+	breaksw
+endsw
+
+#Classic UNIXy aliases
 
 #Standard ls aliases that I use:
 alias ll l -l
