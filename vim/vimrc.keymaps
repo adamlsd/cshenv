@@ -1,5 +1,5 @@
 "Adam Keymaps
-map _ {!}fmt -p -s -w 78
+" map __ {!}fmt -p -s -w 78
 
 map - ddkP
 map + ddp
@@ -8,3 +8,10 @@ map + ddp
 map Y y$
 
 map zz zM
+
+map _w :!/bbsrc/bin/prod/bin/aotools/bdewrap
+
+map _1 :.!bde_underlineheading
+map _2 :.!bde_underlineheading -l2
+map _3 :.!bde_underlineheading -l3
+map _4 :.!bde_underlineheading -l4
