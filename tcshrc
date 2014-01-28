@@ -83,19 +83,16 @@ setenv LSCOLORS 'ExFxcxdxbxegedabagacEB'
 setenv CLICOLOR_FORCE
 
 if( $?CSHENV_DEBUG ) then
-	echo "Trying to source tcshrc.aliases"
-endif
-source ${CSHENV_DIR}/tcshrc.aliases
-
-if( $?CSHENV_DEBUG ) then
-	echo "Trying to source tcshrc.bindkeys"
-endif
-source ${CSHENV_DIR}/tcshrc.bindkeys
-
-if( $?CSHENV_DEBUG ) then
 	echo "Trying to source tcshrc.${CSHENV_SYSTEM}"
 endif
 safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_SYSTEM}
+
+# Having figured out the system, then we can load specific aliases
+
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to source tcshrc.aliases"
+endif
+source ${CSHENV_DIR}/tcshrc.aliases
 
 if( $?CSHENV_DEBUG ) then
 	echo "Trying to source tcshrc.${CSHENV_HOSTNAME}"
@@ -105,6 +102,11 @@ safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_HOSTNAME}
 if( $?CSHENV_ORGANIZATION ) then
     safe_source ${CSHENV_DIR}/tcshrc.${CSHENV_ORGANIZATION}
 endif
+
+if( $?CSHENV_DEBUG ) then
+	echo "Trying to source tcshrc.bindkeys"
+endif
+source ${CSHENV_DIR}/tcshrc.bindkeys
 
 set path=( ${path} /usr/sbin /sbin )
 
