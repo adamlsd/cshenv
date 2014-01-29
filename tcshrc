@@ -1,4 +1,8 @@
-# CSHRC Debugging tests
+#########################################
+# CSHENV Environment, core loading file #
+#########################################
+
+# CSHENV Debugging tests
 if( ( $?CSHENV_DEBUG ) || ( $?CSHENV_VERBOSE_STARTUP ) ) then
 	echo "Currently running tcshrc script"
 endif
