@@ -39,6 +39,15 @@ if( -c `tty` ) then
     if( $?CSHENV_DEBUG ) then
         echo "Going to source core tcshrc..."
     endif
+
+    # Capture the original path, so that we don't
+    # keep infinitely expanding it.
+    if( $?CSHENV_ORIGINAL_PATH ) then
+        setenv PATH ${CSHENV_ORIGINAL_PATH}
+    else
+        setenv CSHENV_ORIGINAL_PATH ${PATH}
+    endif
+
     source ${CSHENV_DIR}/tcshrc
 endif
 
