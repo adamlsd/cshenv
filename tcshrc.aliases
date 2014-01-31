@@ -1,6 +1,6 @@
 # CSHENV Aliases:
 
-alias resource source ${CSHENV_DIR}/tcshrc
+alias resource source ${CSHENV_DIR}/startup_hooks/tcshrc
 alias relog resource
 alias rl relog
 
