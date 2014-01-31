@@ -148,8 +148,12 @@ alias lh	l -sh
 # Detect and activate vim, if present
 if( -f `which vim` ) then
 	alias vi vim
-    setenv EDITOR vim
-    setenv VISUAL vim
+	setenv EDITOR vim
+	setenv VISUAL vim
+else
+	setenv EDITOR vi
+	setenv VISUAL vi
+	echo "Couldn't find vim.  Beware!"
 endif
 
 safe_source ${CSHENV_DIR}/tcshrc.aliases.${CSHENV_SYSTEM}
