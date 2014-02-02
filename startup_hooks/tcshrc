@@ -43,9 +43,9 @@ if( -c `tty` ) then
     # Capture the original path, so that we don't
     # keep infinitely expanding it.
     if( $?CSHENV_ORIGINAL_PATH ) then
-        setenv PATH ${CSHENV_ORIGINAL_PATH}
+        setenv PATH "${CSHENV_ORIGINAL_PATH}"
     else
-        setenv CSHENV_ORIGINAL_PATH ${PATH}
+        setenv CSHENV_ORIGINAL_PATH "${PATH}"
     endif
 
     source ${CSHENV_DIR}/tcshrc
