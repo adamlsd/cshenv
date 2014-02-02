@@ -30,7 +30,7 @@ if( $?tcsh ) then
 else
 	# As we develop support for C++sh, we'll need this
 	if( !$?cxxsh ) then
-		echo "What!  We're not even in tcsh or something compatible, like C++sh!!!"
+		echo "What!  We're not even in TCSH or something compatible, like C++sh!!!"
 	endif
 endif
 
@@ -43,7 +43,7 @@ set padhour
 
 
 if( $?CSHENV_DEBUG ) then
-	echo "Tcsh Featureset probed..."
+	echo "TCSH Featureset probed..."
 endif
 
 
@@ -59,7 +59,7 @@ source \!:1 \\
 endif"'
 
 if( $?CSHENV_DEBUG ) then
-	echo "Tcsh safe-source alias constructed..."
+	echo "TCSH safe-source alias constructed..."
 endif
 
 
