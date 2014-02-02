@@ -85,7 +85,7 @@ set n="1"
 
 
 if ( ! -d $CSHENV_CACHE_DIR ) then
-	mkdir $CSHENVTCSH_CACHE_DIR
+	mkdir $CSHENV_CACHE_DIR
 endif
 #echo $screen_offset_count
 if ( -f ${CSHENV_CACHE_DIR}/screen.$screen_width ) then

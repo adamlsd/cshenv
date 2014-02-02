@@ -1,4 +1,8 @@
-# CSHRC Debugging tests
+#########################################
+# CSHENV Environment, core loading file #
+#########################################
+
+# CSHENV Debugging tests
 if( ( $?CSHENV_DEBUG ) || ( $?CSHENV_VERBOSE_STARTUP ) ) then
 	echo "Currently running tcshrc script"
 endif
@@ -26,14 +30,20 @@ if( $?tcsh ) then
 else
 	# As we develop support for C++sh, we'll need this
 	if( !$?cxxsh ) then
-		echo "What!  We're not even in tcsh or something compatible, like C++sh!!!"
+		echo "What!  We're not even in TCSH or something compatible, like C++sh!!!"
 	endif
 endif
 
 set cur_feature=$tcsh_features:e
 
+# TCSH Extended features configuration
+set color
+set noding
+set padhour
+
+
 if( $?CSHENV_DEBUG ) then
-	echo "Tcsh Featureset probed..."
+	echo "TCSH Featureset probed..."
 endif
 
 
@@ -49,7 +59,7 @@ source \!:1 \\
 endif"'
 
 if( $?CSHENV_DEBUG ) then
-	echo "Tcsh safe-source alias constructed..."
+	echo "TCSH safe-source alias constructed..."
 endif
 
 
@@ -78,7 +88,6 @@ endif
 #For FreeBSD's ls(1), and derived utilities {Like MacOS X/Darwin's ls(1)}
 setenv LSCOLORS 'ExFxcxdxbxegedabagacEB'
 setenv CLICOLOR_FORCE
-set color
 
 if( $?CSHENV_DEBUG ) then
 	echo "Trying to source tcshrc.${CSHENV_SYSTEM}"
