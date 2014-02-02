@@ -28,7 +28,7 @@ if( $?CSHENV_USE_GNU_LS ) then
 		setenv CSHENV_SYSTEM_LS Linux
 
 	else
-		setenv CSHENV_SYSTEM_LS $SYSTEM
+		setenv CSHENV_SYSTEM_LS $CSHENV_SYSTEM
 	endif
 	if( $?CSHENV_DEBUG ) then
 		echo "Done with gls probe..."
