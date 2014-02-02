@@ -36,6 +36,12 @@ endif
 
 set cur_feature=$tcsh_features:e
 
+# TCSH Extended features configuration
+set color
+set noding
+set padhour
+
+
 if( $?CSHENV_DEBUG ) then
 	echo "Tcsh Featureset probed..."
 endif
@@ -82,7 +88,6 @@ endif
 #For FreeBSD's ls(1), and derived utilities {Like MacOS X/Darwin's ls(1)}
 setenv LSCOLORS 'ExFxcxdxbxegedabagacEB'
 setenv CLICOLOR_FORCE
-set color
 
 if( $?CSHENV_DEBUG ) then
 	echo "Trying to source tcshrc.${CSHENV_SYSTEM}"
