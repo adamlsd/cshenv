@@ -52,9 +52,12 @@ switch( $CSHENV_SYSTEM )
 
 
 
-	# Linux breaks the typical behavior, and makes the 7th entry be stty
+	# Linux breaks the typical BSD behavior, and makes the 7th entry be stty
 	case Cygwin:
 	case Linux:
+
+    # SYSV type systems seem to be settling on this as the common mechanism.
+    case SunOS:
 		if( $?CSHENV_DEBUG ) then
 			echo "Linux prompt width for stty blows..."
 		endif
