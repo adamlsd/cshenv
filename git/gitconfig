@@ -4,7 +4,7 @@
 
 [color]
     diff = always
-	ui = auto
+	ui = always
 
 [alias]
     br = branch
