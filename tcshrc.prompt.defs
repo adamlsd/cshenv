@@ -51,6 +51,7 @@ switch( $CSHENV_SYSTEM )
 	breaksw
 
 
+    # SysV variants:
 
 	# Linux breaks the typical behavior, and makes the 7th entry be stty
 	case Cygwin:
@@ -58,6 +59,7 @@ switch( $CSHENV_SYSTEM )
 		if( $?CSHENV_DEBUG ) then
 			echo "Linux prompt width for stty blows..."
 		endif
+
 		#Some cshes don't like the split line here!
 		set screen_offset_count=`stty -a | head -1 | sed -e 's/;//g' | awk '{print $7}' | sed -e 's/;//g'`
 	breaksw
