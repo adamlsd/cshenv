@@ -22,3 +22,7 @@ hi doxygenComment ctermfg=Blue guifg=Blue
 hi doxygenBody ctermfg=cyan
 hi doxygenSpecialMultilineDesc ctermfg=cyan
 hi NamedConstant ctermfg=lightblue
+
+hi Example ctermfg=white
+hi DocNotes ctermfg=yellow
+hi Description ctermfg=yellow
