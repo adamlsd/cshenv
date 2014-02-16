@@ -1,3 +1,4 @@
+" ADAM C++ vim syntax after extensions
 
 if version < 600
   "so <sfile>:p:h/c.vim
@@ -13,7 +14,6 @@ endif
 syn match cxxObjects           "\<[A-Z][A-Za-z0-9_]*[a-z][A-Za-z0-9_]*\>"
 syn match cxxMetaFunction      "\<[a-z][a-z0-9]*_[a-z0-9_]*[a-z0-9]\>"
 
-
 syn keyword cxxExceptionNames  Exception Exceptions
 syn match   cxxExceptionNames  "\<[A-Z][A-Za-z0-9_]*Exception\>"
 
@@ -24,6 +24,9 @@ syn match cxxCast              "\<\(const\|static\|dynamic\|reinterpret\)_cast\s
 syn match cxxCast              "\<\(const\|static\|dynamic\|reinterpret\)_cast\s*$"
 
 
+" Define the default highlighting.
+" For version 5.7 and earlier: only when not done already
+" For version 5.8 and later: only when an item doesn't have highlighting yet
 if version >= 508 || !exists("did_cxx_syntax_inits")
   if version < 508
     let did_cxx_syntax_inits = 1
