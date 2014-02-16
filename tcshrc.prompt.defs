@@ -53,7 +53,7 @@ switch( $CSHENV_SYSTEM )
 
     # SysV variants:
 
-	# Linux breaks the typical behavior, and makes the 7th entry be stty
+	# Linux (and Cygwin) are not BSD behavior, and make cols the 7th entry be stty
 	case Cygwin:
 	case Linux:
 		if( $?CSHENV_DEBUG ) then
