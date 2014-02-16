@@ -33,7 +33,7 @@ switch( $CSHENV_SYSTEM )
 	case Darwin:
 		#FALLTHROUGH
 
-    # TODO: Figure out a collapse?
+	# TODO: Figure out a collapse?
 	#case *BSD: #Is this legal in CSH?
 		#FALLTHROUGH
 
@@ -51,7 +51,7 @@ switch( $CSHENV_SYSTEM )
 	breaksw
 
 
-    # SysV variants:
+	# SysV variants:
 
 	# Linux (and Cygwin) are not BSD behavior, and make cols the 7th entry be stty
 	case Cygwin:
@@ -74,7 +74,7 @@ switch( $CSHENV_SYSTEM )
 endsw
 
 if( $?CSHENV_DEBUG ) then
-    echo "Screen offset computed to be: ${screen_offset_count}"
+	echo "Screen offset computed to be: ${screen_offset_count}"
 endif
 
 set screen_width=$screen_offset_count
@@ -130,7 +130,7 @@ set end_prompt="${prompt_color_seq}%#${command_color_seq} "
 set prompt_cool="${date_prompt}${text_color_seq}%L${brace_color_seq}\[${line_prompt}${depth_prompt}${text_color_seq}\- ${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
 
 if( ! ${?cshenv_user_prompt_override} ) then
-    set prompt="$prompt_cool"
+	set prompt="$prompt_cool"
 endif
 alias oldp 'set prompt="$prompt_simple"; set cshenv_user_prompt_override'
 alias newp 'set prompt="$prompt_cool"; set cshenv_user_prompt_override'
