@@ -1,14 +1,9 @@
 " ADAM C++ vim syntax after extensions
 
 if version < 600
-  "so <sfile>:p:h/c.vim
-  "so <sfile>:p:h/cpp.vim
   so <sfile>:p:h/doxygen.vim
 else
-  "runtime! syntax/c.vim
-  "runtime! syntax/cpp.vim
   runtime! syntax/doxygen.vim
-  "unlet b:current_syntax
 endif
 
 syn match cxxObjects           "\<[A-Z][A-Za-z0-9_]*[a-z][A-Za-z0-9_]*\>"
