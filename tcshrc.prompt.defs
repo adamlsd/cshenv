@@ -58,6 +58,7 @@ switch( $CSHENV_SYSTEM )
 	case Linux:
 
     # SYSV type systems seem to be settling on this as the common mechanism.
+    case AIX:
     case SunOS:
 		if( $?CSHENV_DEBUG ) then
 			echo "Linux prompt width for stty blows..."
