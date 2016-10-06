@@ -1,5 +1,5 @@
 [core]
-    whitespace = blank-at-eol,tab-in-indent,space-before-tab,trailing-space,tabwidth=4
+    #whitespace = blank-at-eol,tab-in-indent,space-before-tab,trailing-space,tabwidth=4
     preloadindex = true
 
 [color]
@@ -8,7 +8,7 @@
 
 [alias]
     br = branch
-    ci = commit
+    ci = commit -S
     co = checkout
     st = status
     dc = diff --check
