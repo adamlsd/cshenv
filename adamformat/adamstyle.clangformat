@@ -1,0 +1,58 @@
+#ADAM's clang-format, with a close approximation of my style
+ColumnLimit: 150
+TabWidth: 4
+Standard: Cpp11
+UseTab: ForIndentation
+SpacesInParentheses: true
+SpacesInSquareBrackets: true
+SpacesInCStyleCastParentheses: false
+SpacesInAngles: true
+SpacesBeforeTrailingComments: 1
+SpaceInEmptyParentheses: false
+
+SpaceBeforeParens: false
+SpaceBeforeAssignmentOperators: false
+SpaceAfterCStyleCast: false
+DerivePointerAlignment: false
+PointerAlignment: Right
+
+PenaltyBreakBeforeFirstCallParameter: 1
+PenaltyReturnTypeOnItsOwnLine: 0
+PenaltyExcessCharacter: 200000
+PenaltyBreakString: 30
+PenaltyBreakFirstLessLess: 80
+NamespaceIndentation: All
+
+MaxEmptyLinesToKeep: 8
+
+Language: Cpp
+
+IndentWidth: 4
+IndentWrappedFunctionNames: false
+
+ContinuationIndentWidth: 8
+ConstructorInitializerIndentWidth: 8
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+
+
+BreakConstructorInitializersBeforeComma: false
+
+BreakBeforeBraces: Allman
+
+AlwaysBreakTemplateDeclarations: true
+AlwaysBreakAfterDefinitionReturnType: true
+
+AllowShortLoopsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortBlocksOnASingleLine: true
+
+AllowAllParametersOfDeclarationOnNextLine: true
+
+BreakBeforeTernaryOperators: true
+
+AccessModifierOffset: -2
+
+
+# vim: ft=yaml
