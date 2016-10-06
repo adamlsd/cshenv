@@ -1,0 +1,1 @@
+syn keyword doxygenParam contained tparam nextgroup=doxygenParamName,doxygenParamDirection skipwhite

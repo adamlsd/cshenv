@@ -9,9 +9,8 @@ map Y y$
 
 map zz zM
 
-map _w :!/bbsrc/bin/prod/bin/aotools/bdewrap
+map [3~ :cn
 
-map _1 :.!bde_underlineheading
-map _2 :.!bde_underlineheading -l2
-map _3 :.!bde_underlineheading -l3
-map _4 :.!bde_underlineheading -l4
+"map _ :1,$!/opt/local/bin/clang-format-mp-3.9 -style=file:1,$!/opt/local/bin/uncrustify -q -lCPP -c ~/adamformat/adam.format.cfg
+map _ :1,$!/opt/local/bin/uncrustify -q -lCPP -c ~/adamformat/adam.format.cfg
+map \ :1,$!/opt/local/bin/clang-format-mp-3.9 -style=file

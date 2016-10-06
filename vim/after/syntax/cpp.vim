@@ -9,6 +9,11 @@ endif
 syn match cxxObjects           "\<[A-Z][A-Za-z0-9_]*[a-z][A-Za-z0-9_]*\>"
 syn match cxxMetaFunction      "\<[a-z][a-z0-9]*_[a-z0-9_]*[a-z0-9]\>"
 
+syn keyword cppType noexcept decltype
+syn keyword cppStatement static_assert
+
+syn keyword cxxConstants       nullptr
+
 syn keyword cxxExceptionNames  Exception Exceptions
 syn match   cxxExceptionNames  "\<[A-Z][A-Za-z0-9_]*Exception\>"
 
@@ -39,6 +44,7 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
   HiLink cxxExceptionNames Exception
   HiLink cxxErrorNames     Error
   HiLink cxxDebug          Debug
+  HiLink cxxConstants      Constant
 
   delcommand HiLink
 endif

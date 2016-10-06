@@ -10,7 +10,10 @@ au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		setf cpp
 " Alephaish
 au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sw=4
 au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set ts=4
+au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sts=4
+au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sta
 au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set noet
+au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set tw=150
 
 au BufNewFile,BufRead		*/cshenv/tcshrc.*		setf tcsh
 
@@ -19,6 +22,14 @@ au BufNewFile,BufRead		*/cshenv/tcshrc.*		setf tcsh
 "au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sts=3
 "au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sw=3
 "au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set et
+
+" mongoish
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set ts=2
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sts=2
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sw=2
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sta
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set et
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set tw=100
 
 au FileType * setlocal formatoptions=tcq
 
