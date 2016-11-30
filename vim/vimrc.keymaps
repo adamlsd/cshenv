@@ -9,8 +9,9 @@ map Y y$
 
 map zz zM
 
+map [2~ :cp
 map [3~ :cn
 
 "map _ :1,$!/opt/local/bin/clang-format-mp-3.9 -style=file:1,$!/opt/local/bin/uncrustify -q -lCPP -c ~/adamformat/adam.format.cfg
-map _ :1,$!/opt/local/bin/uncrustify -q -lCPP -c ~/adamformat/adam.format.cfg
-map \ :1,$!/opt/local/bin/clang-format-mp-3.9 -style=file
+map _ :1,$!uncrustify -q -lCPP -c ~/adamformat/adam.format.cfg
+map \ :1,$!clang-format38 -style=file

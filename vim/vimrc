@@ -1,9 +1,14 @@
 "ADAM David Alan Martin's updated vimrc
 "source ~/.vim/default.vim
 
-"setf oopcpp
+let g:netrw_special_syntax=1
+set nofoldenable
+syntax on
 
-source ~/.vim/vimrc.colors
+"The adam color scheme has both syntax colors and adam colorscheme now.
+"This fixes the longstanding xterm-256color issues I've had.
+colors adam
+
 
 source ~/.vim/vimrc.globalprefs
 
@@ -16,9 +21,5 @@ source ~/.vim/vimrc.keymaps
 source ~/.vim/vimrc.functions
 
 source ~/.vim/vimrc.fileprefs
-source ~/.vim/vimrc.syntaxcolors
 source ~/.vim/vimrc.statusline
 
-"compiler msvc
-"set makeprg=wmake
-"set errorformat=\ %#%f(%l\\\,%c):\ %m

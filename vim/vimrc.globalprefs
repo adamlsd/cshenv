@@ -40,6 +40,4 @@ set wildmenu
 
 set mps+=<:>
 
-if &term =~ "rxvt"
-    set t_Co=16
-endif
+set history=8192
