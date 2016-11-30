@@ -3,8 +3,8 @@
     preloadindex = true
 
 [color]
-    diff = always
-	ui = always
+    diff = yes
+	ui = yes
 
 [alias]
     br = branch
@@ -33,5 +33,8 @@
 
 [push]
 	default = upstream
+
+[log]
+    showsignature = true
 
 # vim: ft=gitconfig

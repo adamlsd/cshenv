@@ -156,6 +156,18 @@ else
 	echo "Couldn't find vim.  Beware!"
 endif
 
+if( -f `which git` ) then
+    alias g git
+else
+    alias g echo "Git not found!"
+endif
+
+if( -f `which pass` ) then
+    alias p pass
+else
+    alias p echo "Password store not found!"
+endif
+
 safe_source ${CSHENV_DIR}/tcshrc.aliases.${CSHENV_SYSTEM}
 safe_source ${CSHENV_DIR}/tcshrc.aliases.${CSHENV_HOSTNAME}
 safe_source ${CSHENV_DIR}/tcshrc.aliases.user

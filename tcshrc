@@ -125,6 +125,8 @@ if( $?CSHENV_DEBUG ) then
 endif
 source ${CSHENV_DIR}/tcshrc.prompt
 
+safe_source ${CSHENV_DIR}/tcshrc.user
+
 ###########################
 # vim: ft=tcsh
 ###########################
