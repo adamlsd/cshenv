@@ -1,0 +1,18 @@
+if( $?CSHENV_DEBUG ) then
+	echo "Sourcing tcshrc.system.FreeBSD..."
+endif
+
+# Set the acknowledgement bit, essentially
+setenv CSHENV_SYSTEM_CONFIGURED FreeBSD
+
+setenv LESS -er
+setenv PAGER less
+
+if( $?CSHENV_DEBUG ) then
+	echo "Done sourcing tcshrc.system.FreeBSD..."
+endif
+
+###########################
+# vim: ft=tcsh
+###########################
+
