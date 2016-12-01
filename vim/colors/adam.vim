@@ -86,18 +86,39 @@ hi Target ctermfg=green ctermbg=red
 hi Sync ctermfg=green ctermbg=red
 hi Debug ctermfg=darkgreen
 "hi Type ctermfg=lightgreen
+
+
+
 hi CommentSpecial ctermfg=Magenta guifg=Magenta
 hi SpecialComment ctermfg=Magenta guifg=Magenta
+
+" Seems to doc "@" in comments
 hi doxygenSpecial ctermfg=Magenta guifg=Magenta
+
+
 hi doxygenCommentSpecial ctermfg=Magenta guifg=Magenta
 hi doxygenBriefSpecial ctermfg=Magenta guifg=Magenta
-hi doxygenBrief ctermfg=cyan cterm=bold
+
+" Brief text
+hi doxygenBrief ctermfg=cyan cterm=bold,underline
+
 hi doxygenComment ctermfg=Blue guifg=Blue
 "hi doxygenSpecialTypeOnelineDesc cterm=bold ctermfg=LightMagenta guifg=firebrick3 gui=bold
-"hi doxygenParam ctermfg=cyan
-"hi doxygenOther ctermfg=cyan
-hi doxygenBody ctermfg=cyan
+hi doxygenParam ctermfg=Magenta cterm=bold
+
+hi doxygenParamName ctermfg=darkblue cterm=bold,underline
+
+"@note, @return, etc            TODO: split these out, probably by forking doxygen.vim
+hi doxygenOther ctermfg=darkyellow cterm=underline
+
+"non-brief body
+hi doxygenBody ctermfg=lightcyan
+
+
 hi doxygenSpecialMultilineDesc ctermfg=cyan
+
+
+
 hi NamedConstant ctermfg=blue
 
 "hi Example ctermfg=white
