@@ -63,10 +63,12 @@ hi operator		ctermfg=yellow
 hi clear Visual
 hi Visual		cterm=reverse term=reverse
 hi DiffChange   ctermfg=darkgreen
-"hi DiffText		ctermfg=
+hi DiffFile		ctermfg=green
+hi DiffSubname    ctermfg=cyan
+hi DiffIndexLine    ctermfg=cyan
 hi diffAdded		ctermfg=blue
 hi diffRemoved   ctermfg=red
-hi DiffLine   ctermfg=cyan
+hi DiffLine   ctermfg=yellow
 "hi DiffLine   ctermfg=magenta
 hi Folded		ctermbg=darkgrey
 hi FoldColumn	ctermbg=darkgrey ctermfg=white
