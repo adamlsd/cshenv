@@ -91,7 +91,7 @@ hi SpecialComment ctermfg=Magenta guifg=Magenta
 hi doxygenSpecial ctermfg=Magenta guifg=Magenta
 hi doxygenCommentSpecial ctermfg=Magenta guifg=Magenta
 hi doxygenBriefSpecial ctermfg=Magenta guifg=Magenta
-hi doxygenBrief ctermfg=cyan
+hi doxygenBrief ctermfg=cyan cterm=bold
 hi doxygenComment ctermfg=Blue guifg=Blue
 "hi doxygenSpecialTypeOnelineDesc cterm=bold ctermfg=LightMagenta guifg=firebrick3 gui=bold
 "hi doxygenParam ctermfg=cyan
