@@ -38,6 +38,7 @@ set modelines=16
 "Wildcard expansion menu from command-colon line
 set wildmenu
 
+" Match pairs for C++ templates
 set mps+=<:>
 
 set history=8192

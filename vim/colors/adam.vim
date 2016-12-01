@@ -23,7 +23,7 @@ let g:colors_name="adam"
 " Last Change:	2013 May 24
 
 set background=dark
-hi Normal		ctermfg=lightgrey	ctermbg=black
+hi Normal		ctermfg=lightgrey	
 "hi NonText		ctermfg=yellow ctermbg=grey
 hi comment		ctermfg=green
 hi constant		ctermfg=magenta	cterm=bold
