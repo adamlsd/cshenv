@@ -1,6 +1,7 @@
 " ADAM C vim syntax after extensions
 
 syn match cNamedConstant  "\<[A-Z_][A-Z_0-9]*\>"
+syn match cNamedConstant  "\<k[A-Z][a-zA-Z_0-9]*\>"
 syn match cDebug          "\<DEBUG[_0-9A-Z]*\>"
 syn keyword cDebug        SKIP DOIT
 

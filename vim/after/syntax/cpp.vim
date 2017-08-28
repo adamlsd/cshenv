@@ -28,9 +28,28 @@ syn match cxxCast              "\<\(const\|static\|dynamic\|reinterpret\)_cast\s
 
 syn match cxxStlTypes          "\(\<std::\)\@<=\(string\|\(io\?\|o\)stream\)\>"
 syn match cxxStlTypes          "\(\<std::\)\@<=vector\(<\)\@="
-syn match cxxStlTypes "\(std::\)\@<=\(vector\|array\|deque\|list\|queue\|stack\|\(\|\(multi\|unordered\)_\)\(set\|map\)\)\(<\)\@="
+syn match cxxStlTypes "\(std::\)\@<=\(vector\|array\|deque\|list\|queue\|stack\|\(unordered_\)\?\(multi\)\?\(set\|map\)\)\(<\)\@="
 syn match cxxStlPrefix          "\<std\(::\)\@="
 
+syn match cxxStlKeywords "\(std::\)\@<=\(unique\|shared\|weak\)_ptr\(<\)\@="
+syn match cxxStlKeywords "\(std::\)\@<=nullptr_t\>"
+syn match cxxStlKeywords "\(std::\)\@<=make_\(unique\|shared\)\(<\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=copy\(_\(n\|backward\|if\)\)\?\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=find\(_\(if\|first_of\|end\)\?\)\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=count\(_if\)\?\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=\(transform\|mismatch\|equal\|accumulate\|move\)\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=search\(_n\)\?\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=fill\(_n\)\?\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=generate\(_n\)\?\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=replace\(_copy\)\?\(_if\)\?\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=\(unique\|reverse\|rotate\)\(_copy\)\?\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=\(stable_\)\?\(partition\|sort\)\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=partial_sort\(_copy\)\?\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=\(inplace_\)\?merge\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=\(inplace_\)\?merge\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=set_\(union\|intersection\|\(symmetric_\)\?difference\)\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=\(push\|pop\|make\|is\|sort\)_heap\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=\(min\|max\)\(_element\)\?\((\)\@="
 
 
 " Define the default highlighting.
@@ -56,6 +75,8 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
   HiLink cxxConstants      Constant
   HiLink cxxNamedConstant  Constant
   HiLink cxxStlTypes       Object
+  HiLink cxxStlKeywords       cppType
+  HiLink cxxStlFunctions       cppStatement
   HiLink cxxStlPrefix      Caller
 
   delcommand HiLink
