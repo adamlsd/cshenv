@@ -82,11 +82,14 @@ hi Comment ctermfg=darkgrey cterm=bold
 hi Identifier ctermfg=cyan
 hi Object ctermfg=red
 hi Exception ctermfg=brown
+hi Service ctermfg=green
 hi Error ctermbg=red ctermfg=white cterm=bold
 hi Caller ctermfg=cyan
 hi Target ctermfg=green ctermbg=red
 hi Sync ctermfg=green ctermbg=red
 hi Debug ctermfg=darkgreen
+hi MetaFunction ctermfg=darkcyan
+hi Dangerous ctermfg=red ctermbg=white cterm=bold,underline,italic
 "hi Type ctermfg=lightgreen
 
 

@@ -1,5 +1,6 @@
 " ADAM C++ vim syntax after extensions
 
+" This enables doxygen simultaneous with C++.
 if version < 600
   so <sfile>:p:h/doxygen.vim
 else
@@ -10,6 +11,10 @@ syn match cxxObjects           "\<[A-Z][A-Za-z0-9_]*[a-z][A-Za-z0-9_]*\>"
 syn match cxxMetaFunction      "\<[a-z][a-z0-9]*_[a-z0-9_]*[a-z0-9]\>"
 
 syn keyword cppType noexcept decltype
+
+" I dislike the exception highlighting for these control statements.
+syn keyword cppStatement try throw catch
+
 syn keyword cppStatement static_assert
 
 syn keyword cxxConstants       nullptr
@@ -26,14 +31,26 @@ syn match   cxxErrorNames      "\<[A-Z][A-Za-z0-9_]*Error\>"
 syn match cxxCast              "\<\(const\|static\|dynamic\|reinterpret\)_cast\s*\(<\)\@="
 
 
-syn match cxxStlTypes          "\(\<std::\)\@<=\(string\|\(io\?\|o\)stream\)\>"
-syn match cxxStlTypes          "\(\<std::\)\@<=vector\(<\)\@="
-syn match cxxStlTypes "\(std::\)\@<=\(vector\|array\|deque\|list\|queue\|stack\|\(unordered_\)\?\(multi\)\?\(set\|map\)\)\(<\)\@="
 syn match cxxStlPrefix          "\<std\(::\)\@="
 
+
+syn match cxxStlTypes          "\(\<std::\)\@<=\(\(i\|o\)\(f\|string\)\?stream\)\>"
+syn match cxxStlTypes          "\(\<std::\)\@<=\(iostream\)\>"
+syn match cxxStlTypes          "\(\<std::\)\@<=basic_string\(<\)\@="
+syn match cxxStlTypes "\(std::\)\@<=\(vector\|array\|deque\|list\|pair\|\(priority_\)\?queue\|stack\|\(unordered_\)\?\(multi\)\?\(set\|map\)\)\(<\)\@="
+
+syn match cxxStlService "\(std::\)\@<=\(cout\|cerr\)\>"
+syn match cxxStlConstant "\(std::\)\@<=\(endl\|flush\)\>"
+
+syn match cxxStlKeywords "\(\<std::\)\@<=string\>"
 syn match cxxStlKeywords "\(std::\)\@<=\(unique\|shared\|weak\)_ptr\(<\)\@="
 syn match cxxStlKeywords "\(std::\)\@<=nullptr_t\>"
-syn match cxxStlKeywords "\(std::\)\@<=make_\(unique\|shared\)\(<\)\@="
+syn match cxxStlKeywords "\(std::\)\@<=function\>"
+
+syn match cxxStlFunctions "\(std::\)\@<=make_\(unique\|shared\)\(<\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=make_\(pair\|tuple\)\((\|<\)\@="
+
+syn match cxxStlFunctions "\(std::\)\@<=tie\((\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=copy\(_\(n\|backward\|if\)\)\?\((\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=find\(_\(if\|first_of\|end\)\?\)\((\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=count\(_if\)\?\((\)\@="
@@ -50,6 +67,28 @@ syn match cxxStlFunctions "\(std::\)\@<=\(inplace_\)\?merge\((\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=set_\(union\|intersection\|\(symmetric_\)\?difference\)\((\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=\(push\|pop\|make\|is\|sort\)_heap\((\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=\(min\|max\)\(_element\)\?\((\)\@="
+syn match cxxStlFunctions "\(std::\)\@<=\(front_\|back_\)\?\(inserter\)\((\)\@="
+
+syn match cxxStlTraits    "\(std::\)\@<=\(is_convertible\)\(<\)\@="
+syn match cxxStlTraits    "\(std::\)\@<=\(is_\(default_\)\?constructible\)\(<\)\@="
+
+syn match cxxStlFunctions "\<\(back_inserter\|begin\|end\)\((\)\@="
+
+syn match cxxStlExceptionNames "\(std::\)\@<=exception\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=runtime_error\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=logic_error\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=bad_typeid\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=bad_cast\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=bad_alloc\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=bad_array_new_length\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=bad_exception\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=invalid_argument\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=domain_error\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=out_of_range\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=range_error\>"
+syn match cxxStlExceptionNames "\(std::\)\@<=\(overflow\|underflow\)_error\>"
+
+syn match cxxStlDangerousFunction "\(\.\)\@<=release()"
 
 
 " Define the default highlighting.
@@ -70,14 +109,20 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
   HiLink cxxStatement      Statement
 
   HiLink cxxExceptionNames Exception
+  HiLink cxxStlExceptionNames Exception
   HiLink cxxErrorNames     Error
   HiLink cxxDebug          Debug
   HiLink cxxConstants      Constant
   HiLink cxxNamedConstant  Constant
+  HiLink cxxStlService       Service
+  HiLink cxxStlConstant       Constant
   HiLink cxxStlTypes       Object
   HiLink cxxStlKeywords       cppType
   HiLink cxxStlFunctions       cppStatement
   HiLink cxxStlPrefix      Caller
+  HiLink cxxStlTraits      MetaFunction
+
+  HiLink cxxStlDangerousFunction Dangerous
 
   delcommand HiLink
 endif
