@@ -8,7 +8,7 @@
 
 [alias]
     br = branch
-    ci = commit -S
+    ci = commit
     co = checkout
     st = status
     dc = diff --check
@@ -36,5 +36,10 @@
 
 [log]
     showsignature = true
+    indentheuristic = true
+
+[diff]
+    indentheuristic = true
+
 
 # vim: ft=gitconfig
