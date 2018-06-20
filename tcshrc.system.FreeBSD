@@ -5,7 +5,7 @@ endif
 # Set the acknowledgement bit, essentially
 setenv CSHENV_SYSTEM_CONFIGURED FreeBSD
 
-setenv LESS -er
+setenv LESS -erF
 setenv PAGER less
 
 if( $?CSHENV_DEBUG ) then
