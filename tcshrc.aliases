@@ -55,6 +55,8 @@ switch( $CSHENV_SYSTEM_LS )
 		#FALLTHROUGH
 
 	case FreeBSD:
+		#For FreeBSD's ls(1), and derived utilities {Like MacOS X/Darwin's ls(1)}
+		setenv LSCOLORS 'ExFxcxdxbxegedabagacEB'
 		alias l ls -FG
 	breaksw
 
