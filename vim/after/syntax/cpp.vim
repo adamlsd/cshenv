@@ -1,7 +1,7 @@
 " ADAM C++ vim syntax after extensions
 
 syn match cxxObjects           "\<[A-Z][A-Za-z0-9_]*[a-z][A-Za-z0-9_]*\>"
-syn match cxxMetaFunction      "\<[a-z][a-z0-9]*_[a-z0-9_]*[a-z0-9]\>"
+"syn match cxxMetaFunction      "\<[a-z][a-z0-9]*_[a-z0-9_]*[a-z0-9]\>"
 
 syn keyword cppType noexcept decltype
 
@@ -12,8 +12,7 @@ syn keyword cppStatement static_assert
 
 syn keyword cxxConstants       nullptr
 
-syn match cxxConstants  "\<C::[A-Za-z_][A-Z_a-z0-9]*\>"
-syn match cxxConstants  "\<k[A-Z][A-Za-z_][A-Z_a-z0-9]*\>"
+syn match cxxConstants  "\<\(C::[A-Za-z_]\|k[A-Z]\)[A-Z_a-z0-9]*\>"
 
 syn keyword cxxExceptionNames  Exception Exceptions
 syn match   cxxExceptionNames  "\<[A-Z][A-Za-z0-9_]*Exception\>"
@@ -37,13 +36,17 @@ syn match cxxStlConstant "\(std::\)\@<=\(endl\|flush\)\>"
 
 syn match cxxStlKeywords "\(\<std::\)\@<=string\>"
 syn match cxxStlKeywords "\(\<std::\)\@<=mutex\>"
-syn match cxxStlKeywords "\(std::\)\@<=\(unique\|shared\|weak\)_ptr\(<\)\@="
+" syn match cxxStlTypes "\(std::\)\@<=\(vector\|array\|deque\|list\|pair\|\(priority_\)\?queue\|stack\|\(unordered_\)\?\(multi\)\?\(set\|map\)\)\(<\|;\| \)\@="
+syn match cxxStlKeywords "\(std::\)\@<=\(unique_ptr\)\(<\|;\| \|\>\)\@="
+syn match cxxStlKeywords "\(std::\)\@<=\(shared_ptr\)\(<\|;\| \|\>\)\@="
+syn match cxxStlKeywords "\(std::\)\@<=\(weak_ptr\)\(<\|;\| \|\>\)\@="
 syn match cxxStlKeywords "\(std::\)\@<=nullptr_t\>"
 syn match cxxStlKeywords "\(std::\)\@<=function\>"
 
 syn match cxxStlFunctions "\(std::\)\@<=make_\(unique\|shared\)\(<\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=make_\(pair\|tuple\)\((\|<\)\@="
 
+syn match cxxStlFunctions "\(std::\)\@<=addressof\((\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=tie\((\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=copy\(_\(n\|backward\|if\)\)\?\((\)\@="
 syn match cxxStlFunctions "\(std::\)\@<=find\(_\(if\|first_of\|end\)\?\)\((\)\@="
@@ -115,6 +118,7 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
   HiLink cxxStlFunctions       cppStatement
   HiLink cxxStlPrefix      Caller
   HiLink cxxStlTraits      MetaFunction
+  HiLink cxxMetaFunction      MetaFunction
 
   HiLink cxxStlDangerousFunction Dangerous
 
