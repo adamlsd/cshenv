@@ -78,6 +78,10 @@ hi cIf0			ctermfg=gray
 " End of ron above.
 
 "set t_Co=8
+"hi StatusUnwrap ctermfg=236 ctermbg=none cterm=none
+"hi StatusUnwrap ctermfg=brown ctermbg=none cterm=none
+"hi StatusUnwrap ctermfg=236 ctermbg=none cterm=none
+hi StatusUnwrap ctermfg=58 ctermbg=none cterm=none
 hi Comment ctermfg=darkgrey cterm=bold
 hi Identifier ctermfg=cyan
 hi Object ctermfg=red

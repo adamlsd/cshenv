@@ -1,5 +1,5 @@
 function! GetYearGlyph()
-    " TODO Write a full parser which adjusts for some "second centry"
+    " TODO Write a full parser which adjusts for some "second century"
     " point generates:
     " 00 - 09 as \`0 - \`9
     " 10 - 19 as \'0 - \'9
@@ -36,16 +36,20 @@ endfunction
 " when I start.
 
 
-set statusline=         " reset the status line, for ADAM's colorful status line
-set statusline+=%1*[%02.03n]%0*          " max/min for buf #, in []
-set statusline+=Pos:\ %4*%3l/%3L%0*       " Pos: '.'/'$',
-set statusline+=\ %2*%c%2V%0*            " Column # and tab detect
-set statusline+=\ %5*@%0*                " Colored @ for percent
-set statusline+=\ %6*%P%0*               " Percent thru file
-set statusline+=\ File:\ %3*%<%-f%0*     " File: Path left trim and align
-set statusline+=%4*%(\ (%M%R%H)%)%0*     " File editing mode (+/-,RO,HLP)
-set statusline+=%=                       " Divider between left & right align
-set statusline+=\ %9*X=%02B              " Current char byte val in hex
+set statusline=                                   " reset the status line, for ADAM's colorful status line
+set statusline+=%1*[%02.05n]%0*                   " max/min for buf #, in []
+set statusline+=Pos:\ %4*%3l/%3L%0*               " Pos: '.'/'$',
+set statusline+=\ %2*%c%2V%0*                     " Column # and tab detect
+set statusline+=\ %5*@%0*                         " Colored @ for percent
+set statusline+=\ %6*%P%0*                        " Percent thru file
+set statusline+=\ File:\ %3*%<%-f%0*              " File: Path left trim and align
+set statusline+=%4*%(\ (%M%R%H)%)%0*              " File editing mode (+/-,RO,HLP)
+
+set statusline+=%=                                " Divider between left & right align
+
+set statusline+=\ Syn:\ %2*%{SyntaxItem()}%0*     " Setup syntax highlighting group display
+
+set statusline+=\ %9*X=%02B                       " Current char byte val in hex
 
 "Lastly put the time in classic Magenta, like my TCSH prompt:
 set statusline+=\ %8*%{GetYearGlyph()}-%{strftime('%m-%d\ %H:%M')}
