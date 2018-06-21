@@ -5,7 +5,7 @@ au BufNewFile,BufRead		*.tex		map _ {!}fmt -p -s -w 70
 au BufNewFile,BufRead		*.tex			set textwidth=78
 au BufNewFile,BufRead		*.java			set tabstop=4
 au BufNewFile,BufRead		*.java			set shiftwidth=4
-au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		setf cpp
+"au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		setf cpp
 
 " Alephaish
 au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sw=4

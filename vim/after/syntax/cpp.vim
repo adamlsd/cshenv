@@ -1,12 +1,5 @@
 " ADAM C++ vim syntax after extensions
 
-" This enables doxygen simultaneous with C++.
-if version < 600
-  so <sfile>:p:h/doxygen.vim
-else
-  runtime! syntax/doxygen.vim
-endif
-
 syn match cxxObjects           "\<[A-Z][A-Za-z0-9_]*[a-z][A-Za-z0-9_]*\>"
 syn match cxxMetaFunction      "\<[a-z][a-z0-9]*_[a-z0-9_]*[a-z0-9]\>"
 
