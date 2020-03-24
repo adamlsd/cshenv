@@ -36,7 +36,8 @@ then
 fi
 
 echo "Installing vim setup"
-ln -s ${CSHENV_DIR}/vim ~/.vim
+ln -s `echo ${CSHENV_DIR}`/vim ~/.vim
+ln -s ~/.vim/vimrc ~/.vimrc
 
 if [ -e ~/.gitconfig ]
 then
