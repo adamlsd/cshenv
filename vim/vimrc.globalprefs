@@ -43,3 +43,7 @@ set wildmenu
 set mps+=<:>
 
 set history=8192
+
+" Now someone thought it was a good idea to change scrolling offsets.
+" Set it back to what it should be.
+set so=0
