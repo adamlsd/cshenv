@@ -35,3 +35,6 @@ au FileType * setlocal formatoptions=tcq
 "if has("syntax")
 "	syntax on
 "endif
+
+" Statusline workaround:
+au BufWinEnter quickfix source ~/.vim/vimrc.statusline
