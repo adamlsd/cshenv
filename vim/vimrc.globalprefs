@@ -29,6 +29,7 @@ set path=.,$VIM_PATH,,
 set foldmethod=marker
 set foldtext=MyFoldText()
 set nohlsearch
+set noincsearch
 
 set mouse=a
 
