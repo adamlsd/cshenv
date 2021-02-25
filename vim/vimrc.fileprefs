@@ -16,6 +16,9 @@ au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set tw=150
 
 au BufNewFile,BufRead		*/cshenv/tcshrc.*		set filetype=tcsh
 
+au BufNewFile,BufRead      */src/bp/*.cpp,*/src/bp/*.hpp  syn region cxxBoostLibrary matchgroup=cxxLibPrefix start="\<\(bp_boost\)\z(::\)\@=" matchgroup=NONE skip="\z1" end="\>" transparent
+au BufNewFile,BufRead      */src/bp/*.cpp,*/src/bp/*.hpp  syn region cxxBoostVerbotenLibrary matchgroup=cxxStlDangerousFunction start="\<\(boost\)\z(::\)\@=" matchgroup=NONE skip="\z1" end="\>" transparent
+
 " falcish
 "au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set ts=3
 "au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set sts=3
