@@ -24,3 +24,4 @@ source ~/.vim/vimrc.fileprefs
 source ~/.vim/vimrc.statusline
 
 set shell=/bin/tcsh
+set t_Co=1
