@@ -58,7 +58,7 @@ hi netrwSymLink		ctermfg=Cyan
 hi Search		ctermbg=brown ctermfg=white cterm=bold 
 "hi IncSearch	cterm=NONE ctermbg=steelblue
 hi LineNr		ctermfg=yellow
-hi title		ctermbg=yellow ctermfg=white
+hi title		ctermbg=yellow ctermfg=darkgreen term=none start=<esc>[103;32m stop=<esc>[0m
 hi ShowMarksHL ctermbg=yellow ctermfg=black  cterm=bold
 hi CursorLine ctermbg=yellow ctermfg=black  cterm=bold
 "hi StatusLineNC	cterm=NONE ctermfg=lightblue ctermbg=darkblue
