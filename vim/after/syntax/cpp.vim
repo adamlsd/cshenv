@@ -8,7 +8,7 @@ syn keyword cppType noexcept decltype
 " I dislike the exception highlighting for these control statements.
 syn keyword cppStatement try throw catch
 
-syn keyword cppStatement static_assert
+"syn keyword cppStatement static_assert
 
 syn keyword cxxConstants       nullptr
 
@@ -45,8 +45,6 @@ syn region cxxBoostLibrary matchgroup=cxxLibPrefix start="\<\(boost\)\z(::\)\@="
 syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary string_view mutex thread contained
 syn keyword cxxStlKeywords containedin=cxxStlLibrary string contained
 
-syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary shared_ptr weak_ptr contained
-syn keyword cxxStlKeywords containedin=cxxStlLibrary unique_ptr nullptr_t contained
 syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary function contained
 
 syn keyword cxxStlTypes containedin=cxxStlLibrary iostream istream ostream fstream ifstream ofstream contained
@@ -61,8 +59,15 @@ syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary unordered_set 
 syn keyword cxxStlService containedin=cxxStlLibrary cout clog cerr contained
 syn keyword cxxStlConstant containedin=cxxStlLibrary endl flush contained
 
+" Smart pointers
 syn keyword cxxStlFunctions containedin=cxxStlLibrary,cxxBoostLibrary make_shared make_tuple contained
-syn keyword cxxStlFunctions containedin=cxxStlLibrary make_unique make_pair tie addressof contained
+syn keyword cxxStlKeywords containedin=cxxBoostLibrary scoped_ptr contained
+syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary shared_ptr weak_ptr contained
+syn keyword cxxStlFunctions containedin=cxxStlLibrary make_unique contained
+syn keyword cxxStlKeywords containedin=cxxStlLibrary unique_ptr nullptr_t contained
+
+" Algorithms
+syn keyword cxxStlFunctions containedin=cxxStlLibrary make_pair tie addressof contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary copy copy_n copy_if copy_backward replace_copy_if replace_copy contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary find find_if find_first_of find_end contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary count count_if search search_n contained
@@ -81,12 +86,15 @@ syn keyword cxxStlFunctions containedin=cxxStlLibrary min max min_element max_el
 syn keyword cxxStlFunctions containedin=cxxStlLibrary getline contained
 
 
+" Metafunctions/Traits
 syn keyword cxxStlTraits containedin=cxxStlLibrary is_convertible contained
 syn keyword cxxStlTraits containedin=cxxStlLibrary is_constructible is_default_constructible contained
 
+" Free floating STL functions
 syn keyword cxxStlFreeFunctions back_inserter front_inserter inserter begin end
 
 
+" Exceptions
 syn keyword cxxStlExceptionNames containedin=cxxStlLibrary exception contained
 syn keyword cxxStlExceptionNames containedin=cxxStlLibrary runtime_error contained
 syn keyword cxxStlExceptionNames containedin=cxxStlLibrary logic_error contained
@@ -102,6 +110,10 @@ syn keyword cxxStlExceptionNames containedin=cxxStlLibrary range_error contained
 syn keyword cxxStlExceptionNames containedin=cxxStlLibrary overflow_error contained
 syn keyword cxxStlExceptionNames containedin=cxxStlLibrary underflow_error contained
 
+" Some common boost-only bits I use
+syn keyword cxxStlKeywords contained containedin=cxxBoostLibrary lexical_cast
+
+" Highlight dangerous things
 syn match cxxStlDangerousFunction "\(\.\)\@<=release()"
 
 

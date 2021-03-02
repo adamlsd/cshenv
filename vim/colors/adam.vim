@@ -44,6 +44,8 @@ hi Todo			ctermfg=Black	ctermbg=yellow term=none start=<esc>[103;90m stop=<esc>[
 hi Cursor		ctermfg=blue term=none start=<esc>[94m stop=<esc>[0m
 hi Directory	ctermfg=Blue term=none start=<esc>[94m stop=<esc>[0m
 
+hi ModeMsg      ctermfg=white cterm=bold term=bold start=<esc>[97m stop=<esc>[0m
+
 
 " Directory thru netrw
 hi netrwHelpCmd	ctermfg=Green
@@ -55,9 +57,9 @@ hi netrwSymLink		ctermfg=Cyan
 
 "hi Cursor		guibg=#60a060 guifg=#00ff00
 " ctermfg=#00ff00
-hi Search		ctermbg=brown ctermfg=white cterm=bold 
+hi Search		ctermbg=brown ctermfg=white cterm=bold term=bold start=<esc>[48;5;130;97m stop=<esc>[0m
 "hi IncSearch	cterm=NONE ctermbg=steelblue
-hi LineNr		ctermfg=yellow
+hi LineNr		ctermfg=yellow term=none start=<esc>[93m stop=<esc>[0m
 hi title		ctermbg=yellow ctermfg=white
 hi ShowMarksHL ctermbg=yellow ctermfg=black  cterm=bold
 hi CursorLine ctermbg=yellow ctermfg=black  cterm=bold
@@ -154,11 +156,12 @@ hi NamedConstant ctermfg=blue term=none start=<esc>[94m stop=<esc>[0m
 
 " This is from vimrc.colors -- I may reintegrate it back together.
 "hi User0 ctermfg=green         ctermbg=green        term=bold
-hi statusline ctermfg=white ctermbg=black term=none start=<esc>[107;30m stop=<esc>[0m
+hi statusline ctermfg=white ctermbg=black cterm=reverse term=reverse start=<esc>[97;40m stop=<esc>[0m
+hi statuslinenc ctermfg=grey ctermbg=grey cterm=reverse term=reverse start=<esc>[37;47m stop=<esc>[0m
 hi User1 ctermfg=red           ctermbg=white        term=standout term=none start=<esc>[91;107m stop=<esc>[0m
 hi User2 ctermfg=darkmagenta   ctermbg=white        term=standout term=none start=<esc>[35;107m stop=<esc>[0m
 hi User3 ctermfg=blue          ctermbg=white        term=standout term=none start=<esc>[34;107m stop=<esc>[0m
-hi User4 ctermfg=cyan          ctermbg=white        term=standout term=none start=<esc>[36;107m stop=<esc>[0m
+hi User4 ctermfg=darkcyan          ctermbg=white        term=standout term=none start=<esc>[36;107m stop=<esc>[0m
 hi User5 ctermfg=brown         ctermbg=white        term=standout term=none start=<esc>[33;107m stop=<esc>[0m
 hi User6 ctermfg=darkgreen     ctermbg=white        term=standout term=none start=<esc>[32;107m stop=<esc>[0m
 hi User8 ctermfg=magenta       ctermbg=black        term=bold term=none start=<esc>[95;40m stop=<esc>[0m
@@ -166,6 +169,13 @@ hi User9 ctermfg=white         ctermbg=black        term=bold term=none start=<e
 
 hi NonText ctermfg=blue term=none start=<esc>[94m stop=<esc>[0m
 hi EndOfBuffer ctermfg=blue term=none start=<esc>[94m stop=<esc>[0m
+hi MoreMsg ctermfg=2 gui=bold guifg=SeaGreen term=none start=<esc>[92m stop=<esc>[0m
+hi Question ctermfg=2 gui=bold guifg=SeaGreen term=none start=<esc>[92m stop=<esc>[0m
+
+hi TabLine     term=underline cterm=underline ctermfg=15 ctermbg=242 gui=underline guibg=DarkGrey start=<esc>[48;5;242;38;5;15m stop=<esc>[0m
+hi TabLineSel  term=bold      cterm=bold      gui=bold
+hi TabLineFill term=reverse   cterm=reverse   gui=reverse
+
 
 " The vim colorscheme does everything, and some of the non-status-bar colors affect non-source bits.
 " I may have to maintain everything in this combined form
