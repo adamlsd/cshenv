@@ -166,6 +166,7 @@ hi User9 ctermfg=white         ctermbg=black        term=bold term=none start=<e
 
 hi NonText ctermfg=blue term=none start=<esc>[94m stop=<esc>[0m
 hi EndOfBuffer ctermfg=blue term=none start=<esc>[94m stop=<esc>[0m
+hi WildMenu ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow term=none start=<esc>[48;5;11;30m stop=<esc>[0m
 
 " The vim colorscheme does everything, and some of the non-status-bar colors affect non-source bits.
 " I may have to maintain everything in this combined form
