@@ -6,11 +6,6 @@ if( $?CSHENV_DEBUG ) then
 	echo "Sourcing prompt setup and definitions..."
 endif
 
-
-if( $?CSHENV_DEBUG ) then
-	echo "Trying to fix tty bug"
-endif
-
 if( ! $?unknown_tty ) then
 	set unknown_tty="?"
 	if( $?CSHENV_DEBUG ) then
@@ -18,97 +13,19 @@ if( ! $?unknown_tty ) then
 	endif
 endif
 
-setenv CSHENV_CACHE_DIR ~/.tcsh_cache
 
 set promptchars='%#'
 
-set default_screen_offset_count=80
-
 set prompt_simple="${oldp_color_seq}[%n@%m: %c]%# "
 
-
-switch( $CSHENV_SYSTEM )
-
-	# All BSD derived systems (and actually most non-GNU tools) have the 6th entry for stty being columns
-	case Darwin:
-		#FALLTHROUGH
-
-	# TODO: Figure out a collapse?
-	#case *BSD: #Is this legal in CSH?
-		#FALLTHROUGH
-
-	case FreeBSD:
-		#FALLTHROUGH
-
-	case NetBSD:
-		#FALLTHROUGH
-
-	case OpenBSD:
-		if( $?CSHENV_DEBUG ) then
-			echo "Using BSDish stty for width"
-		endif
-		set screen_offset_count=`stty -a | head -1 | awk '{print $6}' | sed -e "s/;//g"`
-	breaksw
-
-
-	# SysV variants:
-
-	# Linux (and Cygwin) are not BSD behavior, and make cols the 7th entry be stty
-	case Cygwin:
-	case Linux:
-
-    # SYSV type systems seem to be settling on this as the common mechanism.
-    case AIX:
-    case SunOS:
-		if( $?CSHENV_DEBUG ) then
-			echo "Linux prompt width for stty blows..."
-		endif
-
-		#Some cshes don't like the split line here!
-		set screen_offset_count=`stty -a | head -1 | sed -e 's/;//g' | awk '{print $7}' | sed -e 's/;//g'`
-	breaksw
-
-	default:
-		#We don't know how to handle this case.  Just use a guessed
-		#value of 80, since we cannot tell.
-		set screen_offset_count=$default_screen_offset_count
-		echo "Using a default screen offset value"
-	breaksw
-
-endsw
-
-if( $?CSHENV_DEBUG ) then
-	echo "Screen offset computed to be: ${screen_offset_count}"
-endif
-
-set screen_width=$screen_offset_count
-#echo $screen_offset_count
-@ screen_offset_count = $screen_offset_count - 18
-#echo "A"
-
-set screen_offset=""
-set n="1"
-
-
-if ( ! -d $CSHENV_CACHE_DIR ) then
-	mkdir $CSHENV_CACHE_DIR
-endif
-#echo $screen_offset_count
-if ( -f ${CSHENV_CACHE_DIR}/screen.$screen_width ) then
-	source ${CSHENV_CACHE_DIR}/screen.$screen_width
-else
-	while ( ${n} < ${screen_offset_count} )
-		set screen_offset="${screen_offset} "
-		@ n = ($n + 1)
-	end
-	echo "set screen_offset='${screen_offset}'" > ${CSHENV_CACHE_DIR}/screen.${screen_width}
-	#echo "Make a manual cache entry for screen width."
-endif
-
-
-set date_prompt_core="${date_color_seq}%Y-%W-%D ${time_color_seq}%P"
+# Screens are almost certainly not a million chars wide.
+# If they are... oh well, that's a really weird one.
+set date_prefix="%{${csi}A${csi}1000000G${csi}18D%}"
+set date_suffix="%{${csi}G${csi}1B%}"
+#set screen_return="%{8%}"
+set date_prompt_core="${date_color_seq}%{%Y-%W-%D %}${time_color_seq}%{%P%}"
 set date_prompt_left="${date_prompt_core}"
-set date_prompt="${screen_offset}${date_prompt_core}"
+set date_prompt="${date_prefix}${date_prompt_core}${date_suffix}"
 #unset edit
 
 if( $?CSHENV_DEBUG ) then
