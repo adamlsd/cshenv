@@ -14,6 +14,74 @@ if( ! $?unknown_tty ) then
 endif
 
 
+# R G Y B C M
+set reference_colors=( ${csi}91m ${csi}92m ${csi}93m ${csi}38\;5\;33m ${csi}95m ${csi}96m )
+
+# R G Y B M
+set reference_colors=( ${csi}91m ${csi}92m ${csi}93m ${csi}38\;5\;33m ${csi}96m )
+
+# Select a set of Unicode codepoints for prompt referencing...
+set referencechars_raw=""
+
+# Nuke Symbol
+set referencechars_raw="${referencechars_raw} 2622"
+
+# Keyboard Symbol (Didn't look good -- spilled (not pushed) over 1.5 cells)
+set keyboard_sym="2328"
+set referencechars_raw="${referencechars_raw} 2328"
+
+# Telephone (Spills over 1 cell.)
+set referencechars_raw="${referencechars_raw} 260e"
+
+# Clover
+set referencechars_raw="${referencechars_raw} 2618"
+
+# Music notes
+#set referencechars_raw="${referencechars_raw} 2669 266a 266b 266c"
+
+# One Single music note,
+#set referencechars_raw="${referencechars_raw} 266a"
+# One double music note
+#set referencechars_raw="${referencechars_raw} 266b"
+set referencechars_raw="${referencechars_raw} 266c"
+
+# Dice
+#set referencechars_raw="${referencechars_raw} 2680 2681 2682 2683 2684 2685"
+
+# Card suits
+set referencechars_raw="${referencechars_raw} 2660 2663 2665 2666"
+
+# Inner planet symbols (Mercury, Venus, Earth, Mars)
+set referencechars_raw="${referencechars_raw} 263f 2640 2641 2642"
+
+# Outer Planet symbols (Jupiter, Saturn, Uranus, Neptune, Pluto)
+#set referencechars_raw="${referencechars_raw} 2643 2644 2645 2646 2647"
+
+# Hollow Chess pieces
+#set referencechars_raw="${referencechars_raw} 2654 2655 2656 2657 2658 2659"
+
+# Filled Chess pieces
+#set referencechars_raw="${referencechars_raw} 265a 265b 265c 265d 265e 265f"
+
+# Roman Numerals
+#set referencechars_raw="${referencechars_raw} 2160 2161 2162 2163 2164 2165 2166 2167 2168 2169 216a 216b"
+
+# Misc stuff -- colour? baseball  Takes up too many width slots.  Throws off alignment.
+#set referencechars_raw="${referencechars_raw} 26be"
+
+#echo ${referencechars[1]}
+set prompt_hcolor=0
+set prompt_hsym=0
+
+set referencechars=()
+foreach ch ($referencechars_raw)
+    set referencechars=( $referencechars `env LC_ALL=C.UTF-8 printf "\u${ch}"` )
+end
+
+# Rotation
+alias precmd 'source ${CSHENV_DIR}/tcshrc.prompt.final'
+#alias postcmd echo doit
+
 set promptchars='%#'
 
 set prompt_simple="${oldp_color_seq}[%n@%m: %c]%# "
@@ -33,10 +101,10 @@ if( $?CSHENV_DEBUG ) then
 endif
 
 
-set depth_prompt=" ${depth_color_seq}(${shlvl})"
+set depth_prompt=" ${depth_color_seq}(${shlvl})${text_color_seq}\- "
 if( $?CSHENV_HIDE_SHELL_LEVEL_AT_ONE ) then
 	if( $shlvl == 1 ) then
-		set depth_prompt=""
+		set depth_prompt="${text_color_seq}\- "
 	endif
 endif
 
@@ -47,15 +115,10 @@ set host_prompt="${host_color_seq}${CSHENV_HOSTNAME}"
 set path_prompt="${path_color_seq}%c02"
 set end_prompt="${prompt_color_seq}%#${command_color_seq} "
 
-
-set prompt_cool="${date_prompt}${text_color_seq}%L${brace_color_seq}\[${line_prompt}${depth_prompt}${text_color_seq}\- ${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
-
-if( ! ${?cshenv_user_prompt_override} ) then
-	set prompt="$prompt_cool"
-endif
 alias oldp 'set prompt="$prompt_simple"; set cshenv_user_prompt_override'
 alias newp 'set prompt="$prompt_cool"; set cshenv_user_prompt_override'
 
+source ${CSHENV_DIR}/tcshrc.prompt.final
 ###########################
 # vim:filetype=tcsh
 ###########################
