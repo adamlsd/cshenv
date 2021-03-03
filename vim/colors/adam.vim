@@ -60,7 +60,7 @@ hi netrwSymLink		ctermfg=Cyan
 hi Search		ctermbg=brown ctermfg=white cterm=bold term=bold start=<esc>[48;5;130;97m stop=<esc>[0m
 "hi IncSearch	cterm=NONE ctermbg=steelblue
 hi LineNr		ctermfg=yellow term=none start=<esc>[93m stop=<esc>[0m
-hi title		ctermbg=yellow ctermfg=white
+hi title		ctermbg=yellow ctermfg=darkgreen term=none start=<esc>[103;32m stop=<esc>[0m
 hi ShowMarksHL ctermbg=yellow ctermfg=black  cterm=bold
 hi CursorLine ctermbg=yellow ctermfg=black  cterm=bold
 "hi StatusLineNC	cterm=NONE ctermfg=lightblue ctermbg=darkblue
@@ -176,6 +176,7 @@ hi TabLine     term=underline cterm=underline ctermfg=15 ctermbg=242 gui=underli
 hi TabLineSel  term=bold      cterm=bold      gui=bold
 hi TabLineFill term=reverse   cterm=reverse   gui=reverse
 
+hi WildMenu ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow term=none start=<esc>[48;5;11;30m stop=<esc>[0m
 
 " The vim colorscheme does everything, and some of the non-status-bar colors affect non-source bits.
 " I may have to maintain everything in this combined form

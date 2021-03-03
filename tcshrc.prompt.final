@@ -1,0 +1,51 @@
+############################
+### Final Prompt Setting ###
+############################
+@ prompt_hcolor = $prompt_hcolor % ${#reference_colors}
+@ prompt_hsym = $prompt_hsym % ${#referencechars}
+
+if( ${prompt_hcolor} == 0 ) then
+    #if( $?CSHENV_DEBUG ) then
+        #echo colorshuffle
+    #endif
+    #echo 
+    set reference_colors=`shuf -e $reference_colors`
+endif
+    
+
+if( ${prompt_hsym} == 0 ) then # && ${prompt_hcolor} == 0 ) then
+    if( $?CSHENV_DEBUG ) then
+        echo symbolshuffle
+    endif
+    #echo 
+    set referencechars=`shuf -e $referencechars`
+    #set reference_colors=`shuf -e $reference_colors`
+endif
+
+@ prompt_hcolor = ${prompt_hcolor} + 1
+@ prompt_hsym = ${prompt_hsym} + 1
+
+if( $?CSHENV_DEBUG ) then
+    echo ${prompt_hcolor} ${prompt_hsym}
+    echo "Setting prompt"
+endif
+
+set prompt_reference_core="%{${reference_colors[${prompt_hcolor}]}%}${referencechars[${prompt_hsym}]}"
+#if( ${referencechars[${prompt_hsym}]} == `env LC_ALL=C.UTF-8 printf "\u2328"` ) then
+#    set prompt_reference="%{${dim}%}<${prompt_reference_core}  %{${dim}%}> "
+#else
+#    set prompt_reference="%{${dim}%}< ${prompt_reference_core} %{${dim}%}> "
+#endif
+set prompt_reference="%{${dim}%}< ${prompt_reference_core} %{${dim}%}> "
+#set prompt_reference="%{${csi}0;48\;5\;7m%}(${prompt_reference_core}%{${csi}0;48\;5\;7m%})%{${dim}%}"
+#set prompt_reference="${prompt_reference_core}%{${text_color_seq}%} \- "
+
+set prompt_cool="\n${date_prompt}${brace_color_seq}\[${prompt_reference}${line_prompt}${depth_prompt}${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
+
+if( ! ${?cshenv_user_prompt_override} ) then
+	set prompt="$prompt_cool"
+endif
+
+###########################
+# vim:filetype=tcsh
+###########################
