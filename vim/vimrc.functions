@@ -18,5 +18,11 @@ endfunction
 
 function! SyntaxItem()
 	return synIDattr(synID(line("."),col("."),1),"name")
+	let res = []
+	for id in synstack(line("."), col("."))
+		let res = res + [ synIDattr( id, "name" ) ]
+	endfor
+	"return synIDattr(synID(line("."),col("."),1),"name")
+    "return join( res, ":" )
 endfunction
 

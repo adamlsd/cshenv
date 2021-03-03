@@ -7,6 +7,7 @@ set csi='['
 set ansi_bright='1'
 set ansi_dim='0'
 set ansi_color='m'
+set ansi_reverse='7'
 
 set ansi_black='30'
 set ansi_red='31'
@@ -20,6 +21,7 @@ set ansi_white='37'
 
 set bright="$csi$ansi_bright$ansi_color"
 set dim="$csi$ansi_dim$ansi_color"
+set reverse="$csi$ansi_reverse$ansi_color"
 
 
 set black="$csi$ansi_black$ansi_color"
