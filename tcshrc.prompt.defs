@@ -28,7 +28,7 @@ set referencechars_raw="${referencechars_raw} 2622"
 
 # Keyboard Symbol (Didn't look good -- spilled (not pushed) over 1.5 cells)
 set keyboard_sym="2328"
-set referencechars_raw="${referencechars_raw} 2328"
+set referencechars_raw="${referencechars_raw} ${keyboard_sym}"
 
 # Telephone (Spills over 1 cell.)
 set referencechars_raw="${referencechars_raw} 260e"
@@ -65,6 +65,15 @@ set referencechars_raw="${referencechars_raw} 263f 2640 2641 2642"
 
 # Roman Numerals
 #set referencechars_raw="${referencechars_raw} 2160 2161 2162 2163 2164 2165 2166 2167 2168 2169 216a 216b"
+
+# More symbols -- Recycling, Biohazard, Peace Sign, Atom, swords, flag, worktools, scales, fleur-de-lis, star, Face
+#set referencechars_raw="${referencechars_raw} 267B 2623 262e 269b 2694 2692 2696 269a 2605 263b"
+
+# Wider symbols -- Cedeuceus, Anchor,
+#set referencechars_raw="${referencechars_raw} 2624 2693"
+
+# Zodiac symbols
+#set referencechars_raw="${referencechars_raw} 2658 2649 264a 264b 264c 264d 264e 264f 2650 2651 2652 2653"
 
 # Misc stuff -- colour? baseball  Takes up too many width slots.  Throws off alignment.
 #set referencechars_raw="${referencechars_raw} 26be"
