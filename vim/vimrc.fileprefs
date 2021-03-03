@@ -38,3 +38,8 @@ au FileType * setlocal formatoptions=tcq
 
 " Statusline workaround:
 au BufWinEnter quickfix source ~/.vim/vimrc.statusline
+
+" Sometimes some distros make us load up on the last line edited, when reading for the first time...
+" This should fix this.
+au BufReadPost * :1
+au BufNewFile * :1
