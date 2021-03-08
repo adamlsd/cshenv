@@ -18,6 +18,7 @@ au BufNewFile,BufRead		*/cshenv/tcshrc.*		set filetype=tcsh
 
 au BufNewFile,BufRead      */src/bp/*.cpp,*/src/bp/*.hpp  syn region cxxBoostLibrary matchgroup=cxxLibPrefix start="\<\(bp_boost\)\z(::\)\@=" matchgroup=NONE skip="\z1" end="\>" transparent
 au BufNewFile,BufRead      */src/bp/*.cpp,*/src/bp/*.hpp  syn region cxxBoostVerbotenLibrary matchgroup=cxxStlDangerousFunction start="\<\(boost\)\z(::\)\@=" matchgroup=NONE skip="\z1" end="\>" transparent
+au BufNewFile,BufRead      */src/bp/*.cpp,*/src/bp/*.hpp  set et
 
 " falcish
 "au BufNewFile,BufRead		*.cpp,*.hpp,*.cc,*.h		set ts=3
@@ -41,3 +42,8 @@ au FileType * setlocal formatoptions=tcq
 
 " Statusline workaround:
 au BufWinEnter quickfix source ~/.vim/vimrc.statusline
+
+" Sometimes some distros make us load up on the last line edited, when reading for the first time...
+" This should fix this.
+au BufReadPost * :1
+au BufNewFile * :1

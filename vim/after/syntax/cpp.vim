@@ -12,6 +12,8 @@ syn keyword cppStatement try throw catch
 
 syn keyword cxxConstants       nullptr
 
+syn keyword cxxExportNamespace exports
+
 syn match cxxConstants  "\<\(C::[A-Za-z_]\|k[A-Z]\)[A-Z_a-z0-9]*\>"
 
 syn keyword cxxExceptionNames  Exception Exceptions
@@ -42,9 +44,13 @@ syn region cxxBoostLibrary matchgroup=cxxLibPrefix start="\<\(boost\)\z(::\)\@="
 
 
 
-syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary string_view mutex thread contained
+" Threading
+syn keyword cxxStlKeywords contained containedin=cxxStlLibrary,cxxBoostLibrary mutex condition_variable thread lock_guard scoped_lock unique_lock
+
+" Strings
 syn keyword cxxStlKeywords containedin=cxxStlLibrary string contained
 syn keyword cxxStlKeywords contained containedin=cxxStlLibrary byte
+syn keyword cxxStlKeywords contained containedin=cxxStlLibrary,cxxBoostLibrary string_view
 
 syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary function contained
 
@@ -88,8 +94,13 @@ syn keyword cxxStlFunctions containedin=cxxStlLibrary getline contained
 
 
 " Metafunctions/Traits
-syn keyword cxxStlTraits containedin=cxxStlLibrary is_convertible contained
-syn keyword cxxStlTraits containedin=cxxStlLibrary is_constructible is_default_constructible contained
+syn keyword cxxLibStatement contained containedin=cxxStlLibrary decay_t
+syn keyword cxxStlTypes contained containedin=cxxStlLibrary type_identity type_identity_t
+syn keyword cxxStlTraits contained containedin=cxxStlLibrary is_convertible is_base_of
+syn keyword cxxStlTraits contained containedin=cxxStlLibrary is_constructible is_default_constructible is_same
+syn keyword cxxStlTraits contained containedin=cxxStlLibrary,cxxBoostLibrary enable_if enable_if_t
+syn keyword cxxStlConstant contained containedin=cxxStlLibrary bool_constant is_same_v is_convertible_v is_constructible_v
+syn keyword cxxStlConstant contained containedin=cxxStlLibrary,cxxBoostLibrary bool_constant true_type false_type is_base_of_v
 
 " Free floating STL functions
 syn keyword cxxStlFreeFunctions back_inserter front_inserter inserter begin end
@@ -112,7 +123,8 @@ syn keyword cxxStlExceptionNames containedin=cxxStlLibrary overflow_error contai
 syn keyword cxxStlExceptionNames containedin=cxxStlLibrary underflow_error contained
 
 " Some common boost-only bits I use
-syn keyword cxxStlKeywords contained containedin=cxxBoostLibrary lexical_cast
+syn keyword cxxStlKeywords contained containedin=cxxBoostLibrary 
+syn keyword cxxLibStatement contained containedin=cxxBoostLibrary lexical_cast noncopyable
 
 " Highlight dangerous things
 syn match cxxStlDangerousFunction "\(\.\)\@<=release()"
@@ -150,11 +162,15 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
   HiLink cxxStlKeywords       cppType
   HiLink cxxStlFunctions       cppStatement
   HiLink cxxStlFreeFunctions       cppStatement
+  HiLink cxxLibStatement      cppStatement
 
   HiLink cxxLibPrefix      Caller
 
+  HiLink cxxExportNamespace cppModule
+
   HiLink cxxStlTraits      MetaFunction
   HiLink cxxMetaFunction      MetaFunction
+  HiLink cxxLibMetaFunction cxxMetaFunction
 
   HiLink cxxStlDangerousFunction Dangerous
 
