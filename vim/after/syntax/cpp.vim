@@ -44,6 +44,7 @@ syn region cxxBoostLibrary matchgroup=cxxLibPrefix start="\<\(boost\)\z(::\)\@="
 
 syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary string_view mutex thread contained
 syn keyword cxxStlKeywords containedin=cxxStlLibrary string contained
+syn keyword cxxStlKeywords contained containedin=cxxStlLibrary byte
 
 syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary function contained
 
@@ -56,7 +57,7 @@ syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary unordered_map 
 syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary unordered_set unordered_multiset contained
 
 
-syn keyword cxxStlService containedin=cxxStlLibrary cout clog cerr contained
+syn keyword cxxStlService containedin=cxxStlLibrary cout cin clog cerr contained
 syn keyword cxxStlConstant containedin=cxxStlLibrary endl flush contained
 
 " Smart pointers
