@@ -1,0 +1,191 @@
+It's called software for a reason -- unlike hardware, we can CHANGE
+it easily.
+%
+Why do you want to make it HARDER to change SOFT ware?
+%
+The only test that matters is if your code did what it was supposed to,
+when it counts most, in production.
+%
+Stupid and simple beats fancy, delicate, and fast.
+%
+Let your environment be your test driver.
+%
+If you can't run your code easily, you can't easily test it.
+%
+Never write what you can steal.
+%
+If you have to explain how it works, even you won't understand
+it tomorrow.
+%
+A name, while vital, can be changed.
+%
+Get something out the door now.  Improve it later.
+%
+Running the same deterministic test driver on the same code 1000
+times gives you no more confidence in its correctness than you got
+in the first 10 times.
+%
+Have someone else write your test drivers.
+%
+Let your consumer write your test drivers by using your code --
+observe and record what they do; that is the functionality that
+MUST work, who cares about what you THINK must work.
+%
+A class does not try to do anything and a function is not trying
+to be anything.
+
+Classes try to be things and function try to do things.
+%
+If you are too worried about the style and format of code, then
+you don't know how to program -- if you can't read well written
+code in any format, you don't know what good code is.
+%
+If your assessment of code's quality is based upon its usage of
+whitespace, you're reading the wrong programming language.
+
+(Editor's Note: There is a language called "whitespace", where every
+non-whitespace character is meaningless -- the mixing of newlines,
+tabs, and spaces gives the meaning.)
+%
+In git:
+
+Rebasing is a lie.
+
+Cherry-picking is a fib.
+
+Amending is cheating a little on your taxes, it's fine as long as
+you don't get caught.
+%
+If you can't think in code, you're not thinking about code.
+%
+If you only think in code, you're not programming.
+%
+Use the compiler, not the CPU.  (Use types, not raw memory.)
+%
+If you feel compelled to ban it, then you don't understand it.
+
+We only fear that which we don't understand.
+%
+Debugging is easy; it's testing that's hard.
+
+When debugging you just have to figure out what went wrong when
+your program was used in a way that it must be used.
+
+In testing, you have to figure out all the ways it might be used
+and all of the ways it shouldn't be used.
+%
+Don't trust your inputs; trust your input types!
+%
+A strongly formatted string is not as good as a type system.
+%
+Learn to metaprogram -- why write code to do what you want, when
+you can write the code that writes that code for everybody?
+%
+If you can't explain the difference between what I'm doing and what
+you want, maybe it doesn't exist -- do you know what you want?
+%
+Are you getting paid by the line?
+%
+Be an environmentalist -- improve your environment every few months.
+Take some time to add useful bells, whistles, and gadgets to your
+personal programming tools.
+%
+Learn and use the 3 notebooks.
+%
+If you bring a laptop to a meeting, you aren't meeting.
+%
+If you called a meeting, I assume it's worth my time -- don't let
+me down.
+%
+If your solution to the problem of "we're not getting things done
+fast enough" is to do more things we don't need to do, I don't
+think you correctly understand the problem.
+%
+Nobody ever made a ship faster with more dress-inspections.
+%
+Fear may motivate, but fun inspires.
+%
+Don't try to catch up to where I am-- I'm still moving forward.
+Are you focused on getting to where I am, or are you focused
+on moving?
+%
+The only constant in the universe is change -- your code will change,
+either you or someone else will do it.  Accept that.
+%
+If you have too many rules to program by, you have too little
+understanding of how to actually program.
+%
+If you insist on deep code review of all code, how much do you
+trust your developers?
+%
+If you don't trust your developers, why do you still trust your
+HR department?
+%
+If you don't trust your developers to write good code, how can you
+ever trust them to recognize good code when they review it?
+%
+If you don't trust your developers... what's your business plan?
+%
+Code is not an asset, it's a liability -- it's the only financial
+way that "Technical Debt" makes sense.  One does not make interest
+or principal payments on assets.
+%
+I will fire you, as a co-worker or boss, if you don't measure up.
+%
+Feel free to quit, as my boss, if you think our working relationship
+is bad.
+%
+Don't lie to me -- I'll act on those lies as if they're truth.
+Now you've got more insanity on your plate.
+%
+If I'm complaining, I'm invested in our success.
+%
+If I'm demanding, I'm dedicated to our success.
+%
+If weekly status meetings were good and our new daily "standup"
+status meetings are better, why aren't we having hourly status
+meetings?
+%
+SCRUM: Another management philosophy that solves problems by having
+more meetings.  But, hey!  At least it sounds cool!
+%
+SCRUM for dummies:
+
+Have a problem?  Have a meeting!  Rinse and repeat.
+%
+SCRUM for dummies:
+
+Mo' meetings, mo' problems
+%
+The SCRUM Hip Hop song:
+
+"I got 99 meetings, but commits I got none!"
+%
+Advice for working with me:
+
+If I am having a lot of fun, you should either be very confident
+in your business, or you should be very scared for it.
+%
+If my intention was to write and commit the perfect code once and
+never change it, I would be writing in binary.
+%
+When in doubt, program by successive approximation.
+%
+If you can explain it, you can code it.  If you can't code it,
+you can't explain it.
+%
+The most elegant piece of code is the empty line.  How much elegant
+code did you write today?
+%
+Programming is hard enough, even without having to remember your
+extra arbitrary rules.  Why do you want to make it harder?
+%
+If I have to beg your git server to make new branches, you're pining
+for CVS.
+%
+Doing Agile - v, The art of trying to slow down the pace of
+software development, in the pursuit of more a faster pace of
+software development.
+%
+Do you understand why I crack jokes at your standup meetings?
+%
