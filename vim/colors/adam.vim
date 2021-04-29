@@ -89,6 +89,7 @@ hi cIf0			ctermfg=gray term=none start=<esc>[38;2;100;100;100m stop=<esc>[0m
 "hi StatusUnwrap ctermfg=brown ctermbg=none cterm=none
 "hi StatusUnwrap ctermfg=236 ctermbg=none cterm=none
 hi StatusUnwrap ctermfg=58 ctermbg=none cterm=none
+hi MetaFunction ctermfg=darkcyan start=<esc>[36m stop=<esc>[0m
 hi Comment ctermfg=darkgrey cterm=none term=NONE term=none start=<esc>[38;5;242m stop=<esc>[0m
 hi Identifier ctermfg=cyan cterm=none term=none start=<esc>[96m stop=<esc>[0m
 hi Object ctermfg=red term=none start=<esc>[91m stop=<esc>[0m
@@ -99,7 +100,6 @@ hi Caller ctermfg=cyan term=NONE start=<esc>[96m stop=<esc>[0m
 hi Target ctermfg=green ctermbg=red
 hi Sync ctermfg=green ctermbg=red
 hi Debug ctermfg=darkgreen
-hi MetaFunction ctermfg=darkcyan
 hi Dangerous term=none start=<esc>[1;7;97;101;3;4;6m stop=<esc>[0m ctermfg=white ctermbg=red cterm=reverse,bold,underline,italic
 "hi Dangerous ctermfg=red ctermbg=white cterm=bold,underline,italic start=<esc>[31;47;1;5m stop=<esc>[0m
 "hi Type ctermfg=lightgreen

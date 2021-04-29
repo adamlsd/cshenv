@@ -38,6 +38,10 @@ syn region cxxBoostLibrary matchgroup=cxxLibPrefix start="\<\(boost\)\z(::\)\@="
 "syn match "::" containedin=@cxxLibrary contained
 "end="::\(.*\)\@>\>"
 
+syn region cxxAttribute matchgroup=cxxAttributeBracing start="\[\[" end="]]"
+
+syn keyword cxxStlKeywords contained containedin=cxxAttribute noreturn carries_dependency deprecated fallthrough nodiscard maybe_unused
+
 " Broken?
 "syn region cxxStlLibrary start="\(\<std\)\(::\)" end="\( \|;\|(\|<\|$\)\@="
 "syn region cxxBoostLibrary start="\(\<\(bp_\)\?boost\)\(::\)\@=" end="\( \|;\|(\|<\|$\)\@="
@@ -61,6 +65,7 @@ syn keyword cxxStlTypes containedin=cxxStlLibrary iostream basic_string vector d
 syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary array contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary unordered_map unordered_multimap contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary unordered_set unordered_multiset contained
+syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary tuple contained
 
 
 syn keyword cxxStlService containedin=cxxStlLibrary cout cin clog cerr contained
@@ -69,7 +74,7 @@ syn keyword cxxStlConstant containedin=cxxStlLibrary endl flush contained
 " Smart pointers
 syn keyword cxxStlFunctions containedin=cxxStlLibrary,cxxBoostLibrary make_shared make_tuple contained
 syn keyword cxxStlKeywords containedin=cxxBoostLibrary scoped_ptr contained
-syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary shared_ptr weak_ptr contained
+syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary shared_ptr weak_ptr optional contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary make_unique contained
 syn keyword cxxStlKeywords containedin=cxxStlLibrary unique_ptr nullptr_t contained
 
@@ -78,7 +83,7 @@ syn keyword cxxStlFunctions containedin=cxxStlLibrary make_pair tie addressof co
 syn keyword cxxStlFunctions containedin=cxxStlLibrary copy copy_n copy_if copy_backward replace_copy_if replace_copy contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary find find_if find_first_of find_end contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary count count_if search search_n contained
-syn keyword cxxStlFunctions containedin=cxxStlLibrary transform mismatch equal accumulate move contained
+syn keyword cxxStlFunctions containedin=cxxStlLibrary transform mismatch equal accumulate move forward contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary generate generate_n fill fill_n contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary unique reverse rotate contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary unique_copy reverse_copy rotate_copy contained
@@ -92,15 +97,22 @@ syn keyword cxxStlFunctions containedin=cxxStlLibrary min max min_element max_el
 
 syn keyword cxxStlFunctions containedin=cxxStlLibrary getline contained
 
+" RTTI
+syn keyword cxxStlKeywords contained containedin=cxxStlLibrary type_info type_index
+
 
 " Metafunctions/Traits
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary decay_t
 syn keyword cxxStlTypes contained containedin=cxxStlLibrary type_identity type_identity_t
 syn keyword cxxStlTraits contained containedin=cxxStlLibrary is_convertible is_base_of
 syn keyword cxxStlTraits contained containedin=cxxStlLibrary is_constructible is_default_constructible is_same
-syn keyword cxxStlTraits contained containedin=cxxStlLibrary,cxxBoostLibrary enable_if enable_if_t
+syn keyword cxxStlTraits contained containedin=cxxStlLibrary enable_if enable_if_t
+syn keyword cxxStlTraits contained containedin=cxxBoostLibrary enable_if enable_if_t
+syn keyword cxxStlTraits contained containedin=cxxStlLibrary,cxxBoostLibrary is_rvalue_reference
 syn keyword cxxStlConstant contained containedin=cxxStlLibrary bool_constant is_same_v is_convertible_v is_constructible_v
 syn keyword cxxStlConstant contained containedin=cxxStlLibrary,cxxBoostLibrary bool_constant true_type false_type is_base_of_v
+syn keyword cxxStlConstant contained containedin=cxxStlLibrary,cxxBoostLibrary is_rvalue_reference_v
+syn keyword cxxLibStatement contained containedin=cxxStlLibrary void_t
 
 " Free floating STL functions
 syn keyword cxxStlFreeFunctions back_inserter front_inserter inserter begin end
@@ -125,6 +137,8 @@ syn keyword cxxStlExceptionNames containedin=cxxStlLibrary underflow_error conta
 " Some common boost-only bits I use
 syn keyword cxxStlKeywords contained containedin=cxxBoostLibrary 
 syn keyword cxxLibStatement contained containedin=cxxBoostLibrary lexical_cast noncopyable
+
+syn keyword cxxLibStatement contained containedin=cxxStlLibrary as_const
 
 " Highlight dangerous things
 syn match cxxStlDangerousFunction "\(\.\)\@<=release()"
@@ -163,6 +177,8 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
   HiLink cxxStlFunctions       cppStatement
   HiLink cxxStlFreeFunctions       cppStatement
   HiLink cxxLibStatement      cppStatement
+
+ HiLink cxxAttributeBracing cppStatement
 
   HiLink cxxLibPrefix      Caller
 
