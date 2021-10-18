@@ -103,15 +103,20 @@ syn keyword cxxStlKeywords contained containedin=cxxStlLibrary type_info type_in
 
 " Metafunctions/Traits
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary decay_t
+syn keyword cxxLibStatement contained containedin=cxxStlLibrary declval
 syn keyword cxxStlTypes contained containedin=cxxStlLibrary type_identity type_identity_t
 syn keyword cxxStlTraits contained containedin=cxxStlLibrary is_convertible is_base_of
 syn keyword cxxStlTraits contained containedin=cxxStlLibrary is_constructible is_default_constructible is_same
 syn keyword cxxStlTraits contained containedin=cxxStlLibrary enable_if enable_if_t
 syn keyword cxxStlTraits contained containedin=cxxBoostLibrary enable_if enable_if_t
 syn keyword cxxStlTraits contained containedin=cxxStlLibrary,cxxBoostLibrary is_rvalue_reference
+syn keyword cxxStlTraits contained containedin=cxxStlLibrary,cxxBoostLibrary is_aggregate
+syn keyword cxxStlTraits contained containedin=cxxStlLibrary,cxxBoostLibrary is_integral
 syn keyword cxxStlConstant contained containedin=cxxStlLibrary bool_constant is_same_v is_convertible_v is_constructible_v
 syn keyword cxxStlConstant contained containedin=cxxStlLibrary,cxxBoostLibrary bool_constant true_type false_type is_base_of_v
 syn keyword cxxStlConstant contained containedin=cxxStlLibrary,cxxBoostLibrary is_rvalue_reference_v
+syn keyword cxxStlConstant contained containedin=cxxStlLibrary,cxxBoostLibrary is_aggregate_v
+syn keyword cxxStlConstant contained containedin=cxxStlLibrary,cxxBoostLibrary is_integral_v
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary void_t
 
 " Free floating STL functions
@@ -139,6 +144,8 @@ syn keyword cxxStlKeywords contained containedin=cxxBoostLibrary
 syn keyword cxxLibStatement contained containedin=cxxBoostLibrary lexical_cast noncopyable
 
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary as_const
+
+syn keyword cxxStlKeywords template_for
 
 " Highlight dangerous things
 syn match cxxStlDangerousFunction "\(\.\)\@<=release()"
