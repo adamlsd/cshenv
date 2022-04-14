@@ -52,7 +52,7 @@ syn keyword cxxStlKeywords contained containedin=cxxAttribute noreturn carries_d
 syn keyword cxxStlKeywords contained containedin=cxxStlLibrary,cxxBoostLibrary mutex condition_variable thread lock_guard scoped_lock unique_lock
 
 " Strings
-syn keyword cxxStlKeywords containedin=cxxStlLibrary string contained
+syn keyword cxxStlKeywords containedin=cxxStlLibrary wstring string contained
 syn keyword cxxStlKeywords contained containedin=cxxStlLibrary byte
 syn keyword cxxStlKeywords contained containedin=cxxStlLibrary,cxxBoostLibrary string_view
 
@@ -60,7 +60,7 @@ syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary function co
 
 syn keyword cxxStlTypes containedin=cxxStlLibrary iostream istream ostream fstream ifstream ofstream contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary stringstream istringstream ostringstream contained
-syn keyword cxxStlTypes containedin=cxxStlLibrary iostream basic_string vector deque list pair queue priority_queue stack map multimap set multiset contained
+syn keyword cxxStlTypes containedin=cxxStlLibrary iostream basic_string vector deque forward_list list pair queue priority_queue stack map multimap set multiset contained
 
 syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary array contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary unordered_map unordered_multimap contained
