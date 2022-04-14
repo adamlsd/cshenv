@@ -97,12 +97,12 @@ set prompt_simple="${oldp_color_seq}[%n@%m: %c]%# "
 
 # Screens are almost certainly not a million chars wide.
 # If they are... oh well, that's a really weird one.
-set date_prefix="%{${csi}A${csi}1000000G${csi}18D%}"
-set date_suffix="%{${csi}G${csi}1B%}"
+set align_prefix="%{${csi}A${csi}1000000G${csi}18D%}"
+set align_suffix="%{${csi}G${csi}1B%}"
 #set screen_return="%{8%}"
 set date_prompt_core="${date_color_seq}%{%Y-%W-%D %}${time_color_seq}%{%P%}"
 set date_prompt_left="${date_prompt_core}"
-set date_prompt="${date_prefix}${date_prompt_core}${date_suffix}"
+set date_prompt="${date_prompt_core}"
 #unset edit
 
 if( $?CSHENV_DEBUG ) then

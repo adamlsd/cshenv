@@ -4,6 +4,13 @@
 @ prompt_hcolor = $prompt_hcolor % ${#reference_colors}
 @ prompt_hsym = $prompt_hsym % ${#referencechars}
 
+set critical_battery_level = 10
+set low_battery_level      = 20
+set weak_battery_level     = 33
+set medium_battery_level   = 50
+set strong_battery_level   = 75
+
+
 if( ${prompt_hcolor} == 0 ) then
     #if( $?CSHENV_DEBUG ) then
         #echo colorshuffle
@@ -30,6 +37,7 @@ if( $?CSHENV_DEBUG ) then
     echo "Setting prompt"
 endif
 
+
 set prompt_reference_core="%{${reference_colors[${prompt_hcolor}]}%}${referencechars[${prompt_hsym}]}"
 #if( ${referencechars[${prompt_hsym}]} == `env LC_ALL=C.UTF-8 printf "\u2328"` ) then
 #    set prompt_reference="%{${dim}%}<${prompt_reference_core}  %{${dim}%}> "
@@ -40,7 +48,35 @@ set prompt_reference="%{${dim}%}< ${prompt_reference_core} %{${dim}%}> "
 #set prompt_reference="%{${csi}0;48\;5\;7m%}(${prompt_reference_core}%{${csi}0;48\;5\;7m%})%{${dim}%}"
 #set prompt_reference="${prompt_reference_core}%{${text_color_seq}%} \- "
 
-set prompt_cool="\n${date_prompt}${brace_color_seq}\[${prompt_reference}${line_prompt}${depth_prompt}${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
+if( $?CSHENV_SHOW_BATTERY_LEVEL ) then
+    set battery_level=`cat /sys/class/power_supply/BAT1/capacity`
+    if( ${battery_level} < ${critical_battery_level} ) then
+        set battery_color=${red}${blink}
+    else if( ${battery_level} < ${low_battery_level} ) then
+        set battery_color=${red}
+    else if( ${battery_level} < ${weak_battery_level} ) then
+        set battery_color=${yellow}
+    else if( ${battery_level} < ${medium_battery_level} ) then
+        set battery_color=${bright_yellow}
+    else if( ${battery_level} < ${strong_battery_level} ) then
+        set battery_color=${green}
+    else
+        set battery_color=${bright_green}
+    endif
+
+    if( ${battery_level} < 10 ) then
+        set battery_level="  ${battery_level}"
+    else if( ${battery_level} < 100 ) then
+        set battery_level=" ${battery_level}"
+    endif
+
+    #set battery_prompt="%{${battery_color}%}%{${battery_level}${at_color}\%%}%{${dim}%} "
+    set battery_prompt="%{${csi}28D${blue}Battery Level: ${battery_color}${battery_level}${at_color}\%${dim}         %}"
+else
+    set battery_prompt=""
+endif
+
+set prompt_cool="%{\n%}${align_prefix}${battery_prompt}${date_prompt}${align_suffix}${brace_color_seq}\[${prompt_reference}${line_prompt}${depth_prompt}${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
 
 if( ! ${?cshenv_user_prompt_override} ) then
 	set prompt="$prompt_cool"
