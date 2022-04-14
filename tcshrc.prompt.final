@@ -49,7 +49,11 @@ set prompt_reference="%{${dim}%}< ${prompt_reference_core} %{${dim}%}> "
 #set prompt_reference="${prompt_reference_core}%{${text_color_seq}%} \- "
 
 if( $?CSHENV_SHOW_BATTERY_LEVEL ) then
-    set battery_level=`cat /sys/class/power_supply/BAT1/capacity`
+    if( $?CSHENV_BATTERY_DEVICE ) then
+        set battery_level=`cat ${CSHENV_BATTERY_DEVICE}`
+    else
+        set battery_level=`cat /sys/class/power_supply/BAT1/capacity`
+    endif
     if( ${battery_level} < ${critical_battery_level} ) then
         set battery_color=${red}${blink}
     else if( ${battery_level} < ${low_battery_level} ) then
