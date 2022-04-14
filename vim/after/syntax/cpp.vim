@@ -58,6 +58,7 @@ syn keyword cxxStlKeywords contained containedin=cxxStlLibrary,cxxBoostLibrary s
 
 syn keyword cxxStlKeywords containedin=cxxStlLibrary,cxxBoostLibrary function contained
 
+syn keyword cxxStlTypes containedin=cxxStlLibrary exception_ptr contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary iostream istream ostream fstream ifstream ofstream contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary stringstream istringstream ostringstream contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary iostream basic_string vector deque forward_list list pair queue priority_queue stack map multimap set multiset contained
@@ -70,6 +71,8 @@ syn keyword cxxStlTypes containedin=cxxStlLibrary,cxxBoostLibrary tuple containe
 
 syn keyword cxxStlService containedin=cxxStlLibrary cout cin clog cerr contained
 syn keyword cxxStlConstant containedin=cxxStlLibrary endl flush contained
+
+syn keyword cxxStlConstant containedin=cxxStlLibrary nullopt contained
 
 " Smart pointers
 syn keyword cxxStlFunctions containedin=cxxStlLibrary,cxxBoostLibrary make_shared make_tuple contained
