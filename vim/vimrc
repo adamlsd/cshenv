@@ -23,5 +23,9 @@ source ~/.vim/vimrc.functions
 source ~/.vim/vimrc.fileprefs
 source ~/.vim/vimrc.statusline
 
+if exists('$CSHENV_TOUCHSCREEN')
+    source ~/.vim/vimrc.mousescroll
+endif
+
 set shell=/bin/tcsh
 "set t_Co=1
