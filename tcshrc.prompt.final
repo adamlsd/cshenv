@@ -60,7 +60,9 @@ set prompt_reference="%{${dim}%}< ${prompt_reference_core} %{${dim}%}> "
 #set prompt_reference="${prompt_reference_core}%{${text_color_seq}%} \- "
 
 if( $?CSHENV_SHOW_BATTERY_LEVEL ) then
-    if( $?CSHENV_BATTERY_DEVICE ) then
+    if( $CSHENV_SYSTEM == "Darwin" ) then
+        set battery_level=`pmset -g batt | grep -Eo "\d+%" | cut -d% -f1`
+    else if( $?CSHENV_BATTERY_DEVICE ) then
         set battery_level=`cat ${CSHENV_BATTERY_DEVICE}`
     else
         set battery_level=`cat /sys/class/power_supply/BAT1/capacity`
