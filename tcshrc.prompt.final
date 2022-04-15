@@ -75,7 +75,7 @@ if( $?CSHENV_SHOW_BATTERY_LEVEL ) then
     endif
 
     #set battery_prompt="%{${battery_color}%}%{${battery_level}${at_color}\%%}%{${dim}%} "
-    set battery_prompt="%{${csi}28D${blue}Battery Level: ${battery_color}${battery_level}${at_color}\%${dim}         %}"
+    set battery_prompt="%{${csi}28D${csi}38;2;128;128;255;3mBattery Level:${dim} ${battery_color}${battery_level}${at_color}\%${dim}         %}"
 else
     set battery_prompt=""
 endif
