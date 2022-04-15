@@ -21,7 +21,7 @@ if( ${prompt_hcolor} == 0 ) then
         set reference_colors=`shuf -e $reference_colors`
     else
         #echo "FALLBACK COLOR!"
-        set reference_colors=`echo $reference_colors | sed -e 's/ /\n/' | sort -R | xargs`
+        set reference_colors=`echo $reference_colors | sed -e 's/ /\n/g' | sort -R | xargs`
     endif
 endif
     
@@ -36,7 +36,7 @@ if( ${prompt_hsym} == 0 ) then # && ${prompt_hcolor} == 0 ) then
         #set reference_colors=`shuf -e $reference_colors`
     else
         #echo "FALLBACK CHAR!"
-        set referencechars=`echo $referencechars | sed -e 's/ /\n/' | sort -R | xargs` 
+        set referencechars=`echo $referencechars | sed -e 's/ /\n/g' | sort -R | xargs` 
     endif
 endif
 
