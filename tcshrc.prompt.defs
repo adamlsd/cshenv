@@ -92,6 +92,12 @@ foreach ch ($referencechars_raw)
     set referencechars=( $referencechars `env LC_ALL=C.UTF-8 printf "\u${ch}"` )
 end
 
+if( $CSHENV_SYSTEM == "Darwin" ) then
+    # Macos seems to dislike using printf to construct unicode chars.
+    # So you get a dumb set of ABCDXYZ
+    set referencechars="A B C D X Y Z"
+endif
+
 # Rotation
 alias precmd 'source ${CSHENV_DIR}/tcshrc.prompt.final'
 #alias postcmd echo doit
