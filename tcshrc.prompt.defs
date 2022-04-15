@@ -6,6 +6,11 @@ if( $?CSHENV_DEBUG ) then
 	echo "Sourcing prompt setup and definitions..."
 endif
 
+which shuf >& /dev/null
+if( $? == 0 ) then
+    setenv CSHENV_DETECTED_SHUF
+endif
+
 if( ! $?unknown_tty ) then
 	set unknown_tty="?"
 	if( $?CSHENV_DEBUG ) then

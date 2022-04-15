@@ -16,7 +16,13 @@ if( ${prompt_hcolor} == 0 ) then
         #echo colorshuffle
     #endif
     #echo 
-    set reference_colors=`shuf -e $reference_colors`
+    # Shuffle, if supported
+    if( $?CSHENV_DETECTED_SHUF ) then
+        set reference_colors=`shuf -e $reference_colors`
+    else
+        #echo "FALLBACK COLOR!"
+        set reference_colors=`echo $reference_colors | sed -e 's/ /\n/' | sort -R | xargs`
+    endif
 endif
     
 
@@ -25,8 +31,13 @@ if( ${prompt_hsym} == 0 ) then # && ${prompt_hcolor} == 0 ) then
         echo symbolshuffle
     endif
     #echo 
-    set referencechars=`shuf -e $referencechars`
-    #set reference_colors=`shuf -e $reference_colors`
+    if( $?CSHENV_DETECTED_SHUF ) then
+        set referencechars=`shuf -e $referencechars`
+        #set reference_colors=`shuf -e $reference_colors`
+    else
+        #echo "FALLBACK CHAR!"
+        set referencechars=`echo $referencechars | sed -e 's/ /\n/' | sort -R | xargs` 
+    endif
 endif
 
 @ prompt_hcolor = ${prompt_hcolor} + 1
