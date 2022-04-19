@@ -14,14 +14,6 @@ hi clear normal
 "let colors_name = "adam"
 let g:colors_name="adam"
 
-" I stole ron's as a starting point as I think that it's my color scheme
-
-" local syntax file - set colors on a per-machine basis:
-" vim: tw=0 ts=4 sw=4
-" Vim color file
-" Maintainer:	Ron Aaron <ron@ronware.org>
-" Last Change:	2013 May 24
-
 set background=dark
 hi Normal		ctermfg=lightgrey	start=<esc>[0m stop=<esc>[0m
 "hi NonText		ctermfg=yellow ctermbg=grey
@@ -34,7 +26,7 @@ hi preproc		ctermfg=blue term=none start=<esc>[94m stop=<esc>[0m
 hi type			ctermfg=green term=none start=<esc>[92m stop=<esc>[0m
 "hi type			ctermfg=green	cterm=bold
 "hi special		ctermfg=yellow
-hi Special ctermfg=Blue guifg=Blue term=none start=<esc>[94m stop=<esc>[0m
+hi Special      ctermfg=Blue guifg=Blue term=none start=<esc>[94m stop=<esc>[0m
 hi ErrorMsg		ctermfg=White	ctermbg=Red term=none start=<esc>[97;101m stop=<esc>[0m
 hi WarningMsg	ctermfg=Black	ctermbg=Green
 "hi Error		ctermbg=Red
@@ -46,6 +38,8 @@ hi Directory	ctermfg=Blue term=none start=<esc>[94m stop=<esc>[0m
 
 hi ModeMsg      ctermfg=white cterm=bold term=bold start=<esc>[97m stop=<esc>[0m
 
+hi Literals     ctermfg=lightmagenta cterm=italic
+
 
 " Directory thru netrw
 hi netrwHelpCmd	ctermfg=Green
@@ -53,7 +47,11 @@ hi netrwHelpCmd	ctermfg=Green
 hi netrwHdr		ctermfg=brown
 hi netrwSrc		ctermfg=green
 hi netrwExe      ctermfg=Red  cterm=bold
-hi netrwSymLink		ctermfg=Cyan
+hi netrwSymLink ctermfg=Cyan
+
+
+
+hi TestCall ctermfg=78 cterm=italic
 
 "hi Cursor		guibg=#60a060 guifg=#00ff00
 " ctermfg=#00ff00
@@ -94,6 +92,8 @@ hi Comment ctermfg=darkgrey cterm=none term=NONE term=none start=<esc>[38;5;242m
 hi Identifier ctermfg=cyan cterm=none term=none start=<esc>[96m stop=<esc>[0m
 hi Object ctermfg=red term=none start=<esc>[91m stop=<esc>[0m
 hi Exception ctermfg=brown term=none start=<esc>[38;5;130m stop=<esc>[0m
+hi Nothrow ctermfg=215  term=none start=<esc>[38;5;130m stop=<esc>[0m
+hi Nothrow ctermfg=58  term=none start=<esc>[38;5;130m stop=<esc>[0m
 hi Service ctermfg=green start=<esc>[32m stop=<esc>[0m
 hi Error ctermbg=red ctermfg=white cterm=none term=none start=<esc>[101;97m stop=<esc>[0m
 hi Caller ctermfg=cyan term=NONE start=<esc>[96m stop=<esc>[0m
