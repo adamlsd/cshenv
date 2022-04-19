@@ -22,6 +22,7 @@ set ansi_white='37'
 set bright="$csi$ansi_bright$ansi_color"
 set dim="$csi$ansi_dim$ansi_color"
 set reverse="$csi$ansi_reverse$ansi_color"
+set blink="${csi}5${ansi_color}"
 
 
 set black="$csi$ansi_black$ansi_color"

@@ -1,0 +1,41 @@
+function! MouseScrollTouch()
+  "mark b is the current cursor position
+  "mark a is the previous cursor position
+  norm mb
+  let currPos= line('.')
+  norm `a
+  let prevPos= line('.')
+  let amt= 1 + abs(currPos - prevPos) / 2
+  "norm `bma
+  while amt > 0
+    if currPos>prevPos
+      norm 
+    elseif currPos<prevPos
+      "norm `bma
+      norm 
+    endif
+    let amt= amt - 1
+  endwhile
+endfunction
+
+function! MouseScrollClick()
+  "mark b is the current cursor position
+  "mark a is the previous cursor position
+  norm mb
+  let currPos= line('.')
+  norm `a
+  let prevPos= line('.')
+  let amt= 1 + abs(currPos - prevPos) / 2
+  norm `bma
+  while amt > 0
+    if currPos>prevPos
+      norm 
+    elseif currPos<prevPos
+      "norm `bma
+      norm 
+    endif
+    let amt= amt - 1
+  endwhile
+endfunction
+
+map <LeftDrag> ma<LeftMouse>:call MouseScrollTouch()<cr>

@@ -36,3 +36,8 @@ imap <ESC>[A	<Up>
 imap <ESC>[B	<Down>
 imap <ESC>[C	<Right>
 imap <ESC>[D	<Left>
+
+" On my touchscreen laptop, the gnome keyboard doesn't have special keys...
+" So we map a key I'll never use to 'escape'
+imap £ <ESC>
+map £ <ESC>
