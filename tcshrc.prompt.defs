@@ -89,7 +89,8 @@ set prompt_hsym=0
 
 set referencechars=()
 foreach ch ($referencechars_raw)
-    set referencechars=( $referencechars `env LC_ALL=C.UTF-8 printf "\u${ch}"` )
+    set unicode=`printf "\\u${ch}"`
+    set referencechars=( $referencechars `printf "${unicode}"` )
 end
 
 if( $CSHENV_SYSTEM == "Darwin" ) then
