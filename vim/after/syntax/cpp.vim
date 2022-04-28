@@ -170,6 +170,8 @@ syn keyword cxxStlNothrowObject containedin=cxxStlLibrary nothrow contained
 syn keyword cxxStlKeywords contained containedin=cxxBoostLibrary 
 syn keyword cxxLibStatement contained containedin=cxxBoostLibrary lexical_cast noncopyable
 
+syn keyword cxxStlExceptionNames containedin=cxxBoostLibrary bad_lexical_cast contained
+
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary as_const
 
 syn keyword cxxStlKeywords template_for
