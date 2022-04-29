@@ -1,6 +1,13 @@
 ############################
 ### Final Prompt Setting ###
 ############################
+if( ${prompt_hcolor} != 0 ) then
+    set last_color = ${reference_colors[${prompt_hcolor}]}
+endif
+if( ${prompt_hsym} != 0 ) then
+    set last_sym = ${referencechars[${prompt_hsym}]}
+endif
+
 @ prompt_hcolor = $prompt_hcolor % ${#reference_colors}
 @ prompt_hsym = $prompt_hsym % ${#referencechars}
 
@@ -11,10 +18,10 @@ set medium_battery_level   = 50
 set strong_battery_level   = 75
 
 
-if( ${prompt_hcolor} == 0 ) then
-    #if( $?CSHENV_DEBUG ) then
-        #echo colorshuffle
-    #endif
+while( ${prompt_hcolor} == 0 )
+    if( $?CSHENV_DEBUG ) then
+        echo colorshuffle
+    endif
     #echo 
     # Shuffle, if supported
     if( $?CSHENV_DETECTED_SHUF ) then
@@ -23,10 +30,17 @@ if( ${prompt_hcolor} == 0 ) then
         #echo "FALLBACK COLOR!"
         set reference_colors=`echo $reference_colors | tr " " "\n" | sort -R | xargs`
     endif
-endif
+    if( ! $?last_color ) then
+        break
+    endif
+    set first_color = ${reference_colors[1]}
+    if( ${first_color} != ${last_color} ) then
+        break
+    endif
+end
     
 
-if( ${prompt_hsym} == 0 ) then # && ${prompt_hcolor} == 0 ) then
+while( ${prompt_hsym} == 0 )
     if( $?CSHENV_DEBUG ) then
         echo symbolshuffle
     endif
@@ -38,7 +52,14 @@ if( ${prompt_hsym} == 0 ) then # && ${prompt_hcolor} == 0 ) then
         #echo "FALLBACK CHAR!"
         set referencechars=`echo $referencechars | tr " " "\n" | sort -R | xargs`
     endif
-endif
+    if( ! $?last_sym ) then
+        break
+    endif
+    set first_sym = ${referencechars[1]}
+    if( ${first_sym} != ${last_sym} ) then
+        break
+    endif
+end
 
 @ prompt_hcolor = ${prompt_hcolor} + 1
 @ prompt_hsym = ${prompt_hsym} + 1
