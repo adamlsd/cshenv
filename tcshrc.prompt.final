@@ -109,12 +109,35 @@ if( $?CSHENV_SHOW_BATTERY_LEVEL ) then
     endif
 
     #set battery_prompt="%{${battery_color}%}%{${battery_level}${at_color}\%%}%{${dim}%} "
-    set battery_prompt="%{${csi}28D${csi}38;2;128;128;255;3mBattery Level:${dim} ${battery_color}${battery_level}${at_color}\%${dim}         %}"
+    set battery_prefix="%{${csi}m${csi}28D%}"
+    set battery_prompt="%{${csi}38;2;128;128;255;3mBattery Level:${dim} ${battery_color}${battery_level}${at_color}\%${dim}         %}"
 else
+    set battery_prefix=""
     set battery_prompt=""
 endif
 
-set prompt_cool="%{\n%}${align_prefix}${battery_prompt}${date_prompt}${align_suffix}${brace_color_seq}\[${prompt_reference}${line_prompt}${depth_prompt}${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
+set git_prompt=""
+set git_prefix=""
+set git_repo=`git rev-parse --git-dir >& /dev/null`
+set __res=$?
+if( 0 == ${__res} ) then
+    set git_branch=`git branch --show-current -q` >& /dev/null
+    if( ! -z "${git_branch}" ) then
+        set branch_space=30
+        set branch_indent=16
+        set git_branch_reserve=`echo ${git_branch} | wc -c` >& /dev/null
+        set git_prompt="%{${csi}${branch_indent}C${csi}mBranch: ${csi}3;38;2;255;192;192m${git_branch}${csi}m${csi}${branch_space}C\n%}"
+
+        set branch_symbol=`printf "\u2387"`
+        set git_prompt="%{${csi}0;60m%}(${branch_symbol}   %{${csi}3;4;38;2;255;192;192;58;2;255;255;255;68;2;255;255;255m%}${git_branch}%{${csi}m%}) "
+        #set git_prompt="%{${csi}10D${csi}2D(xyz${git_branch})${csi}m%%}"
+        #set git_prompt="%{${csi}0;35m${csi}50D${git_branch}     %}"
+    endif
+else
+endif
+
+#set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt}${align_suffix}${git_prompt}${brace_color_seq}\[${prompt_reference}${line_prompt}${depth_prompt}${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
+set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt}${align_suffix}${brace_color_seq}\[${prompt_reference}${line_prompt}${depth_prompt}${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${git_prompt}${path_prompt}${brace_color_seq}\]${end_prompt}"
 
 if( ! ${?cshenv_user_prompt_override} ) then
 	set prompt="$prompt_cool"
