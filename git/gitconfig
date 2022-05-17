@@ -13,7 +13,8 @@
     st = status
     dc = diff --check
     brm = !git br -a | grep -e master -e $USER -e review/ -e releases/
-    branch-name = !git branch | awk '/\\*/{print $2}'
+    #branch-name = !git branch | awk '/\\*/{print $2}'
+    branch-name = branch --show-current
     sd = diff --name-status
     last = cat-file commit HEAD
 

@@ -1,6 +1,13 @@
 ############################
 ### Final Prompt Setting ###
 ############################
+if( ${prompt_hcolor} != 0 ) then
+    set last_color = ${reference_colors[${prompt_hcolor}]}
+endif
+if( ${prompt_hsym} != 0 ) then
+    set last_sym = ${referencechars[${prompt_hsym}]}
+endif
+
 @ prompt_hcolor = $prompt_hcolor % ${#reference_colors}
 @ prompt_hsym = $prompt_hsym % ${#referencechars}
 
@@ -11,10 +18,10 @@ set medium_battery_level   = 50
 set strong_battery_level   = 75
 
 
-if( ${prompt_hcolor} == 0 ) then
-    #if( $?CSHENV_DEBUG ) then
-        #echo colorshuffle
-    #endif
+while( ${prompt_hcolor} == 0 )
+    if( $?CSHENV_DEBUG ) then
+        echo colorshuffle
+    endif
     #echo 
     # Shuffle, if supported
     if( $?CSHENV_DETECTED_SHUF ) then
@@ -23,10 +30,17 @@ if( ${prompt_hcolor} == 0 ) then
         #echo "FALLBACK COLOR!"
         set reference_colors=`echo $reference_colors | tr " " "\n" | sort -R | xargs`
     endif
-endif
+    if( ! $?last_color ) then
+        break
+    endif
+    set first_color = ${reference_colors[1]}
+    if( ${first_color} != ${last_color} ) then
+        break
+    endif
+end
     
 
-if( ${prompt_hsym} == 0 ) then # && ${prompt_hcolor} == 0 ) then
+while( ${prompt_hsym} == 0 )
     if( $?CSHENV_DEBUG ) then
         echo symbolshuffle
     endif
@@ -38,7 +52,14 @@ if( ${prompt_hsym} == 0 ) then # && ${prompt_hcolor} == 0 ) then
         #echo "FALLBACK CHAR!"
         set referencechars=`echo $referencechars | tr " " "\n" | sort -R | xargs`
     endif
-endif
+    if( ! $?last_sym ) then
+        break
+    endif
+    set first_sym = ${referencechars[1]}
+    if( ${first_sym} != ${last_sym} ) then
+        break
+    endif
+end
 
 @ prompt_hcolor = ${prompt_hcolor} + 1
 @ prompt_hsym = ${prompt_hsym} + 1
@@ -88,12 +109,35 @@ if( $?CSHENV_SHOW_BATTERY_LEVEL ) then
     endif
 
     #set battery_prompt="%{${battery_color}%}%{${battery_level}${at_color}\%%}%{${dim}%} "
-    set battery_prompt="%{${csi}28D${csi}38;2;128;128;255;3mBattery Level:${dim} ${battery_color}${battery_level}${at_color}\%${dim}         %}"
+    set battery_prefix="%{${csi}m${csi}28D%}"
+    set battery_prompt="%{${csi}38;2;128;128;255;3mBattery Level:${dim} ${battery_color}${battery_level}${at_color}\%${dim}         %}"
 else
+    set battery_prefix=""
     set battery_prompt=""
 endif
 
-set prompt_cool="%{\n%}${align_prefix}${battery_prompt}${date_prompt}${align_suffix}${brace_color_seq}\[${prompt_reference}${line_prompt}${depth_prompt}${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
+set git_prompt=""
+set git_prefix=""
+set git_repo=`git rev-parse --git-dir >& /dev/null`
+set __res=$?
+if( 0 == ${__res} ) then
+    set git_branch=`git branch --show-current -q` >& /dev/null
+    if( ! -z "${git_branch}" ) then
+        set branch_space=30
+        set branch_indent=16
+        set git_branch_reserve=`echo ${git_branch} | wc -c` >& /dev/null
+        set git_prompt="%{${csi}${branch_indent}C${csi}mBranch: ${csi}3;38;2;255;192;192m${git_branch}${csi}m${csi}${branch_space}C\n%}"
+
+        set branch_symbol=`printf "\u2387"`
+        set git_prompt="%{${csi}0;60m%}(${branch_symbol}   %{${csi}3;4;38;2;255;192;192;58;2;255;255;255;68;2;255;255;255m%}${git_branch}%{${csi}m%}) "
+        #set git_prompt="%{${csi}10D${csi}2D(xyz${git_branch})${csi}m%%}"
+        #set git_prompt="%{${csi}0;35m${csi}50D${git_branch}     %}"
+    endif
+else
+endif
+
+#set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt}${align_suffix}${git_prompt}${brace_color_seq}\[${prompt_reference}${line_prompt}${depth_prompt}${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${path_prompt}${brace_color_seq}\]${end_prompt}"
+set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt}${align_suffix}${brace_color_seq}\[${prompt_reference}${line_prompt}${depth_prompt}${user_prompt}${at_color_seq}@${host_prompt}${text_color_seq}\: ${git_prompt}${path_prompt}${brace_color_seq}\]${end_prompt}"
 
 if( ! ${?cshenv_user_prompt_override} ) then
 	set prompt="$prompt_cool"
