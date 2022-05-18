@@ -13,7 +13,7 @@ set name_color="${bright_cyan}"
 set at_color="${dim_cyan}"
 set path_color="${bright_green}"
 set line_color="${dim_red}"
-set prompt_color="${dim_white}"
+set prompt_color="${dim}"
 set depth_color="${dim_yellow}"
 set command_color="${dim}"
 
