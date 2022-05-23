@@ -42,5 +42,10 @@
 [diff]
     indentheuristic = true
 
+[pull]
+	rebase = false
 
+
+#
 # vim: ft=gitconfig
+#
