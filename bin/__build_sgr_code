@@ -59,6 +59,8 @@ map[vga-brightmagenta]="ff55ff"
 map[vga-brightcyan]="55ffff"
 map[vga-brightwhite]="ffffff"
 
+enable_greyscale_cheat=0
+
 nocsi=0
 if [[ $1 == "no-csi" ]]
 then
@@ -70,19 +72,24 @@ function dump_colors()
 {
     for key in ${!map[@]}
     do
+        case $key in
+            *bright*) text_color="000000" ;;
+            *black*) text_color="ffffff" ;;
+            *) text_color="000000" ;;
+        esac
         printf "%-24s${map[${key}]}  |" ${key}
-        printf "`$0 reset reverse fg:${key}`native-sample`$0 reset`|"
+        printf "`$0 reset reverse bg:${text_color} fg:${key}`native-sample`$0 reset`|"
         if [[ ! -v CSHENV_TERMINAL_COLORS ]] || (( ${CSHENV_TERMINAL_COLORS} >= 256 ))
         then
-            printf "`env CSHENV_TERMINAL_COLORS=256 $0 reset reverse fg:${key}`8-bit sample`$0 reset`|"
+            printf "`env CSHENV_TERMINAL_COLORS=256 $0 reset reverse bg:${text_color} fg:${key}`8-bit sample`$0 reset`|"
         fi
         if [[ ! -v CSHENV_TERMINAL_COLORS ]] || (( ${CSHENV_TERMINAL_COLORS} >= 16 ))
         then
-            printf "`env CSHENV_TERMINAL_COLORS=16 $0 reset reverse fg:${key}`4-bit sample`$0 reset`|"
+            printf "`env CSHENV_TERMINAL_COLORS=16 $0 reset reverse bg:${text_color} fg:${key}`4-bit sample`$0 reset`|"
         fi
         if [[ ! -v CSHENV_TERMINAL_COLORS ]] || (( ${CSHENV_TERMINAL_COLORS} >= 8 ))
         then
-            printf "`env CSHENV_TERMINAL_COLORS=8 $0 reset reverse fg:${key}`3-bit sample`$0 reset`|"
+            printf "`env CSHENV_TERMINAL_COLORS=8 $0 reset reverse bg:${text_color} fg:${key}`3-bit sample`$0 reset`|"
         fi
         printf "\n"
     done
@@ -289,28 +296,31 @@ function rgb_color()
         echo "Computed 256 color choice, after applying greyscale scan: " ${ext_8_bit}
     fi
 
-    # Check for SPECIFIC white and black and grey:
-    # The half-saturation, no saturation, and full saturation values are mapped
-    # to specific points in the legacy set.  (This may be ill-advised as a manually
-    # built reverse video terminal setting through colour mapping may make it so that
-    # we wind up in la-la land.  Perhaps the better way is to find the head and tail
-    # points in the 6x6x6 colour cube.)
-    #
-    # TODO: Only map the head and tail of the colour cube.
-    if (( ${red_dec} == ${green_dec} && ${green_dec} == ${blue_dec} ))
+    if (( ${enable_greyscale_cheat} ))
     then
-        if (( ${red_dec} == 0 ))
+        # Check for SPECIFIC white and black and grey:
+        # The half-saturation, no saturation, and full saturation values are mapped
+        # to specific points in the legacy set.  (This may be ill-advised as a manually
+        # built reverse video terminal setting through colour mapping may make it so that
+        # we wind up in la-la land.  Perhaps the better way is to find the head and tail
+        # points in the 6x6x6 colour cube.)
+        #
+        # TODO: Only map the head and tail of the colour cube.
+        if (( ${red_dec} == ${green_dec} && ${green_dec} == ${blue_dec} ))
         then
-            ext_8_bit=0
-        elif (( ${red_dec} == 255 ))
-        then
-            ext_8_bit=15
-        elif (( ${red_dec} == 128 ))
-        then
-            ext_8_bit=8
-        elif (( ${red_dec} == 192 ))
-        then
-            ext_8_bit=7
+            if (( ${red_dec} == 0 ))
+            then
+                ext_8_bit=0
+            elif (( ${red_dec} == 255 ))
+            then
+                ext_8_bit=15
+            elif (( ${red_dec} == 128 ))
+            then
+                ext_8_bit=8
+            elif (( ${red_dec} == 192 ))
+            then
+                ext_8_bit=7
+            fi
         fi
     fi
 
