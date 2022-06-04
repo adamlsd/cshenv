@@ -294,8 +294,7 @@ function rgb_color()
     fi
 
     # We do NOT check for the base colours precisely.  Since those 16 can be custom mapped by your terminal emulator, you just pass `ansi:0` thru
-    # `ansi:15` to select them by ID.  Or use `ext:0` thru `ext:255` to select a specific extended colour.  Otherwise, we now generate the true-colour
-    # result:
+    # `ansi:15` to select them by ID.  Or use `ext:0` thru `ext:255` to select a specific extended colour.
 }
 
 function make_color()
