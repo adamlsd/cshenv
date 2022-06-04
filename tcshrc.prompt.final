@@ -132,7 +132,7 @@ if( 0 == ${__res} ) then
         # If the font doesn't support the special branch symbol... 
         set branch_symbol=`printf "\uE0A0"`
         # I could always fallback to this one... (keep padded spaces... for alignment)
-        #set branch_symbol=`printf "\u2387  "`
+        set branch_symbol=`printf '\u2387\ \ \ '`
 
         set git_prompt="%{${csi}0;60m%}(${branch_symbol} %{${csi}3;4;38;2;255;192;192;58;2;255;255;255;68;2;255;255;255m%}${git_branch}%{${csi}m%}) "
         #set git_prompt="%{${csi}10D${csi}2D(xyz${git_branch})${csi}m%%}"
