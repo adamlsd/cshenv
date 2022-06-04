@@ -1,6 +1,34 @@
 ############################
 ### Final Prompt Setting ###
 ############################
+
+# Recompute cached sgr codes from any configuration updates
+if( ! $?curr_path_color ) then
+    set curr_path_color=impossible
+endif
+if( ! $?curr_path_color || "${curr_path_color}" != "${path_color}" ) then
+    set curr_path_color="${path_color}"
+    set path_color_seq="[`__build_sgr_code no-csi reset ${curr_path_color}`m"
+endif
+
+if( ! $?curr_date_color ) then
+    set curr_date_color=impossible
+endif
+if( ! $?curr_date_color || "${curr_date_color}" != "${date_color}" ) then
+    set curr_date_color="${date_color}"
+    set date_color_seq="[`__build_sgr_code no-csi reset ${curr_date_color}`m"
+    set date_prompt_view="%{${date_color_seq}%}${date_prompt}%{${sgr_reset}%}"
+endif
+
+if( ! $?curr_time_color ) then
+    set curr_time_color=impossible
+endif
+if( ! $?curr_time_color || "${curr_time_color}" != "${time_color}" ) then
+    set curr_time_color="${time_color}"
+    set time_color_seq="[`__build_sgr_code no-csi reset ${curr_time_color}`m"
+    set time_prompt_view="%{${time_color_seq}%}${time_prompt}%{${sgr_reset}%}"
+endif
+
 if( ${prompt_hcolor} != 0 ) then
     set last_color = ${reference_colors[${prompt_hcolor}]}
 endif
@@ -16,6 +44,7 @@ set low_battery_level      = 20
 set weak_battery_level     = 33
 set medium_battery_level   = 50
 set strong_battery_level   = 75
+
 
 
 while( ${prompt_hcolor} == 0 )
@@ -188,10 +217,10 @@ if( ! $?CSHENV_DISABLE_PROMPT_GIT ) then
     set git_prompt_view="${git_prompt}"
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_PATH ) then
-    set path_prompt_view="${path_prompt}"
+    set path_prompt_view="%{${path_color_seq}%}${path_prompt}%{${sgr_reset}%}"
 endif
 
-set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt}${align_suffix}${brace_color_seq}\[${prompt_reference_view}${line_prompt_view}${depth_prompt_view}${line_spacer_view}${user_prompt_view}${at_view}${host_prompt_view}${git_prompt_view}${path_prompt_view}${brace_color_seq}\]${end_prompt}"
+set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt_view}%{ %}${time_prompt_view}${align_suffix}${brace_color_seq}\[${prompt_reference_view}${line_prompt_view}${depth_prompt_view}${line_spacer_view}${user_prompt_view}${at_view}${host_prompt_view}${git_prompt_view}${path_prompt_view}${brace_color_seq}\]${end_prompt}"
 
 
 

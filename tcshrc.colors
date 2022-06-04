@@ -80,6 +80,7 @@ set bright_white="$csi$ansi_bright;$ansi_white$ansi_color"
 # You process true colour by evaluating `__make_color_sequence` on the environment variable.
 alias __make_color_sequence ${CSHENV_DIR}/bin/__hex_to_ansi
 
+set sgr_reset="[`__build_sgr_code no-csi reset`m"
 
 ###########################
 # vim:filetype=tcsh
