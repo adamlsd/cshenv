@@ -13,57 +13,92 @@
 
 debug=0
 
-if [ ${1} == "fg" ]
+nocsi=0
+if [[ $1 == "no-csi" ]]
 then
-    background=0
-elif [ ${1} == "bg" ]
-then
-    background=1
-else
-    exit -1
+    nocsi=1
+    shift 1
 fi
 
-shift 1
+function setup_color_depth()
+{
+    use_8_bit=0
+    use_4_bit=0
+    use_3_bit=0
 
-use_8_bit=0
-use_4_bit=0
-use_3_bit=0
+    # Must only be set if terminal colors are reduced...
+    if [[ -v CSHENV_TERMINAL_COLORS ]]
+    then
+        if (( ${CSHENV_TERMINAL_COLORS} == 256 ))
+        then
+            use_8_bit=1
+        elif (( ${CSHENV_TERMINAL_COLORS} == 16 ))
+        then
+            use_4_bit=1
+        elif (( ${CSHENV_TERMINAL_COLORS} == 8 ))
+        then
+            use_3_bit=1
+        else
+            exit -1
+        fi
+    fi
+}
 
-skip_color=0
-if [ $1 == "none" ]
-then
-    skip_color=1
-elif [ $1 == "reset" ]
-then
-    output=1
-elif [ ${1:0:5} == "ansi:" ]
-then
-    selection=${1:5}
-    if (( ${selection} > 15 ))
+function render_color()
+{
+    command_color=30
+    if (( ${use_3_bit} ))
+    then
+        basecolor=$(( ${command_color} ))
+        next="$(( ${basecolor} + ${legacy_3_bit} ))"
+    elif (( ${use_4_bit} ))
+    then
+        command_color=$(( ${command_color} + ${intensity_1_bit} * 60 ))
+        basecolor=$(( ${command_color} + ${background}*10 ))
+        next="$(( ${basecolor} + ${legacy_3_bit} ))"
+    elif (( ${use_8_bit} ))
+    then
+        basecolor=$(( 8 + ${command_color} + ${background}*10 ))
+        next="${basecolor};5;${ext_8_bit}"
+    else
+        basecolor=$(( 8 + ${command_color} + ${background}*10 ))
+        next="${basecolor};2;${red_dec};${green_dec};${blue_dec}"
+    fi
+}
+
+
+
+function ansi_color()
+{
+    if (( ${1} > 15 ))
     then
         exit -1
-    elif (( ${selection} >= 8 ))
+    elif (( ${1} >= 8 ))
     then
         use_4_bit=1
         intensity_1_bit=1
-        legacy_3_bit=$(( ${selection} - 8 ))
+        legacy_3_bit=$(( ${1} - 8 ))
     else
         use_3_bit=1
         intensity_1_bit=0
-        legacy_3_bit=$(( ${selection} ))
+        legacy_3_bit=$(( ${1} ))
     fi
-elif [ ${1:0:4} == "ext:" ]
-then
+}
+
+function ext_color()
+{
     use_8_bit=1
     selection=${1:4}
-    if (( ${selection} > 255 ))
+    if (( ${1} > 255 ))
     then
         exit -1
     else
-        ext_8_bit=${selection}
+        ext_8_bit=${1}
     fi
-else # Parse the hex and do the thing...
+}
 
+function rgb_color()
+{
     # First split off the red, green, and blue components...
     red_hex=${1:0:2}
     green_hex=${1:2:2}
@@ -187,56 +222,26 @@ else # Parse the hex and do the thing...
     # We do NOT check for the base colours precisely.  Since those 16 can be custom mapped by your terminal emulator, you just pass `ansi:0` thru
     # `ansi:15` to select them by ID.  Or use `ext:0` thru `ext:255` to select a specific extended colour.  Otherwise, we now generate the true-colour
     # result:
-fi
+}
 
-# Must only be set if terminal colors are reduced...
-if [[ -v CSHENV_TERMINAL_COLORS ]]
-then
-    if (( ${CSHENV_TERMINAL_COLORS} == 256 ))
-    then
-        use_8_bit=1
-    elif (( ${CSHENV_TERMINAL_COLORS} == 16 ))
-    then
-        use_4_bit=1
-    elif (( ${CSHENV_TERMINAL_COLORS} == 8 ))
-    then
-        use_3_bit=1
-    else
-        exit -1
-    fi
-fi
+function make_color()
+{
+    setup_color_depth
+    background=$1 # $1 is the background bit
+    $2 $3 # $2 is the color function
+    render_color
+}
 
 output=""
-
-if (( ! ${skip_color} ))
+if (( ! ${nocsi} ))
 then
-    command_color=30
-    if (( ${use_3_bit} ))
-    then
-        basecolor=$(( ${command_color} ))
-        output="$(( ${basecolor} + ${legacy_3_bit} ))"
-    elif (( ${use_4_bit} ))
-    then
-        command_color=$(( ${command_color} + ${intensity_1_bit} * 60 ))
-        basecolor=$(( ${command_color} + ${background}*10 ))
-        output="$(( ${basecolor} + ${legacy_3_bit} ))"
-    elif (( ${use_8_bit} ))
-    then
-        basecolor=$(( 8 + ${command_color} + ${background}*10 ))
-        output="${basecolor};5;${ext_8_bit}"
-    else
-        basecolor=$(( 8 + ${command_color} + ${background}*10 ))
-        output="${basecolor};2;${red_dec};${green_dec};${blue_dec}"
-    fi
-elif (( ${reset_sgr} ))
-then
-    output="0"
+    output="["
 fi
 
-shift 1
 while [[ ! -z $1 ]]
 do
     case $1 in
+        reset) next=0 ;;
         bold) next=1 ;;
         dim) next=2 ;;
         italic) next=3 ;;
@@ -248,7 +253,20 @@ do
         strike|strikethrough|strikethru) next=9 ;;
         doubleunder) next=21 ;;
         reveal) next=28 ;;
-        *) exit -1 ;;
+
+        ansi:*) make_color 0 ansi_color ${1:5} ;;
+        ext:*) make_color 0 ext_color ${1:4} ;;
+        [0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]) make_color 0 rgb_color $1 ;;
+
+        fg:ansi:*) make_color 0 ansi_color ${1:8} ;;
+        fg:ext:*) make_color 0 ext_color ${1:7} ;;
+        fg:[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]) make_color 0 rgb_color ${1:3} ;;
+
+        bg:ansi:*) make_color 1 ansi_color ${1:8} ;;
+        bg:ext:*) make_color 1 ext_color ${1:7} ;;
+        bg:[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]) make_color 1 rgb_color ${1:3} ;;
+
+        *) echo "ERROR!" 1>&2 ; exit -1 ;;
     esac
     if [[ ! -z ${output} ]]
     then
@@ -257,6 +275,11 @@ do
     output="${output}${next}"
     shift 1
 done
+
+if (( ! ${nocsi} ))
+then
+    output="${output}m"
+fi
 
 printf ${output}
 
