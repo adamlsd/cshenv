@@ -220,6 +220,23 @@ function rgb_color()
         echo "Intensity bit: " $intensity_1_bit
     fi
 
+
+    # Because brown is tricky, I'm going to special case it:
+    if (( ${red_dec} > 128 && ${green_dec} > 80 && ${blue_dec} < 50 ))
+    then
+        red_1_bit=1
+        green_1_bit=1
+        blue_1_bit=0
+    fi
+
+    if (( ${debug} != 0 ))
+    then
+        echo "Red bit: " $red_1_bit
+        echo "Green bit: " $green_1_bit
+        echo "Blue bit: " $blue_1_bit
+        echo "Intensity bit: " $intensity_1_bit
+    fi
+
     # This lets us combine them for a legacy colour value in the legacy colour space...
 
     legacy_3_bit=$(( ( ${blue_1_bit} << 2 ) + ( ${green_1_bit} << 1 ) + ( ${red_1_bit} ) ))
