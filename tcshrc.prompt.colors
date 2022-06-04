@@ -5,7 +5,7 @@
 
 set date_color="ansi:5"
 set time_color="ansi:13"
-set text_color="${bright_white}"
+set text_color="reset"
 set oldp_color="${dim}"
 set brace_color="${bright_yellow}"
 set host_color="${bright_blue}"
@@ -20,7 +20,6 @@ set command_color="${dim}"
 set color_start="%{"
 set color_end="%}"
 
-set text_color_seq="${color_start}${text_color}${color_end}"
 set oldp_color_seq="${color_start}${oldp_color}${color_end}"
 set brace_color_seq="${color_start}${brace_color}${color_end}"
 set host_color_seq="${color_start}${host_color}${color_end}"

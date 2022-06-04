@@ -6,15 +6,15 @@
 if( ! $?curr_path_color ) then
     set curr_path_color=impossible
 endif
-if( ! $?curr_path_color || "${curr_path_color}" != "${path_color}" ) then
+if( "${curr_path_color}" != "${path_color}" ) then
     set curr_path_color="${path_color}"
-    set path_color_seq="[`__build_sgr_code no-csi reset ${curr_path_color}`m"
+    set path_color_seq="%{[`__build_sgr_code no-csi reset ${curr_path_color}`m%}"
 endif
 
 if( ! $?curr_date_color ) then
     set curr_date_color=impossible
 endif
-if( ! $?curr_date_color || "${curr_date_color}" != "${date_color}" ) then
+if( "${curr_date_color}" != "${date_color}" ) then
     set curr_date_color="${date_color}"
     set date_color_seq="[`__build_sgr_code no-csi reset ${curr_date_color}`m"
     set date_prompt_view="%{${date_color_seq}%}${date_prompt}%{${sgr_reset}%}"
@@ -23,10 +23,18 @@ endif
 if( ! $?curr_time_color ) then
     set curr_time_color=impossible
 endif
-if( ! $?curr_time_color || "${curr_time_color}" != "${time_color}" ) then
+if( "${curr_time_color}" != "${time_color}" ) then
     set curr_time_color="${time_color}"
     set time_color_seq="[`__build_sgr_code no-csi reset ${curr_time_color}`m"
     set time_prompt_view="%{${time_color_seq}%}${time_prompt}%{${sgr_reset}%}"
+endif
+
+if( ! $?curr_text_color ) then
+    set curr_text_color=impossible
+endif
+if( "${curr_text_color}" != "${text_color}" ) then
+    set curr_text_color="${text_color}"
+    set text_color_seq="[`__build_sgr_code no-csi reset ${curr_text_color}`m"
 endif
 
 if( ${prompt_hcolor} != 0 ) then
@@ -186,7 +194,7 @@ if( ! $?CSHENV_DISABLE_PROMPT_SIGIL ) then
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_TTY ) then
     set line_prompt_view="${line_prompt}"
-    set line_spacer_view="${text_color_seq}\- "
+    set line_spacer_view="%{${text_color_seq}%}\- "
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_NESTING ) then
     set depth_prompt_spacing=""
@@ -211,7 +219,7 @@ if( ! $?CSHENV_DISABLE_PROMPT_HOST ) then
     if( $?CSHENV_DISABLE_PROMPT_GIT && $?CSHENV_DISABLE_PROMPT_PATH ) then
         set host_prompt_tail=""
     endif
-    set host_prompt_view="${host_prompt}${text_color_seq}${host_prompt_tail}"
+    set host_prompt_view="${host_prompt}%{${text_color_seq}%}${host_prompt_tail}"
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_GIT ) then
     set git_prompt_view="${git_prompt}"
@@ -220,7 +228,7 @@ if( ! $?CSHENV_DISABLE_PROMPT_PATH ) then
     set path_prompt_view="%{${path_color_seq}%}${path_prompt}%{${sgr_reset}%}"
 endif
 
-set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt_view}%{ %}${time_prompt_view}${align_suffix}${brace_color_seq}\[${prompt_reference_view}${line_prompt_view}${depth_prompt_view}${line_spacer_view}${user_prompt_view}${at_view}${host_prompt_view}${git_prompt_view}${path_prompt_view}${brace_color_seq}\]${end_prompt}"
+set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt_view}%{ %}${time_prompt_view}${align_suffix}${brace_color_seq}\[${prompt_reference_view}${line_prompt_view}${depth_prompt_view}${line_spacer_view}${user_prompt_view}${at_view}${host_prompt_view}${git_prompt_view}${path_prompt_view}${brace_color_seq}\]${end_prompt}%{${text_color_seq}%}"
 
 
 
