@@ -13,6 +13,27 @@
 
 debug=0
 
+# This is the named color map.  Just add new entries and they'll be supported...
+
+declare -A map
+map[white]="FFFFFF"
+map[silver]="C0C0C0"
+map[gray]="808080"
+map[black]="000000"
+map[red]="FF0000"
+map[maroon]="800000"
+map[yellow]="FFFF00"
+map[olive]="808000"
+map[lime]="00FF00"
+map[green]="008000"
+map[aqua]="00FFFF"
+map[teal]="008080"
+map[blue]="0000FF"
+map[navy]="000080"
+map[fuchsia]="FF00FF"
+map[purple]="800080"
+map[brown]="aa5500" # Based upon wikipedia's article on ANSI.  This is the approximation of VGA brown.
+
 nocsi=0
 if [[ $1 == "no-csi" ]]
 then
@@ -232,15 +253,35 @@ function make_color()
     render_color
 }
 
+function dump_colors()
+{
+    for key in ${!map[@]}
+    do
+        echo $key - ${map[${key}]}
+    done
+
+    exit 0
+}
+
+function named_color()
+{
+    name=${1,,}
+    if [[ ! -v map[$name] ]]
+    then
+        echo "ERROR!" 1>&2 ; exit -1
+    fi
+
+    mapped=${map[$name]}
+    rgb_color ${mapped}
+}
+
 output=""
-if (( ! ${nocsi} ))
-then
-    output="["
-fi
 
 while [[ ! -z $1 ]]
 do
     case $1 in
+        dump-colors) dump_colors ;;
+
         reset) next=0 ;;
         bold) next=1 ;;
         dim) next=2 ;;
@@ -266,7 +307,9 @@ do
         bg:ext:*) make_color 1 ext_color ${1:7} ;;
         bg:[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]) make_color 1 rgb_color ${1:3} ;;
 
-        *) echo "ERROR!" 1>&2 ; exit -1 ;;
+        fg:*) make_color 0 named_color ${1:3} ;;
+        bg:*) make_color 1 named_color ${1:3} ;;
+        *) make_color 0 named_color $1 ;;
     esac
     if [[ ! -z ${output} ]]
     then
@@ -276,11 +319,14 @@ do
     shift 1
 done
 
-if (( ! ${nocsi} ))
+if [[ ! -z ${output} ]] && (( ! ${nocsi} ))
 then
-    output="${output}m"
+    output="[${output}m"
+fi
+if [[ ! -z ${output} ]]
+then
+    printf ${output}
 fi
 
-printf ${output}
 
 exit 0
