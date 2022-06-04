@@ -221,6 +221,15 @@ function rgb_color()
     fi
 
 
+    # Because grey is tricky, I'm going to special case it:
+    if (( 1 && ${red_dec} == ${green_dec} && ${green_dec} == ${blue_dec} && ${red_dec} < 128 && ${red_dec} >= 80 ))
+    then
+        red_1_bit=0
+        green_1_bit=0
+        blue_1_bit=0
+        intensity_1_bit=1
+    fi
+
     # Because brown is tricky, I'm going to special case it:
     if (( ${red_dec} > 128 && ${green_dec} > 80 && ${blue_dec} < 50 ))
     then
