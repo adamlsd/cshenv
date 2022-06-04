@@ -10,6 +10,9 @@
 
 debug=0
 
+boost=128
+intensity_threshold=255
+
 # This is the named color map.  Just add new entries and they'll be supported...
 
 declare -A map
@@ -195,19 +198,31 @@ function rgb_color()
     # We probably don't have to compute all the unused color states.  We only have to compute
     # the color state we're signed up for by CSHENV_TERMINAL_COLORS... but whatever...
 
-    # We round up by 128 points of colour, so that if we're above a certain intensity, we get the top
+    # We round up by a bunch of points of colour, so that if we're above a certain intensity, we get the top
     # bit set.
 
-    red_1_bit=$(( ( ( ${red_dec} + 128 )  >> 8 ) & 1 ))
-    green_1_bit=$(( ( ( ${green_dec} + 128 )  >> 8 ) & 1 ))
-    blue_1_bit=$(( ( ( ${blue_dec} + 128 )  >> 8 ) & 1 ))
+    red_1_bit=$(( ( ( ${red_dec} + ${boost} )  >> 8 ) & 1 ))
+    green_1_bit=$(( ( ( ${green_dec} + ${boost} )  >> 8 ) & 1 ))
+    blue_1_bit=$(( ( ( ${blue_dec} + ${boost} )  >> 8 ) & 1 ))
     intensity_1_bit=0
 
 
     # If we can support an intensity bit, we'll turn that on too...
     # But we're going to stop using bold to set the colour "intense"
     # We'll use the 9x and 10x forms...
-    if (( ${red_dec} >= 192 || ${green_dec} >= 192 || ${blue_dec} >= 192 ))
+    if (( ( ${red_dec} + ${green_dec} + ${blue_dec} ) >= 3 * ${intensity_threshold} )) \
+        || \
+       (( ( ${green_dec} + ${blue_dec} ) >= 2 * ${intensity_threshold} )) \
+        || \
+       (( ( ${red_dec} + ${green_dec} ) >= 2 * ${intensity_threshold} )) \
+        || \
+       (( ( ${red_dec} + ${blue_dec} ) >= 2 * ${intensity_threshold} )) \
+        || \
+       (( ${red_dec} >= ${intensity_threshold} )) \
+        || \
+       (( ${green_dec} >= ${intensity_threshold} )) \
+        || \
+       (( ${blue_dec} >= ${intensity_threshold} ))
     then
         intensity_1_bit=1
     fi
