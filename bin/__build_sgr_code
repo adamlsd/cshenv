@@ -70,7 +70,21 @@ function dump_colors()
 {
     for key in ${!map[@]}
     do
-        printf "%-24s${map[${key}]}  |`$0 reset reverse fg:${key}`sample`$0 reset`|\n" ${key}
+        printf "%-24s${map[${key}]}  |" ${key}
+        printf "`$0 reset reverse fg:${key}`native-sample`$0 reset`|"
+        if [[ ! -v CSHENV_TERMINAL_COLORS ]] || (( ${CSHENV_TERMINAL_COLORS} >= 256 ))
+        then
+            printf "`env CSHENV_TERMINAL_COLORS=256 $0 reset reverse fg:${key}`8-bit sample`$0 reset`|"
+        fi
+        if [[ ! -v CSHENV_TERMINAL_COLORS ]] || (( ${CSHENV_TERMINAL_COLORS} >= 16 ))
+        then
+            printf "`env CSHENV_TERMINAL_COLORS=16 $0 reset reverse fg:${key}`4-bit sample`$0 reset`|"
+        fi
+        if [[ ! -v CSHENV_TERMINAL_COLORS ]] || (( ${CSHENV_TERMINAL_COLORS} >= 8 ))
+        then
+            printf "`env CSHENV_TERMINAL_COLORS=8 $0 reset reverse fg:${key}`3-bit sample`$0 reset`|"
+        fi
+        printf "\n"
     done
 
     exit 0
