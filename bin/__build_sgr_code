@@ -289,7 +289,7 @@ function dump_colors()
 {
     for key in ${!map[@]}
     do
-        echo $key - ${map[${key}]}
+        printf "%-24s${map[${key}]}  |`$0 reset reverse fg:${key}`sample`$0 reset`|\n" ${key}
     done
 
     exit 0
