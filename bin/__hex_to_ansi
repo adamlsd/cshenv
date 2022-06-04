@@ -3,6 +3,13 @@
 # This script will take an HTML compatible hex colour string and turn it into
 # a terminal sequence for true colour and other formats which best approximate
 # its colour value.
+#
+# After that, we can map a few other special named symbols.  The idea is to
+# permit shell variables such as `aaffcc bold italic` to indicate what you
+# want a format to look like.
+#
+# TODO: Update the script to allow for `bg:ff00ff` style descriptions, instead
+# of positional.
 
 debug=0
 
@@ -22,7 +29,14 @@ use_8_bit=0
 use_4_bit=0
 use_3_bit=0
 
-if [ ${1:0:5} == "ansi:" ]
+skip_color=0
+if [ $1 == "none" ]
+then
+    skip_color=1
+elif [ $1 == "reset" ]
+then
+    output=1
+elif [ ${1:0:5} == "ansi:" ]
 then
     selection=${1:5}
     if (( ${selection} > 15 ))
@@ -192,23 +206,58 @@ then
     fi
 fi
 
-command_color=30
-if (( ${use_3_bit} ))
+output=""
+
+if (( ! ${skip_color} ))
 then
-    basecolor=$(( ${command_color} ))
-    printf $(( ${basecolor} + ${legacy_3_bit} ))
-elif (( ${use_4_bit} ))
+    command_color=30
+    if (( ${use_3_bit} ))
+    then
+        basecolor=$(( ${command_color} ))
+        output="$(( ${basecolor} + ${legacy_3_bit} ))"
+    elif (( ${use_4_bit} ))
+    then
+        command_color=$(( ${command_color} + ${intensity_1_bit} * 60 ))
+        basecolor=$(( ${command_color} + ${background}*10 ))
+        output="$(( ${basecolor} + ${legacy_3_bit} ))"
+    elif (( ${use_8_bit} ))
+    then
+        basecolor=$(( 8 + ${command_color} + ${background}*10 ))
+        output="${basecolor};5;${ext_8_bit}"
+    else
+        basecolor=$(( 8 + ${command_color} + ${background}*10 ))
+        output="${basecolor};2;${red_dec};${green_dec};${blue_dec}"
+    fi
+elif (( ${reset_sgr} ))
 then
-    command_color=$(( ${command_color} + ${intensity_1_bit} * 60 ))
-    basecolor=$(( ${command_color} + ${background}*10 ))
-    printf $(( ${basecolor} + ${legacy_3_bit} ))
-elif (( ${use_8_bit} ))
-then
-    basecolor=$(( 8 + ${command_color} + ${background}*10 ))
-    printf "${basecolor};5;${ext_8_bit}"
-else
-    basecolor=$(( 8 + ${command_color} + ${background}*10 ))
-    printf "${basecolor};2;${red_dec};${green_dec};${blue_dec}"
+    output="0"
 fi
+
+shift 1
+while [[ ! -z $1 ]]
+do
+    case $1 in
+        bold) next=1 ;;
+        dim) next=2 ;;
+        italic) next=3 ;;
+        underline|under) next=4 ;;
+        blink) next=5 ;;
+        fastblink) next=6 ;;
+        reverse) next=7 ;;
+        hide|conceal) next=8 ;;
+        strike|strikethrough|strikethru) next=9 ;;
+        doubleunder) next=21 ;;
+        reveal) next=28 ;;
+        *) exit -1 ;;
+    esac
+    if [[ ! -z ${output} ]]
+    then
+        output="${output};"
+    fi
+    output="${output}${next}"
+    shift 1
+done
+
+printf ${output}
 
 exit 0
