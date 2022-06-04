@@ -7,9 +7,6 @@
 # After that, we can map a few other special named symbols.  The idea is to
 # permit shell variables such as `aaffcc bold italic` to indicate what you
 # want a format to look like.
-#
-# TODO: Update the script to allow for `bg:ff00ff` style descriptions, instead
-# of positional.
 
 debug=0
 
