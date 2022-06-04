@@ -19,6 +19,7 @@ declare -A map
 map[white]="FFFFFF"
 map[silver]="C0C0C0"
 map[gray]="808080"
+map[grey]="808080"
 map[black]="000000"
 map[red]="FF0000"
 map[maroon]="800000"
@@ -32,7 +33,34 @@ map[blue]="0000FF"
 map[navy]="000080"
 map[fuchsia]="FF00FF"
 map[purple]="800080"
-map[brown]="aa5500" # Based upon wikipedia's article on ANSI.  This is the approximation of VGA brown.
+
+# Some VGA color names can be promoted:
+map[brown]="aa5500"
+map[cyan]="00aaaa"
+
+
+# The VGA names can be prefixed with "vga-" to explicitly avoid the collisions with HTML names, above...
+# Based upon wikipedia's article on ANSI.  See the table on that page for details.
+map[vga-black]="000000"
+map[vga-red]="aa0000"
+map[vga-green]="00aa00"
+map[vga-brown]="aa5500"
+map[vga-yellow]="aa5500"
+map[vga-blue]="0000aa"
+map[vga-magenta]="aa00aa"
+map[vga-cyan]="aaaa00"
+map[vga-white]="aaaaaa"
+
+map[vga-brightblack]="555555"
+map[vga-grey]="555555"
+map[vga-gray]="555555"
+map[vga-brightred]="ff5555"
+map[vga-brightgreen]="55ff55"
+map[vga-brightyellow]="ffff55"
+map[vga-brightblue]="5555ff"
+map[vga-brightmagenta]="ff55ff"
+map[vga-brightcyan]="55ffff"
+map[vga-brightwhite]="ffffff"
 
 nocsi=0
 if [[ $1 == "no-csi" ]]
