@@ -11,6 +11,14 @@ if( "${curr_path_color}" != "${path_color}" ) then
     set path_color_seq="%{[`__build_sgr_code no-csi reset ${curr_path_color}`m%}"
 endif
 
+if( ! $?curr_host_color ) then
+    set curr_host_color=impossible
+endif
+if( "${curr_host_color}" != "${host_color}" ) then
+    set curr_host_color="${host_color}"
+    set host_color_seq="%{[`__build_sgr_code no-csi reset ${curr_host_color}`m%}"
+endif
+
 if( ! $?curr_date_color ) then
     set curr_date_color=impossible
 endif
@@ -219,7 +227,7 @@ if( ! $?CSHENV_DISABLE_PROMPT_HOST ) then
     if( $?CSHENV_DISABLE_PROMPT_GIT && $?CSHENV_DISABLE_PROMPT_PATH ) then
         set host_prompt_tail=""
     endif
-    set host_prompt_view="${host_prompt}%{${text_color_seq}%}${host_prompt_tail}"
+    set host_prompt_view="${host_color_seq}${host_prompt}%{${text_color_seq}%}${host_prompt_tail}"
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_GIT ) then
     set git_prompt_view="${git_prompt}"
