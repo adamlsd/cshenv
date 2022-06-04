@@ -1,0 +1,214 @@
+#!/usr/bin/env bash
+
+# This script will take an HTML compatible hex colour string and turn it into
+# a terminal sequence for true colour and other formats which best approximate
+# its colour value.
+
+debug=0
+
+if [ ${1} == "fg" ]
+then
+    background=0
+elif [ ${1} == "bg" ]
+then
+    background=1
+else
+    exit -1
+fi
+
+shift 1
+
+use_8_bit=0
+use_4_bit=0
+use_3_bit=0
+
+if [ ${1:0:5} == "ansi:" ]
+then
+    selection=${1:5}
+    if (( ${selection} > 15 ))
+    then
+        exit -1
+    elif (( ${selection} >= 8 ))
+    then
+        use_4_bit=1
+        intensity_1_bit=1
+        legacy_3_bit=$(( ${selection} - 8 ))
+    else
+        use_3_bit=1
+        intensity_1_bit=0
+        legacy_3_bit=$(( ${selection} ))
+    fi
+elif [ ${1:0:4} == "ext:" ]
+then
+    use_8_bit=1
+    selection=${1:4}
+    if (( ${selection} > 255 ))
+    then
+        exit -1
+    else
+        ext_8_bit=${selection}
+    fi
+else # Parse the hex and do the thing...
+
+    # First split off the red, green, and blue components...
+    red_hex=${1:0:2}
+    green_hex=${1:2:2}
+    blue_hex=${1:4:2}
+
+    # Convert to decimal...
+    red_dec=$((16#${red_hex}))
+    green_dec=$((16#${green_hex}))
+    blue_dec=$((16#${blue_hex}))
+
+    if (( ${debug} != 0 ))
+    then
+        echo "Red: $red_dec"
+        echo "Green: $green_dec"
+        echo "Blue: $blue_dec"
+    fi
+
+    # Now compute the rest of the stuff...
+
+    # We probably don't have to compute all the unused color states.  We only have to compute
+    # the color state we're signed up for by CSHENV_TERMINAL_COLORS... but whatever...
+
+    # We round up by 128 points of colour, so that if we're above a certain intensity, we get the top
+    # bit set.
+
+    red_1_bit=$(( ( ( ${red_dec} + 128 )  >> 8 ) & 1 ))
+    green_1_bit=$(( ( ( ${green_dec} + 128 )  >> 8 ) & 1 ))
+    blue_1_bit=$(( ( ( ${blue_dec} + 128 )  >> 8 ) & 1 ))
+    intensity_1_bit=0
+
+
+    # If we can support an intensity bit, we'll turn that on too...
+    # But we're going to stop using bold to set the colour "intense"
+    # We'll use the 9x and 10x forms...
+    if (( ${red_dec} >= 192 || ${green_dec} >= 192 || ${blue_dec} >= 192 ))
+    then
+        intensity_1_bit=1
+    fi
+
+    if (( ${debug} != 0 ))
+    then
+        echo "Red bit: " $red_1_bit
+        echo "Green bit: " $green_1_bit
+        echo "Blue bit: " $blue_1_bit
+        echo "Intensity bit: " $intensity_1_bit
+    fi
+
+    # This lets us combine them for a legacy colour value in the legacy colour space...
+
+    legacy_3_bit=$(( ( ${blue_1_bit} << 2 ) + ( ${green_1_bit} << 1 ) + ( ${red_1_bit} ) ))
+
+    if (( ${debug} != 0 ))
+    then
+        echo "Legacy colour: " ${legacy_3_bit} " Intensity: " ${intensity_1_bit}
+    fi
+
+    # Now compute an extended colour cube placement (216 colours):
+
+    red_ext_val=$(( ${red_dec} * 6 / 256 ))
+    green_ext_val=$(( ${green_dec} * 6 / 256 ))
+    blue_ext_val=$(( ${blue_dec} * 6 / 256 ))
+
+    if (( ${debug} != 0 ))
+    then
+        echo "Red ext: " ${red_ext_val}
+        echo "Green ext: " ${green_ext_val}
+        echo "Blue ext: " ${blue_ext_val}
+    fi
+
+    ext_8_bit=$(( 16 + 36 * ${red_ext_val} + 6 * ${green_ext_val} + ${blue_ext_val} ))
+
+    if (( ${debug} ))
+    then
+        echo "Computed 216 color cube: " ${ext_8_bit}
+    fi
+
+    # Check for precise greyscale, which would replace the above:
+    # (Note that precise greyscale is implied by a user explicitly making ALL of RGB the
+    # same value, thus demanding greyscale, rather than a subtle tinting...)
+
+    if (( ${red_dec} == ${green_dec} && ${green_dec} == ${blue_dec} ))
+    then
+        ext_8_bit=$(( 232 + ${red_dec} * 24 / 256 ))
+    fi
+
+    if (( ${debug} ))
+    then
+        echo "Computed 256 color choice, after applying greyscale scan: " ${ext_8_bit}
+    fi
+
+    # Check for SPECIFIC white and black and grey:
+    # The half-saturation, no saturation, and full saturation values are mapped
+    # to specific points in the legacy set.  (This may be ill-advised as a manually
+    # built reverse video terminal setting through colour mapping may make it so that
+    # we wind up in la-la land.  Perhaps the better way is to find the head and tail
+    # points in the 6x6x6 colour cube.)
+    #
+    # TODO: Only map the head and tail of the colour cube.
+    if (( ${red_dec} == ${green_dec} && ${green_dec} == ${blue_dec} ))
+    then
+        if (( ${red_dec} == 0 ))
+        then
+            ext_8_bit=0
+        elif (( ${red_dec} == 255 ))
+        then
+            ext_8_bit=15
+        elif (( ${red_dec} == 128 ))
+        then
+            ext_8_bit=8
+        elif (( ${red_dec} == 192 ))
+        then
+            ext_8_bit=7
+        fi
+    fi
+
+    if (( ${debug} ))
+    then
+        echo "Computed 256 color choice, after applying white and black scan: " ${ext_8_bit}
+    fi
+
+    # We do NOT check for the base colours precisely.  Since those 16 can be custom mapped by your terminal emulator, you just pass `ansi:0` thru
+    # `ansi:15` to select them by ID.  Or use `ext:0` thru `ext:255` to select a specific extended colour.  Otherwise, we now generate the true-colour
+    # result:
+fi
+
+# Must only be set if terminal colors are reduced...
+if [[ -v CSHENV_TERMINAL_COLORS ]]
+then
+    if (( ${CSHENV_TERMINAL_COLORS} == 256 ))
+    then
+        use_8_bit=1
+    elif (( ${CSHENV_TERMINAL_COLORS} == 16 ))
+    then
+        use_4_bit=1
+    elif (( ${CSHENV_TERMINAL_COLORS} == 8 ))
+    then
+        use_3_bit=1
+    else
+        exit -1
+    fi
+fi
+
+command_color=30
+if (( ${use_3_bit} ))
+then
+    basecolor=$(( ${command_color} ))
+    printf $(( ${basecolor} + ${legacy_3_bit} ))
+elif (( ${use_4_bit} ))
+then
+    command_color=$(( ${command_color} + ${intensity_1_bit} * 60 ))
+    basecolor=$(( ${command_color} + ${background}*10 ))
+    printf $(( ${basecolor} + ${legacy_3_bit} ))
+elif (( ${use_8_bit} ))
+then
+    basecolor=$(( 8 + ${command_color} + ${background}*10 ))
+    printf "${basecolor};5;${ext_8_bit}"
+else
+    basecolor=$(( 8 + ${command_color} + ${background}*10 ))
+    printf "${basecolor};2;${red_dec};${green_dec};${blue_dec}"
+fi
+
+exit 0

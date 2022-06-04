@@ -4,6 +4,7 @@
 
 set csi='['
 
+# Legacy 3-bit ANSI Forms:
 set ansi_bright='1'
 set ansi_dim='0'
 set ansi_color='m'
@@ -34,6 +35,10 @@ set magenta="$csi$ansi_magenta$ansi_color"
 set cyan="$csi$ansi_cyan$ansi_color"
 set white="$csi$ansi_white$ansi_color"
 
+# Bright and Dim rely upon the console's setting of colour intensity paired
+# to boldness intensity.  For better colour choices, it's better to use
+# extended colours or true colours.
+
 
 
 set dim_black="$csi$ansi_dim;$ansi_black$ansi_color"
@@ -54,6 +59,26 @@ set bright_blue="$csi$ansi_bright;$ansi_blue$ansi_color"
 set bright_magenta="$csi$ansi_bright;$ansi_magenta$ansi_color"
 set bright_cyan="$csi$ansi_bright;$ansi_cyan$ansi_color"
 set bright_white="$csi$ansi_bright;$ansi_white$ansi_color"
+
+# Also somewhat legacy are the extended colours... so I'm not implementing them.
+# Instead, I'll use my script which does math on the 6 char hex string you use in
+# colors...
+
+#################################
+# Extended 8-bit colour Support #
+#################################
+
+#######################
+# True colour support #
+#######################
+
+# The idea behind a true colour variable is that you run: `color_from_hex ff0077` and it expands to
+# a proper colour sequence for a 24-bit color.  The shell script which computes these will also attempt to
+# compute a rounded version of your color for use with 8-bit color and a weaker rounded form for use
+# with 3 and 4 bit color.
+
+# You process true colour by evaluating `__make_color_sequence` on the environment variable.
+alias __make_color_sequence ${CSHENV_DIR}/bin/__hex_to_ansi
 
 
 ###########################
