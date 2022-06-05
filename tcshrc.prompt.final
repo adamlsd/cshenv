@@ -45,6 +45,15 @@ if( "${curr_text_color}" != "${text_color}" ) then
     set text_color_seq="[`__build_sgr_code no-csi reset ${curr_text_color}`m"
 endif
 
+if( ! $?curr_brace_color ) then
+    set curr_brace_color=impossible
+endif
+if( "${curr_brace_color}" != "${brace_color}" ) then
+    set curr_brace_color="${brace_color}"
+    set brace_color_seq="%{[`__build_sgr_code no-csi reset ${curr_brace_color}`m%}"
+endif
+
+
 if( ${prompt_hcolor} != 0 ) then
     set last_color = ${reference_colors[${prompt_hcolor}]}
 endif
@@ -236,7 +245,7 @@ if( ! $?CSHENV_DISABLE_PROMPT_PATH ) then
     set path_prompt_view="%{${path_color_seq}%}${path_prompt}%{${sgr_reset}%}"
 endif
 
-set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt_view}%{ %}${time_prompt_view}${align_suffix}${brace_color_seq}\[${prompt_reference_view}${line_prompt_view}${depth_prompt_view}${line_spacer_view}${user_prompt_view}${at_view}${host_prompt_view}${git_prompt_view}${path_prompt_view}${brace_color_seq}\]${end_prompt}%{${text_color_seq}%}"
+set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt_view}%{ %}${time_prompt_view}${align_suffix}${brace_color_seq}\[%{${sgr_reset}%}${prompt_reference_view}${line_prompt_view}${depth_prompt_view}${line_spacer_view}${user_prompt_view}${at_view}${host_prompt_view}${git_prompt_view}${path_prompt_view}${brace_color_seq}\]%{${sgr_reset}%}${end_prompt}%{${text_color_seq}%}"
 
 
 
