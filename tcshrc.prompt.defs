@@ -129,7 +129,7 @@ set line_prompt="${line_color_seq}`tty | sed -e 's;/dev/tty;;' -e 's;/dev/pts/;p
 set user_prompt="%n"
 set host_prompt="${CSHENV_HOSTNAME}"
 set path_prompt="%c02"
-set end_prompt="${prompt_color_seq}%#${command_color_seq} "
+set end_prompt="%#"
 
 alias oldp 'set prompt="$prompt_simple"; set cshenv_user_prompt_override'
 alias newp 'set prompt="$prompt_cool"; set cshenv_user_prompt_override'
