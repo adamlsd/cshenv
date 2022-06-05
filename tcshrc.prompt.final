@@ -2,6 +2,10 @@
 ### Final Prompt Setting ###
 ############################
 
+if( $?CSHENV_DEBUG ) then
+    echo "Setting up dynamic colour loading..."
+endif
+
 # Recompute cached sgr codes from any configuration updates
 if( ! $?curr_path_color ) then
     set curr_path_color=impossible
@@ -68,6 +72,8 @@ if( "${curr_prompt_color}" != "${prompt_color}" ) then
     set curr_prompt_color="${prompt_color}"
     set prompt_color_seq="%{[`__build_sgr_code no-csi reset ${curr_prompt_color}`m%}"
 endif
+
+if( $?CSHENV_DEBUG ) echo "Dynamic color loading processed..."
 
 
 if( ${prompt_hcolor} != 0 ) then
