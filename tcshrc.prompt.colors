@@ -6,7 +6,6 @@
 set date_color="ansi:5"
 set time_color="ansi:13"
 set text_color="reset"
-set oldp_color="${dim}"
 set brace_color="ansi:11"
 set host_color="ansi:12"
 set user_color="ansi:14"
@@ -20,15 +19,11 @@ set command_color="${dim}"
 set color_start="%{"
 set color_end="%}"
 
-set oldp_color_seq="${color_start}${oldp_color}${color_end}"
 set at_color_seq="${color_start}${at_color}${color_end}"
 set line_color_seq="${color_start}${line_color}${color_end}"
 set prompt_color_seq="${color_start}${prompt_color}${color_end}"
 set depth_color_seq="${color_start}${depth_color}${color_end}"
 set command_color_seq="${color_start}${command_color}${color_end}"
-
-
-set oldp_color="${color_start}${dim_white}${color_end}"
 
 ###########################
 # vim:filetype=tcsh

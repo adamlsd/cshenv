@@ -106,7 +106,7 @@ alias precmd 'source ${CSHENV_DIR}/tcshrc.prompt.final'
 
 set promptchars='%#'
 
-set prompt_simple="${oldp_color_seq}[%n@%m: %c]%# "
+set prompt_simple="%{${sgr_reset}%}[%n@%m: %c]%# "
 
 # Screens are almost certainly not a million chars wide.
 # If they are... oh well, that's a really weird one.
