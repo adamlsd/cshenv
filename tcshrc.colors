@@ -77,9 +77,6 @@ set bright_white="$csi$ansi_bright;$ansi_white$ansi_color"
 # compute a rounded version of your color for use with 8-bit color and a weaker rounded form for use
 # with 3 and 4 bit color.
 
-# You process true colour by evaluating `__make_color_sequence` on the environment variable.
-alias __make_color_sequence ${CSHENV_DIR}/bin/__hex_to_ansi
-
 
 ###########################
 # vim:filetype=tcsh
