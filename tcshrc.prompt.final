@@ -53,6 +53,14 @@ if( "${curr_brace_color}" != "${brace_color}" ) then
     set brace_color_seq="%{[`__build_sgr_code no-csi reset ${curr_brace_color}`m%}"
 endif
 
+if( ! $?curr_user_color ) then
+    set curr_user_color=impossible
+endif
+if( "${curr_user_color}" != "${user_color}" ) then
+    set curr_user_color="${user_color}"
+    set user_color_seq="%{[`__build_sgr_code no-csi reset ${curr_user_color}`m%}"
+endif
+
 
 if( ${prompt_hcolor} != 0 ) then
     set last_color = ${reference_colors[${prompt_hcolor}]}
@@ -199,7 +207,7 @@ endif
 set prompt_reference_view=""
 set line_prompt_view=""
 set depth_prompt_view=""
-set user_prompt_view
+set user_prompt_view=""
 set at_view=""
 set host_prompt_view=""
 set git_prompt_view=""
@@ -226,7 +234,7 @@ if( ! $?CSHENV_DISABLE_PROMPT_NESTING ) then
     endif
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_USER ) then
-    set user_prompt_view="${user_prompt}"
+    set user_prompt_view="${user_color_seq}${user_prompt}%{${sgr_reset}%}"
     if( ! $?CSHENV_DISABLE_PROMPT_HOST ) then
         set at_view="${at_color_seq}@"
     endif
