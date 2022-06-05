@@ -122,7 +122,7 @@ if( $?CSHENV_DEBUG ) then
 endif
 
 
-set depth_prompt="${depth_color_seq}(${shlvl})"
+set depth_prompt="(${shlvl})"
 
 #we "convert" pts/$number entries to ttypK entries?
 set line_prompt="`tty | sed -e 's;/dev/tty;;' -e 's;/dev/pts/;p/;' -e 's;/dev/;;' -e 's/not a tty/${unknown_tty}/'`"

@@ -7,6 +7,14 @@ if( $?CSHENV_DEBUG ) then
 endif
 
 # Recompute cached sgr codes from any configuration updates
+if( ! $?curr_depth_color ) then
+    set curr_depth_color=impossible
+endif
+if( "${curr_depth_color}" != "${depth_color}" ) then
+    set curr_depth_color="${depth_color}"
+    set depth_color_seq="%{[`__build_sgr_code no-csi reset ${curr_depth_color}`m%}"
+endif
+
 if( ! $?curr_line_color ) then
     set curr_line_color=impossible
 endif
@@ -248,7 +256,7 @@ if( ! $?CSHENV_DISABLE_PROMPT_NESTING ) then
     if( ! $?CSHENV_DISABLE_PROMPT_TTY ) then
         set depth_prompt_spacing=" "
     endif
-    set depth_prompt_view="${depth_prompt_spacing}${depth_prompt}"
+    set depth_prompt_view="${depth_color_seq}${depth_prompt_spacing}${depth_prompt}"
     if( $?CSHENV_HIDE_SHELL_LEVEL_AT_ONE ) then
         if( ${shlvl} == 1 ) then
             set depth_prompt_view=""

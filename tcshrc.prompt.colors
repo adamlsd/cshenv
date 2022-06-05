@@ -13,13 +13,12 @@ set at_color="${dim_cyan}"
 set path_color="ansi:10"
 set line_color="ansi:1"
 set prompt_color="reset"
-set depth_color="${dim_yellow}"
+set depth_color="ansi:3"
 
 set color_start="%{"
 set color_end="%}"
 
 set at_color_seq="${color_start}${at_color}${color_end}"
-set depth_color_seq="${color_start}${depth_color}${color_end}"
 
 ###########################
 # vim:filetype=tcsh
