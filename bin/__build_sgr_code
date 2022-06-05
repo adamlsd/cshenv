@@ -352,10 +352,8 @@ function named_color()
     rgb_color ${mapped}
 }
 
-output=""
-
-while [[ ! -z $1 ]]
-do
+function build_sgr_code()
+{
     case $1 in
         dump-colors) dump_colors ;;
 
@@ -399,6 +397,12 @@ do
         output="${output};"
     fi
     output="${output}${next}"
+}
+
+output=""
+while [[ ! -z $1 ]]
+do
+    build_sgr_code $1
     shift 1
 done
 
