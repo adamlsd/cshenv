@@ -116,7 +116,7 @@ function setup_color_depth()
         then
             use_3_bit=1
         else
-            exit -1
+            echo "ERROR!" 1>&2 ; exit -1
         fi
     fi
 }
@@ -149,7 +149,7 @@ function ansi_color()
 {
     if (( ${1} > 15 ))
     then
-        exit -1
+        echo "ERROR!" 1>&2 ; exit -1
     elif (( ${1} >= 8 ))
     then
         use_4_bit=1
@@ -165,10 +165,9 @@ function ansi_color()
 function ext_color()
 {
     use_8_bit=1
-    selection=${1:4}
     if (( ${1} > 255 ))
     then
-        exit -1
+        echo "ERROR!" 1>&2 ; exit -1
     else
         ext_8_bit=${1}
     fi
