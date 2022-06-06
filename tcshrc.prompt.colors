@@ -2,6 +2,8 @@
 ### PROMPT COLOURS ###
 ######################
 
+# Note - It is not recommended to edit this.  These are the default values.
+# Edit your `.user` or other config files to override these.
 
 set date_color="ansi:5"
 set time_color="ansi:13"
@@ -9,16 +11,16 @@ set text_color="reset"
 set brace_color="ansi:11"
 set host_color="ansi:12"
 set user_color="ansi:14"
-set at_color="${dim_cyan}"
+set at_color="ansi:6"
 set path_color="ansi:10"
 set line_color="ansi:1"
 set prompt_color="reset"
 set depth_color="ansi:3"
+set percent_color="ansi:6"
+#${csi}3;4;38;2;255;192;192;58;2;255;255;255m%}
+set branch_color="underline italic ffc0c0 ul:white"
 
-set color_start="%{"
-set color_end="%}"
-
-set at_color_seq="${color_start}${at_color}${color_end}"
+alias load_default_prompt_colors source ${CSHENV_DIR}/tcshrc.prompt.colors
 
 ###########################
 # vim:filetype=tcsh

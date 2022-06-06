@@ -7,6 +7,31 @@ if( $?CSHENV_DEBUG ) then
 endif
 
 # Recompute cached sgr codes from any configuration updates
+if( ! $?curr_branch_color ) then
+    set curr_branch_color=impossible
+endif
+if( "${curr_branch_color}" != "${branch_color}" ) then
+    set curr_branch_color="${branch_color}"
+    set branch_color_seq="%{[`__build_sgr_code no-csi reset ${curr_branch_color}`m"
+endif
+
+
+if( ! $?curr_percent_color ) then
+    set curr_percent_color=impossible
+endif
+if( "${curr_percent_color}" != "${percent_color}" ) then
+    set curr_percent_color="${percent_color}"
+    set percent_color_seq="[`__build_sgr_code no-csi reset ${curr_percent_color}`m"
+endif
+
+if( ! $?curr_at_color ) then
+    set curr_at_color=impossible
+endif
+if( "${curr_at_color}" != "${at_color}" ) then
+    set curr_at_color="${at_color}"
+    set at_color_seq="%{[`__build_sgr_code no-csi reset ${curr_at_color}`m%}"
+endif
+
 if( ! $?curr_depth_color ) then
     set curr_depth_color=impossible
 endif
@@ -202,7 +227,7 @@ if( $?CSHENV_SHOW_BATTERY_LEVEL ) then
 
     #set battery_prompt="%{${battery_color}%}%{${battery_level}${at_color}\%%}%{${dim}%} "
     set battery_prefix="%{${csi}m${csi}28D%}"
-    set battery_prompt="%{${csi}38;2;128;128;255;3mBattery Level:${dim} ${battery_color}${battery_level}${at_color}\%${dim}         %}"
+    set battery_prompt="%{${csi}38;2;128;128;255;3mBattery Level:${sgr_reset} ${battery_color}${battery_level}${percent_color_seq}%${sgr_reset}         %}"
 else
     set battery_prefix=""
     set battery_prompt=""
@@ -226,7 +251,7 @@ if( 0 == ${__res} ) then
         # I could always fallback to this one... (keep padded spaces... for alignment)
         set branch_symbol=`printf '\u2387\ \ \ '`
 
-        set git_prompt="%{${csi}0;60m%}(${branch_symbol} %{${csi}3;4;38;2;255;192;192;58;2;255;255;255;68;2;255;255;255m%}${git_branch}%{${csi}m%}) "
+        set git_prompt="%{${sgr_reset}%}(${branch_symbol} %{${branch_color_seq}%}${git_branch}%{${sgr_reset}%}) "
         #set git_prompt="%{${csi}10D${csi}2D(xyz${git_branch})${csi}m%%}"
         #set git_prompt="%{${csi}0;35m${csi}50D${git_branch}     %}"
     endif
