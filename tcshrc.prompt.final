@@ -2,6 +2,16 @@
 ### Final Prompt Setting ###
 ############################
 
+#if( $?CSHENV_DEBUG ) then
+#    echo "Loading prompt session information."
+#endif
+#if( $?CSHENV_SESSION_PROFILE ) then
+#    safe_source ${CSHENV_DIR}/tcshrc.session.prompt.${CSHENV_SESSION_PROFILE}
+#endif
+#if( $?CSHENV_DEBUG ) then
+#    echo "Loaded prompt session information."
+#endif
+
 if( $?CSHENV_DEBUG ) then
     echo "Setting up dynamic colour loading..."
 endif
