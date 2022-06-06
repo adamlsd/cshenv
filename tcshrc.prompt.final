@@ -1,6 +1,122 @@
 ############################
 ### Final Prompt Setting ###
 ############################
+
+if( $?CSHENV_DEBUG ) then
+    echo "Setting up dynamic colour loading..."
+endif
+
+# Recompute cached sgr codes from any configuration updates
+if( ! $?curr_branch_color ) then
+    set curr_branch_color=impossible
+endif
+if( "${curr_branch_color}" != "${branch_color}" ) then
+    set curr_branch_color="${branch_color}"
+    set branch_color_seq="%{[`__build_sgr_code no-csi reset ${curr_branch_color}`m"
+endif
+
+
+if( ! $?curr_percent_color ) then
+    set curr_percent_color=impossible
+endif
+if( "${curr_percent_color}" != "${percent_color}" ) then
+    set curr_percent_color="${percent_color}"
+    set percent_color_seq="[`__build_sgr_code no-csi reset ${curr_percent_color}`m"
+endif
+
+if( ! $?curr_at_color ) then
+    set curr_at_color=impossible
+endif
+if( "${curr_at_color}" != "${at_color}" ) then
+    set curr_at_color="${at_color}"
+    set at_color_seq="%{[`__build_sgr_code no-csi reset ${curr_at_color}`m%}"
+endif
+
+if( ! $?curr_depth_color ) then
+    set curr_depth_color=impossible
+endif
+if( "${curr_depth_color}" != "${depth_color}" ) then
+    set curr_depth_color="${depth_color}"
+    set depth_color_seq="%{[`__build_sgr_code no-csi reset ${curr_depth_color}`m%}"
+endif
+
+if( ! $?curr_line_color ) then
+    set curr_line_color=impossible
+endif
+if( "${curr_line_color}" != "${line_color}" ) then
+    set curr_line_color="${line_color}"
+    set line_color_seq="%{[`__build_sgr_code no-csi reset ${curr_line_color}`m%}"
+endif
+
+if( ! $?curr_path_color ) then
+    set curr_path_color=impossible
+endif
+if( "${curr_path_color}" != "${path_color}" ) then
+    set curr_path_color="${path_color}"
+    set path_color_seq="%{[`__build_sgr_code no-csi reset ${curr_path_color}`m%}"
+endif
+
+if( ! $?curr_host_color ) then
+    set curr_host_color=impossible
+endif
+if( "${curr_host_color}" != "${host_color}" ) then
+    set curr_host_color="${host_color}"
+    set host_color_seq="%{[`__build_sgr_code no-csi reset ${curr_host_color}`m%}"
+endif
+
+if( ! $?curr_date_color ) then
+    set curr_date_color=impossible
+endif
+if( "${curr_date_color}" != "${date_color}" ) then
+    set curr_date_color="${date_color}"
+    set date_color_seq="[`__build_sgr_code no-csi reset ${curr_date_color}`m"
+    set date_prompt_view="%{${date_color_seq}%}${date_prompt}%{${sgr_reset}%}"
+endif
+
+if( ! $?curr_time_color ) then
+    set curr_time_color=impossible
+endif
+if( "${curr_time_color}" != "${time_color}" ) then
+    set curr_time_color="${time_color}"
+    set time_color_seq="[`__build_sgr_code no-csi reset ${curr_time_color}`m"
+    set time_prompt_view="%{${time_color_seq}%}${time_prompt}%{${sgr_reset}%}"
+endif
+
+if( ! $?curr_text_color ) then
+    set curr_text_color=impossible
+endif
+if( "${curr_text_color}" != "${text_color}" ) then
+    set curr_text_color="${text_color}"
+    set text_color_seq="[`__build_sgr_code no-csi reset ${curr_text_color}`m"
+endif
+
+if( ! $?curr_brace_color ) then
+    set curr_brace_color=impossible
+endif
+if( "${curr_brace_color}" != "${brace_color}" ) then
+    set curr_brace_color="${brace_color}"
+    set brace_color_seq="%{[`__build_sgr_code no-csi reset ${curr_brace_color}`m%}"
+endif
+
+if( ! $?curr_user_color ) then
+    set curr_user_color=impossible
+endif
+if( "${curr_user_color}" != "${user_color}" ) then
+    set curr_user_color="${user_color}"
+    set user_color_seq="%{[`__build_sgr_code no-csi reset ${curr_user_color}`m%}"
+endif
+
+if( ! $?curr_prompt_color ) then
+    set curr_prompt_color=impossible
+endif
+if( "${curr_prompt_color}" != "${prompt_color}" ) then
+    set curr_prompt_color="${prompt_color}"
+    set prompt_color_seq="%{[`__build_sgr_code no-csi reset ${curr_prompt_color}`m%}"
+endif
+
+if( $?CSHENV_DEBUG ) echo "Dynamic color loading processed..."
+
+
 if( ${prompt_hcolor} != 0 ) then
     set last_color = ${reference_colors[${prompt_hcolor}]}
 endif
@@ -16,6 +132,7 @@ set low_battery_level      = 20
 set weak_battery_level     = 33
 set medium_battery_level   = 50
 set strong_battery_level   = 75
+
 
 
 while( ${prompt_hcolor} == 0 )
@@ -110,7 +227,7 @@ if( $?CSHENV_SHOW_BATTERY_LEVEL ) then
 
     #set battery_prompt="%{${battery_color}%}%{${battery_level}${at_color}\%%}%{${dim}%} "
     set battery_prefix="%{${csi}m${csi}28D%}"
-    set battery_prompt="%{${csi}38;2;128;128;255;3mBattery Level:${dim} ${battery_color}${battery_level}${at_color}\%${dim}         %}"
+    set battery_prompt="%{${csi}38;2;128;128;255;3mBattery Level:${sgr_reset} ${battery_color}${battery_level}${percent_color_seq}%${sgr_reset}         %}"
 else
     set battery_prefix=""
     set battery_prompt=""
@@ -134,7 +251,7 @@ if( 0 == ${__res} ) then
         # I could always fallback to this one... (keep padded spaces... for alignment)
         set branch_symbol=`printf '\u2387\ \ \ '`
 
-        set git_prompt="%{${csi}0;60m%}(${branch_symbol} %{${csi}3;4;38;2;255;192;192;58;2;255;255;255;68;2;255;255;255m%}${git_branch}%{${csi}m%}) "
+        set git_prompt="%{${sgr_reset}%}(${branch_symbol} %{${branch_color_seq}%}${git_branch}%{${sgr_reset}%}) "
         #set git_prompt="%{${csi}10D${csi}2D(xyz${git_branch})${csi}m%%}"
         #set git_prompt="%{${csi}0;35m${csi}50D${git_branch}     %}"
     endif
@@ -145,7 +262,7 @@ endif
 set prompt_reference_view=""
 set line_prompt_view=""
 set depth_prompt_view=""
-set user_prompt_view
+set user_prompt_view=""
 set at_view=""
 set host_prompt_view=""
 set git_prompt_view=""
@@ -156,15 +273,15 @@ if( ! $?CSHENV_DISABLE_PROMPT_SIGIL ) then
     set prompt_reference_view="${prompt_reference}"
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_TTY ) then
-    set line_prompt_view="${line_prompt}"
-    set line_spacer_view="${text_color_seq}\- "
+    set line_prompt_view="${line_color_seq}${line_prompt}"
+    set line_spacer_view="%{${text_color_seq}%}\- "
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_NESTING ) then
     set depth_prompt_spacing=""
     if( ! $?CSHENV_DISABLE_PROMPT_TTY ) then
         set depth_prompt_spacing=" "
     endif
-    set depth_prompt_view="${depth_prompt_spacing}${depth_prompt}"
+    set depth_prompt_view="${depth_color_seq}${depth_prompt_spacing}${depth_prompt}"
     if( $?CSHENV_HIDE_SHELL_LEVEL_AT_ONE ) then
         if( ${shlvl} == 1 ) then
             set depth_prompt_view=""
@@ -172,7 +289,7 @@ if( ! $?CSHENV_DISABLE_PROMPT_NESTING ) then
     endif
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_USER ) then
-    set user_prompt_view="${user_prompt}"
+    set user_prompt_view="${user_color_seq}${user_prompt}%{${sgr_reset}%}"
     if( ! $?CSHENV_DISABLE_PROMPT_HOST ) then
         set at_view="${at_color_seq}@"
     endif
@@ -182,16 +299,16 @@ if( ! $?CSHENV_DISABLE_PROMPT_HOST ) then
     if( $?CSHENV_DISABLE_PROMPT_GIT && $?CSHENV_DISABLE_PROMPT_PATH ) then
         set host_prompt_tail=""
     endif
-    set host_prompt_view="${host_prompt}${text_color_seq}${host_prompt_tail}"
+    set host_prompt_view="${host_color_seq}${host_prompt}%{${text_color_seq}%}${host_prompt_tail}"
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_GIT ) then
     set git_prompt_view="${git_prompt}"
 endif
 if( ! $?CSHENV_DISABLE_PROMPT_PATH ) then
-    set path_prompt_view="${path_prompt}"
+    set path_prompt_view="%{${path_color_seq}%}${path_prompt}%{${sgr_reset}%}"
 endif
 
-set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt}${align_suffix}${brace_color_seq}\[${prompt_reference_view}${line_prompt_view}${depth_prompt_view}${line_spacer_view}${user_prompt_view}${at_view}${host_prompt_view}${git_prompt_view}${path_prompt_view}${brace_color_seq}\]${end_prompt}"
+set prompt_cool="%{\n%}${align_prefix}${battery_prefix}${battery_prompt}${date_prompt_view}%{ %}${time_prompt_view}${align_suffix}${brace_color_seq}\[%{${sgr_reset}%}${prompt_reference_view}${line_prompt_view}${depth_prompt_view}${line_spacer_view}${user_prompt_view}${at_view}${host_prompt_view}${git_prompt_view}${path_prompt_view}${brace_color_seq}\]%{${sgr_reset}%}${prompt_color_seq}${end_prompt}%{${sgr_reset}${text_color_seq}%} "
 
 
 

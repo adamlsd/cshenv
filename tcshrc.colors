@@ -72,11 +72,12 @@ set bright_white="$csi$ansi_bright;$ansi_white$ansi_color"
 # True colour support #
 #######################
 
-# The idea behind a true colour variable is that you run: `color_from_hex ff0077` and it expands to
+# The idea behind a true colour variable is that you run: `__build_sgr_code ff0077` and it expands to
 # a proper colour sequence for a 24-bit color.  The shell script which computes these will also attempt to
-# compute a rounded version of your color for use with 8-bit color and a weaker rounded form for use
-# with 3 and 4 bit color.
+# compute a rounded version of your color for use with 8-bit colour and a weaker rounded form for use
+# with 3 and 4 bit colour.  It does this based upon your terminal colour depth.  
 
+set sgr_reset="[`__build_sgr_code no-csi reset`m"
 
 ###########################
 # vim:filetype=tcsh

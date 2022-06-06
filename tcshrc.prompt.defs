@@ -19,6 +19,7 @@ if( ! $?unknown_tty ) then
 endif
 
 
+
 # R G Y B C M
 set reference_colors=( ${csi}91m ${csi}92m ${csi}93m ${csi}38\;5\;33m ${csi}95m ${csi}96m )
 
@@ -105,16 +106,15 @@ alias precmd 'source ${CSHENV_DIR}/tcshrc.prompt.final'
 
 set promptchars='%#'
 
-set prompt_simple="${oldp_color_seq}[%n@%m: %c]%# "
+set prompt_simple="%{${sgr_reset}%}[%n@%m: %c]%# "
 
 # Screens are almost certainly not a million chars wide.
 # If they are... oh well, that's a really weird one.
 set align_prefix="%{${csi}A${csi}1000000G${csi}18D%}"
 set align_suffix="%{${csi}G${csi}1B%}"
 #set screen_return="%{8%}"
-set date_prompt_core="${date_color_seq}%{%Y-%W-%D %}${time_color_seq}%{%P%}"
-set date_prompt_left="${date_prompt_core}"
-set date_prompt="${date_prompt_core}"
+set date_prompt="%{%Y-%W-%D%}"
+set time_prompt="%{%P%}"
 #unset edit
 
 if( $?CSHENV_DEBUG ) then
@@ -122,14 +122,15 @@ if( $?CSHENV_DEBUG ) then
 endif
 
 
-set depth_prompt="${depth_color_seq}(${shlvl})"
+set depth_prompt="(${shlvl})"
 
 #we "convert" pts/$number entries to ttypK entries?
-set line_prompt="${line_color_seq}`tty | sed -e 's;/dev/tty;;' -e 's;/dev/pts/;p/;' -e 's;/dev/;;' -e 's/not a tty/${unknown_tty}/'`"
-set user_prompt="${name_color_seq}%n"
-set host_prompt="${host_color_seq}${CSHENV_HOSTNAME}"
-set path_prompt="${path_color_seq}%c02"
-set end_prompt="${prompt_color_seq}%#${command_color_seq} "
+set line_prompt="`tty | sed -e 's;/dev/tty;;' -e 's;/dev/pts/;p/;' -e 's;/dev/;;' -e 's/not a tty/${unknown_tty}/'`"
+#set line_prompt="line"
+set user_prompt="%n"
+set host_prompt="${CSHENV_HOSTNAME}"
+set path_prompt="%c02"
+set end_prompt="%#"
 
 alias oldp 'set prompt="$prompt_simple"; set cshenv_user_prompt_override'
 alias newp 'set prompt="$prompt_cool"; set cshenv_user_prompt_override'

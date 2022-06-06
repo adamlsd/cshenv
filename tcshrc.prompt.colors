@@ -2,40 +2,25 @@
 ### PROMPT COLOURS ###
 ######################
 
+# Note - It is not recommended to edit this.  These are the default values.
+# Edit your `.user` or other config files to override these.
 
-set date_color="${dim_magenta}"
-set time_color="${bright_magenta}"
-set text_color="${bright_white}"
-set oldp_color="${dim}"
-set brace_color="${bright_yellow}"
-set host_color="${bright_blue}"
-set name_color="${bright_cyan}"
-set at_color="${dim_cyan}"
-set path_color="${bright_green}"
-set line_color="${dim_red}"
-set prompt_color="${dim}"
-set depth_color="${dim_yellow}"
-set command_color="${dim}"
+set date_color="ansi:5"
+set time_color="ansi:13"
+set text_color="reset"
+set brace_color="ansi:11"
+set host_color="ansi:12"
+set user_color="ansi:14"
+set at_color="ansi:6"
+set path_color="ansi:10"
+set line_color="ansi:1"
+set prompt_color="reset"
+set depth_color="ansi:3"
+set percent_color="ansi:6"
+#${csi}3;4;38;2;255;192;192;58;2;255;255;255m%}
+set branch_color="underline italic ffc0c0 ul:white"
 
-set color_start="%{"
-set color_end="%}"
-
-set date_color_seq="${color_start}${date_color}${color_end}"
-set time_color_seq="${color_start}${time_color}${color_end}"
-set text_color_seq="${color_start}${text_color}${color_end}"
-set oldp_color_seq="${color_start}${oldp_color}${color_end}"
-set brace_color_seq="${color_start}${brace_color}${color_end}"
-set host_color_seq="${color_start}${host_color}${color_end}"
-set name_color_seq="${color_start}${name_color}${color_end}"
-set at_color_seq="${color_start}${at_color}${color_end}"
-set path_color_seq="${color_start}${path_color}${color_end}"
-set line_color_seq="${color_start}${line_color}${color_end}"
-set prompt_color_seq="${color_start}${prompt_color}${color_end}"
-set depth_color_seq="${color_start}${depth_color}${color_end}"
-set command_color_seq="${color_start}${command_color}${color_end}"
-
-
-set oldp_color="${color_start}${dim_white}${color_end}"
+alias load_default_prompt_colors source ${CSHENV_DIR}/tcshrc.prompt.colors
 
 ###########################
 # vim:filetype=tcsh
