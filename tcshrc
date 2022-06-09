@@ -52,11 +52,25 @@ if( $?CSHENV_HISTORY_SIZE ) then
 	set history=${CSHENV_HISTORY_SIZE}
 endif
 
-# this safe_source alias is incredibly delicate.  It drives the whole
+if( $?CSHENV_DEBUG ) echo "Setting up optional sourcing mechanism."
+# This safe_source alias is incredibly delicate.  It drives the whole
 # optional sourcing mechanism -- DO NOT MESS WITH IT!
 alias safe_source 'eval "if ( -f \!:1 ) then \\
 source \!:1 \\
 endif"'
+
+if( $?CSHENV_DEBUG ) echo "Setting up optional session sourcing mechanism."
+# These reload_session and `__load_session` aliases ar incredibly delicate.  They drives
+# the whole optional session mechanism -- DO NOT MESS WITH IT LIGHTLY!
+alias __load_session safe_source tcshrc.session.\$CSHENV_SESSION_PROFILE
+if( $?CSHENV_DEBUG ) echo "Setting up optional session sourcing mechanism wrapper."
+alias reload_session 'eval "if ( \$?CSHENV_SESSION_PROFILE ) then \\
+__load_session \\
+endif"'
+
+if( $?CSHENV_DEBUG ) echo "Setting change session alias..."
+alias change_session setenv CSHENV_SESSION_PROFILE \!:1\;__load_session
+
 
 if( $?CSHENV_DEBUG ) then
 	echo "TCSH safe-source alias constructed..."
@@ -122,6 +136,11 @@ endif
 source ${CSHENV_DIR}/tcshrc.prompt
 
 safe_source ${CSHENV_DIR}/tcshrc.user
+
+if( $?CSHENV_DEBUG ) echo "Loading session, if one is set"
+reload_session
+if( $?CSHENV_DEBUG ) echo "Session loading done"
+
 
 ###########################
 # vim: ft=tcsh
