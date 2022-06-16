@@ -181,6 +181,12 @@ syn match cxxStlDangerousFunction "\(\.\)\@<=release()"
 
 syn match cxxTestingCall "\<test\.expect\>"
 syn match cxxTestingCall "\<test\.demand\>"
+syn match cxxTestingCall "\<test\.expect_eq\>"
+syn match cxxTestingCall "\<test\.demand_eq\>"
+syn match cxxTestingCall "\<test\.expect_ne\>"
+syn match cxxTestingCall "\<test\.demand_ne\>"
+syn match cxxTestingCall "\<test\.expect_lt\>"
+syn match cxxTestingCall "\<test\.demand_lt\>"
 
 
 " Define the default highlighting.
