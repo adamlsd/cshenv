@@ -46,10 +46,11 @@ set referencechars_raw="${referencechars_raw} 2618"
 #set referencechars_raw="${referencechars_raw} 2669 266a 266b 266c"
 
 # One Single music note,
+#set referencechars_raw="${referencechars_raw} 2669"
 #set referencechars_raw="${referencechars_raw} 266a"
 # One double music note
 #set referencechars_raw="${referencechars_raw} 266b"
-set referencechars_raw="${referencechars_raw} 266c"
+#set referencechars_raw="${referencechars_raw} 266c"
 
 # Dice
 #set referencechars_raw="${referencechars_raw} 2680 2681 2682 2683 2684 2685"
@@ -61,7 +62,7 @@ set referencechars_raw="${referencechars_raw} 2660 2663 2665 2666"
 set referencechars_raw="${referencechars_raw} 263f 2640 2641 2642"
 
 # Outer Planet symbols (Jupiter, Saturn, Uranus, Neptune, Pluto)
-#set referencechars_raw="${referencechars_raw} 2643 2644 2645 2646 2647"
+set referencechars_raw="${referencechars_raw} 2643 2644 2645 2646 2647"
 
 # Hollow Chess pieces
 #set referencechars_raw="${referencechars_raw} 2654 2655 2656 2657 2658 2659"
@@ -72,8 +73,18 @@ set referencechars_raw="${referencechars_raw} 263f 2640 2641 2642"
 # Roman Numerals
 #set referencechars_raw="${referencechars_raw} 2160 2161 2162 2163 2164 2165 2166 2167 2168 2169 216a 216b"
 
-# More symbols -- Recycling, Biohazard, Peace Sign, Atom, swords, flag, worktools, scales, fleur-de-lis, star, Face
+### More symbols -- Recycling, Biohazard, Peace Sign, Atom, swords, flag, worktools, scales, fleur-de-lis, star, Face
 #set referencechars_raw="${referencechars_raw} 267B 2623 262e 269b 2694 2692 2696 269a 2605 263b"
+# Recycle
+set referencechars_raw="${referencechars_raw} 267B"
+# Biohazard
+set referencechars_raw="${referencechars_raw} 2623"
+# Peace Sign
+set referencechars_raw="${referencechars_raw} 262e"
+# Atom
+#set referencechars_raw="${referencechars_raw} 269b"
+# Face
+#set referencechars_raw="${referencechars_raw} 263b"
 
 # Wider symbols -- Cedeuceus, Anchor,
 #set referencechars_raw="${referencechars_raw} 2624 2693"
