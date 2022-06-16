@@ -15,7 +15,7 @@ endif
 let g:colors_name="adam-light"
 
 "hi Normal		ctermfg=240	ctermbg=230  start=<esc>[0m stop=<esc>[0m
-hi Normal		ctermfg=243	ctermbg=15  guifg=#444444 guibg=#ffffff start=<esc>[0m stop=<esc>[0m
+hi Normal		ctermfg=238	ctermbg=15  guifg=#444444 guibg=#ffffff start=<esc>[0m stop=<esc>[0m
 "hi NonText		ctermfg=yellow ctermbg=grey
 "hi comment		ctermfg=green
 hi constant		ctermfg=magenta term=none start=<esc>[95m stop=<esc>[0m
@@ -88,7 +88,7 @@ hi cIf0			ctermfg=gray term=none start=<esc>[38;2;100;100;100m stop=<esc>[0m
 "hi StatusUnwrap ctermfg=236 ctermbg=none cterm=none
 hi StatusUnwrap ctermfg=58 ctermbg=none cterm=none
 hi MetaFunction ctermfg=177 start=<esc>[36m stop=<esc>[0m
-hi Comment ctermfg=lightgrey cterm=none term=NONE term=none start=<esc>[38;5;242m stop=<esc>[0m
+hi Comment ctermfg=250 cterm=none term=NONE term=none start=<esc>[38;5;242m stop=<esc>[0m
 hi Identifier ctermfg=cyan cterm=none term=none start=<esc>[96m stop=<esc>[0m
 hi Object ctermfg=darkred term=none start=<esc>[91m stop=<esc>[0m
 hi Exception ctermfg=brown term=none start=<esc>[38;5;130m stop=<esc>[0m
