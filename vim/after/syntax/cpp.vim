@@ -187,6 +187,12 @@ syn match cxxTestingCall "\<test\.expect_ne\>"
 syn match cxxTestingCall "\<test\.demand_ne\>"
 syn match cxxTestingCall "\<test\.expect_lt\>"
 syn match cxxTestingCall "\<test\.demand_lt\>"
+syn match cxxTestingCall "\<test\.expect_gt\>"
+syn match cxxTestingCall "\<test\.demand_gt\>"
+syn match cxxTestingCall "\<test\.expect_le\>"
+syn match cxxTestingCall "\<test\.demand_le\>"
+syn match cxxTestingCall "\<test\.expect_ge\>"
+syn match cxxTestingCall "\<test\.demand_ge\>"
 
 
 " Define the default highlighting.
