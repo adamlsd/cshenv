@@ -8,7 +8,7 @@ if exists("b:current_syntax")
   unlet b:current_syntax
 endif
 
-syn match blueCommentStar "^[	 ]*\*" containedin=doxygenFixedWidth,cBlock,cParen,cppParen
+syn match blueCommentStar "^[	 ]*\*" contained containedin=doxygenFixedWidth ",cBlock,cParen,cppParen
 
 " Make all C++ code in a doxygen block look kinda like natural C++
 "syn match doxygenSpecialMultilineDesc "`"
