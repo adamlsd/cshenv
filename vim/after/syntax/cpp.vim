@@ -69,7 +69,7 @@ syn keyword cxxStlTypes containedin=cxxStlLibrary exception_ptr contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary iostream istream ostream fstream ifstream ofstream contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary stringstream istringstream ostringstream contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary iostream basic_string vector deque pair queue priority_queue stack contained
-syn keyword cxxStlTypes containedin=cxxStlLibrary list forward_list
+syn keyword cxxStlTypes containedin=cxxStlLibrary list forward_list contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary map multimap set multiset contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary istream_iterator ostream_iterator contained
 syn keyword cxxStlTypes containedin=cxxStlLibrary iterator contained
@@ -112,7 +112,7 @@ syn keyword cxxStlFunctions containedin=cxxStlLibrary set_difference set_symmetr
 syn keyword cxxStlFunctions containedin=cxxStlLibrary make_heap is_heap sort_heap push_heap pop_heap contained
 syn keyword cxxStlFunctions containedin=cxxStlLibrary min max min_element max_element contained
 
-syn keyword cxxStlFunctions containedin=cxxStlLibrary getline contained
+syn keyword cxxStlFunctions contained containedin=cxxStlLibrary getline
 
 " RTTI
 syn keyword cxxStlKeywords contained containedin=cxxStlLibrary type_info type_index
