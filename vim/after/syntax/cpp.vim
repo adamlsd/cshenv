@@ -195,6 +195,13 @@ syn match cxxTestingCall "\<test\.expect_ge\>"
 syn match cxxTestingCall "\<test\.demand_ge\>"
 
 
+syn region cxxNestedInCommentL containedin=cCommentL matchgroup=Comment start=+`+ end=+`+ keepend contains=@cxxInComment
+syn region cxxNestedInComment containedin=cComment matchgroup=Comment start=+`+ end=+`+ keepend contains=@cxxInComment
+
+syn match nestedCommentStar "^[	 ]*\*" contained containedin=cxxNestedInComment
+
+
+
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
 " For version 5.8 and later: only when an item doesn't have highlighting yet
@@ -208,6 +215,8 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
 
   "HiLink cxxStlLibrary cxxLibPrefix
   "HiLink cxxBoostLibrary cxxLibPrefix
+
+  HiLink nestedCommentStar Comment
 
   HiLink cxxObjects        Object
 
