@@ -3,6 +3,7 @@ if exists("b:current_syntax")
 endif
 
 syn include @cxxInDoxygen syntax/cpp.vim
+syn include @cxxInComment syntax/cpp.vim
 
 unlet b:current_syntax
 
