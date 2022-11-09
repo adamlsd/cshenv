@@ -245,6 +245,7 @@ endif
 
 set git_prompt=""
 set git_prefix=""
+set git_tracking_stat=""
 set git_repo=`git rev-parse --git-dir >& /dev/null`
 set __res=$?
 if( 0 == ${__res} ) then
@@ -260,8 +261,27 @@ if( 0 == ${__res} ) then
         set branch_symbol=`printf "\uE0A0"`
         # I could always fallback to this one... (keep padded spaces... for alignment)
         set branch_symbol=`printf '\u2387\ \ '`
+        set git_counts=`git rev-list --count --left-right \@\{upstream\}..HEAD`
+        set __res=$?
+        #echo "Got: ${git_counts}"
+        if( 0 == ${__res} ) then
+            #set git_behind_count=`echo ${git_counts} | awk '{print $1}'`
+            echo "Got: ${git_behind_count}"
+            set git_ahead_count=`echo ${git_counts} | awk '{print $2}'`
+            #echo "Got: ${git_ahead_count}"
+            if( 0 != ${git_behind_count} ) then
+                set git_tracking_stat=" -${git_behind_count}"
+                if( 0 != ${git_ahead_count} ) then
+                    set git_tracking_stat="${git_tracking_stat},+${git_ahead_count}"
+                endif
+            else
+                if( 0 != ${git_ahead_count} ) then
+                    set git_tracking_stat=" +${git_ahead_count}"
+                endif
+            endif
+        endif
 
-        set git_prompt="%{${sgr_reset}%}(${branch_symbol}  %{${branch_color_seq}%}${git_branch}%{${sgr_reset}%}) "
+        set git_prompt="%{${sgr_reset}%}(${branch_symbol}  %{${branch_color_seq}%}${git_branch}%{${sgr_reset}%}${git_tracking_stat}) "
         #set git_prompt="%{${csi}10D${csi}2D(xyz${git_branch})${csi}m%%}"
         #set git_prompt="%{${csi}0;35m${csi}50D${git_branch}     %}"
     endif
