@@ -291,7 +291,7 @@ if( 0 == ${__res} ) then
                 endif
             else
                 if( 0 != ${git_ahead_count} ) then
-                    set git_tracking_stat=": %{${ahead_tracking_color_seq}%}${git_ahead_count}%{${sgr_reset}%}"
+                    set git_tracking_stat=": +%{${ahead_tracking_color_seq}%}${git_ahead_count}%{${sgr_reset}%}"
                 endif
             endif
         endif
