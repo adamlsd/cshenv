@@ -265,9 +265,9 @@ if( 0 == ${__res} ) then
         set __res=$?
         #echo "Got: ${git_counts}"
         if( 0 == ${__res} ) then
-            #set git_behind_count=`echo ${git_counts} | awk '{print $1}'`
-            echo "Got: ${git_behind_count}"
-            set git_ahead_count=`echo ${git_counts} | awk '{print $2}'`
+            set git_behind_count=`git rev-list --count --right-only HEAD..\@\{upstream\}`
+            #echo "Got: ${git_behind_count}"
+            set git_ahead_count=`git rev-list --count --right-only \@\{upstream\}..HEAD`
             #echo "Got: ${git_ahead_count}"
             if( 0 != ${git_behind_count} ) then
                 set git_tracking_stat=" -${git_behind_count}"
