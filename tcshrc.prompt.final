@@ -25,6 +25,21 @@ if( "${curr_branch_color}" != "${branch_color}" ) then
     set branch_color_seq="%{[`__build_sgr_code no-csi reset ${curr_branch_color}`m"
 endif
 
+if( ! $?curr_ahead_tracking_color ) then
+    set curr_ahead_tracking_color=impossible
+endif
+if( "${curr_ahead_tracking_color}" != "${ahead_tracking_color}" ) then
+    set curr_ahead_tracking_color="${ahead_tracking_color}"
+    set ahead_tracking_color_seq="^[[`__build_sgr_code no-csi reset ${curr_ahead_tracking_color}`m"
+endif
+
+if( ! $?curr_behind_tracking_color ) then
+    set curr_behind_tracking_color=impossible
+endif
+if( "${curr_behind_tracking_color}" != "${behind_tracking_color}" ) then
+    set curr_behind_tracking_color="${behind_tracking_color}"
+    set behind_tracking_color_seq="^[[`__build_sgr_code no-csi reset ${curr_behind_tracking_color}`m"
+endif
 
 if( ! $?curr_percent_color ) then
     set curr_percent_color=impossible
@@ -270,13 +285,13 @@ if( 0 == ${__res} ) then
             set git_ahead_count=`git rev-list --count --right-only \@\{upstream\}..HEAD`
             #echo "Got: ${git_ahead_count}"
             if( 0 != ${git_behind_count} ) then
-                set git_tracking_stat=" -${git_behind_count}"
+                set git_tracking_stat=": -%{${behind_tracking_color_seq}%}${git_behind_count}%{${sgr_reset}%}"
                 if( 0 != ${git_ahead_count} ) then
-                    set git_tracking_stat="${git_tracking_stat},+${git_ahead_count}"
+                    set git_tracking_stat="${git_tracking_stat},+%{${ahead_tracking_color_seq}%}${git_ahead_count}%{${sgr_reset}%}"
                 endif
             else
                 if( 0 != ${git_ahead_count} ) then
-                    set git_tracking_stat=" +${git_ahead_count}"
+                    set git_tracking_stat=": %{${ahead_tracking_color_seq}%}${git_ahead_count}%{${sgr_reset}%}"
                 endif
             endif
         endif
