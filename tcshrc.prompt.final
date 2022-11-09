@@ -276,7 +276,7 @@ if( 0 == ${__res} ) then
         set branch_symbol=`printf "\uE0A0"`
         # I could always fallback to this one... (keep padded spaces... for alignment)
         set branch_symbol=`printf '\u2387\ \ '`
-        set git_counts=`git rev-list --count --left-right \@\{upstream\}..HEAD`
+        git rev-list --count --left-right \@\{upstream\}..HEAD>&/dev/null
         set __res=$?
         #echo "Got: ${git_counts}"
         if( 0 == ${__res} ) then
