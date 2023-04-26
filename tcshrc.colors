@@ -79,6 +79,32 @@ set bright_white="$csi$ansi_bright;$ansi_white$ansi_color"
 
 set sgr_reset="[`__build_sgr_code no-csi reset`m"
 
+############################
+# Terminal Palette setting #
+############################
+
+set  ansi_0="000000"
+set  ansi_1="DD0000"
+set  ansi_2="00AA00"
+set  ansi_3="AA5500"
+set  ansi_4="2266DD"
+set  ansi_5="AA00AA"
+set  ansi_6="00AAAA"
+set  ansi_7="BBBBBB"
+
+set  ansi_8="484848"
+set  ansi_9="FF5555"
+set ansi_10="55FF55"
+set ansi_11="FFFF55"
+set ansi_12="5577FF"
+set ansi_13="FF55FF"
+set ansi_14="55FFFF"
+set ansi_15="FFFFFF"
+
+alias set-terminal-colors echo "]4\;0\;#${ansi_0}\;1\;#${ansi_1}\;2\;#${ansi_2}\;3\;#${ansi_3}\;4\;#${ansi_4}\;5\;#${ansi_5}\;6\;#${ansi_6}\;7\;#${ansi_7}\;8\;#${ansi_8}\;9\;#${ansi_9}\;10\;#${ansi_10}\;11\;#${ansi_11}\;12\;#${ansi_12}\;13\;#${ansi_13}\;14\;#${ansi_14}\;15\;#${ansi_15}"
+
+alias reset-terminal-colors echo "]104\;"
+
 ###########################
 # vim:filetype=tcsh
 ###########################
