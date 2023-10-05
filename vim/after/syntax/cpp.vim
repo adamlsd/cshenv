@@ -122,6 +122,7 @@ syn keyword cxxStlKeywords contained containedin=cxxStlLibrary type_info type_in
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary decay_t
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary add_pointer_t
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary add_const_t
+syn keyword cxxLibStatement contained containedin=cxxStlLibrary add_lvalue_reference_t add_rvalue_reference_t
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary remove_reference_t
 syn keyword cxxLibStatement contained containedin=cxxStlLibrary declval
 syn keyword cxxStlTypes contained containedin=cxxStlLibrary type_identity type_identity_t
