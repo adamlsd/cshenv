@@ -19,11 +19,18 @@ syn keyword cxxExportNamespace exports
 
 syn match cxxConstants  "\<\(C::[A-Za-z_]\|k[A-Z]\)[A-Z_a-z0-9]*\>"
 
-syn keyword cxxExceptionNames  Exception Exceptions
-syn match   cxxExceptionNames  "\<[A-Z][A-Za-z0-9_]*Exception\>"
+syn keyword cxxErrorNames      Critical CriticalError
 
-syn keyword cxxErrorNames      Error Errors
-syn match   cxxErrorNames      "\<[A-Z][A-Za-z0-9_]*Error\>"
+syn keyword cxxExceptionNames  Exception Exceptions Error
+syn match   cxxExceptionNames  "\<[A-Z][A-Za-z0-9_]*Exception\>"
+syn match   cxxExceptionNames  "\<[A-Z][A-Za-z0-9_]*Error\>"
+syn match   cxxErrorNames      "\<Critical[A-Z][A-Za-z0-9_]*Error\>"
+
+syn keyword cxxNotificationNames Notification
+
+syn keyword cxxConditionNames Condition
+
+syn keyword cxxViolationNames Violation
 
 syn match cxxCast              "\<\(const\|static\|dynamic\|reinterpret\)_cast\s*\(<\)\@="
 
@@ -225,11 +232,15 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
 
   HiLink cxxStatement      Statement
 
+  HiLink cxxErrorNames     Error
   HiLink cxxExceptionNames Exception
+  HiLink cxxConditionNames Condition
+  HiLink cxxNotificationNames Notification
+  HiLink cxxViolationNames Violation
+
   HiLink cxxStlExceptionNames Exception
   HiLink cxxStlNothrow     Nothrow
   HiLink cxxStlNothrowObject     NothrowObject
-  HiLink cxxErrorNames     Error
   HiLink cxxDebug          Debug
   HiLink cxxConstants      Constant
   HiLink cxxNamedConstant  Constant

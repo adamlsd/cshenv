@@ -92,6 +92,9 @@ hi Comment ctermfg=darkgrey cterm=none term=NONE term=none start=<esc>[38;5;242m
 hi Identifier ctermfg=cyan cterm=none term=none start=<esc>[96m stop=<esc>[0m
 hi Object ctermfg=red term=none start=<esc>[91m stop=<esc>[0m
 hi Exception ctermfg=brown term=none start=<esc>[38;5;130m stop=<esc>[0m
+hi Notification ctermfg=yellow cterm=italic
+hi Condition ctermfg=darkgreen cterm=italic
+hi Violation ctermfg=208 cterm=italic,underline
 hi Nothrow ctermfg=215  term=none start=<esc>[38;5;130m stop=<esc>[0m
 hi Nothrow ctermfg=58  term=none start=<esc>[38;5;130m stop=<esc>[0m
 hi Service ctermfg=green start=<esc>[32m stop=<esc>[0m
