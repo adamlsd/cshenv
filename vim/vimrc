@@ -27,5 +27,7 @@ if exists('$CSHENV_TOUCHSCREEN')
     source ~/.vim/vimrc.mousescroll
 endif
 
+set noet
+
 set shell=/bin/tcsh
 "set t_Co=1
