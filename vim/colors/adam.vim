@@ -91,14 +91,19 @@ hi MetaFunction ctermfg=darkcyan start=<esc>[36m stop=<esc>[0m
 hi Comment ctermfg=darkgrey cterm=none term=NONE term=none start=<esc>[38;5;242m stop=<esc>[0m
 hi Identifier ctermfg=cyan cterm=none term=none start=<esc>[96m stop=<esc>[0m
 hi Object ctermfg=red term=none start=<esc>[91m stop=<esc>[0m
-hi Exception ctermfg=brown term=none start=<esc>[38;5;130m stop=<esc>[0m
+
+
+hi Throwable ctermfg=cyan term=underline
+
+hi Condition    ctermfg=darkgreen cterm=italic
 hi Notification ctermfg=yellow cterm=italic
-hi Condition ctermfg=darkgreen cterm=italic
-hi Violation ctermfg=208 cterm=italic,underline
+hi Exception        ctermfg=brown cterm=italic
+hi Critical     ctermfg=202 cterm=italic,underline
+hi Violation    ctermbg=red ctermfg=white
+
 hi Nothrow ctermfg=215  term=none start=<esc>[38;5;130m stop=<esc>[0m
 hi Nothrow ctermfg=58  term=none start=<esc>[38;5;130m stop=<esc>[0m
 hi Service ctermfg=green start=<esc>[32m stop=<esc>[0m
-hi Error ctermbg=red ctermfg=white cterm=none term=none start=<esc>[101;97m stop=<esc>[0m
 hi Caller ctermfg=cyan term=NONE start=<esc>[96m stop=<esc>[0m
 hi Target ctermfg=green ctermbg=red
 hi Sync ctermfg=green ctermbg=red

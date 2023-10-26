@@ -19,18 +19,22 @@ syn keyword cxxExportNamespace exports
 
 syn match cxxConstants  "\<\(C::[A-Za-z_]\|k[A-Z]\)[A-Z_a-z0-9]*\>"
 
-syn keyword cxxErrorNames      Critical CriticalError
+syn keyword cxxExceptionNames      Exception Exception
 
-syn keyword cxxExceptionNames  Exception Exceptions Error
+syn keyword cxxConditionNames      Condition
+syn keyword cxxNotificationNames   Notification
+syn keyword cxxErrorNames          Error
+syn keyword cxxCriticalNames       Critical CriticalError
+syn keyword cxxViolationNames      Violation
+
 syn match   cxxExceptionNames  "\<[A-Z][A-Za-z0-9_]*Exception\>"
-syn match   cxxExceptionNames  "\<[A-Z][A-Za-z0-9_]*Error\>"
-syn match   cxxErrorNames      "\<Critical[A-Z][A-Za-z0-9_]*Error\>"
 
-syn keyword cxxNotificationNames Notification
-
-syn keyword cxxConditionNames Condition
-
-syn keyword cxxViolationNames Violation
+syn match   cxxConditionNames     "\<[A-Z][A-Za-z0-9_]*Condition\>"
+syn match   cxxNotificationNames  "\<[A-Z][A-Za-z0-9_]*Notification\>"
+syn match   cxxErrorNames         "\<[A-Z][A-Za-z0-9_]*Error\>"
+syn match   cxxCriticalNames "\<Critical[A-Z][A-Za-z0-9_]*Error\>"
+syn match   cxxCriticalNames "\<[A-Z][A-Za-z0-9_]*CriticalError\>"
+syn match   cxxViolationNames     "\<[A-Z][A-Za-z0-9_]*Violation\>"
 
 syn match cxxCast              "\<\(const\|static\|dynamic\|reinterpret\)_cast\s*\(<\)\@="
 
@@ -232,13 +236,17 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
 
   HiLink cxxStatement      Statement
 
-  HiLink cxxErrorNames     Error
-  HiLink cxxExceptionNames Exception
-  HiLink cxxConditionNames Condition
+  " The exception breakdown:
+  HiLink cxxExceptionNames    Throwable
+
+  HiLink cxxConditionNames    Condition
   HiLink cxxNotificationNames Notification
-  HiLink cxxViolationNames Violation
+  HiLink cxxErrorNames        Exception
+  HiLink cxxCriticalNames     Critical
+  HiLink cxxViolationNames    Violation
 
   HiLink cxxStlExceptionNames Exception
+
   HiLink cxxStlNothrow     Nothrow
   HiLink cxxStlNothrowObject     NothrowObject
   HiLink cxxDebug          Debug
