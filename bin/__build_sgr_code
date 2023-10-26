@@ -7,6 +7,9 @@
 # After that, we can map a few other special named symbols.  The idea is to
 # permit shell variables such as `aaffcc bold italic` to indicate what you
 # want a format to look like.
+#
+# The terminal colour and effect language herein implemented is named
+# "SGR Name".
 
 debug=0
 
