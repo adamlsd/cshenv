@@ -103,7 +103,7 @@ hi Exception        ctermfg=brown cterm=italic
 hi Critical     ctermfg=202 cterm=italic,underline
 hi Violation    ctermbg=red ctermfg=white
 
-hi Nothrow ctermfg=215  term=none start=<esc>[38;5;130m stop=<esc>[0m
+hi NothrowObject ctermfg=215 cterm=italic  term=none start=<esc>[38;5;130m stop=<esc>[0m
 hi Nothrow ctermfg=58  term=none start=<esc>[38;5;130m stop=<esc>[0m
 hi Service ctermfg=green start=<esc>[32m stop=<esc>[0m
 hi Caller ctermfg=cyan term=NONE start=<esc>[96m stop=<esc>[0m
