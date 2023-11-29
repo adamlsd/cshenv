@@ -40,6 +40,8 @@ hi ModeMsg      ctermfg=white cterm=bold term=bold start=<esc>[97m stop=<esc>[0m
 
 hi Literals     ctermfg=lightmagenta cterm=italic
 
+hi Module       ctermfg=111
+
 
 " Directory thru netrw
 hi netrwHelpCmd	ctermfg=Green

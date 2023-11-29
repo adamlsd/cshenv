@@ -17,6 +17,8 @@ syn keyword cxxConstants       nullptr
 
 syn keyword cxxExportNamespace exports
 
+syn match cxxModuleNamespace "\<[a-zA-Z][A-Za-z0-9_]*_m\>"
+
 syn match cxxConstants  "\<\(C::[A-Za-z_]\|k[A-Z]\)[A-Z_a-z0-9]*\>"
 
 syn keyword cxxExceptionNames      Exception Exception
@@ -268,6 +270,8 @@ if version >= 508 || !exists("did_cxx_syntax_inits")
   HiLink cxxLibLiterals      Literals
 
   HiLink cxxExportNamespace cppModule
+
+  HiLink cxxModuleNamespace Module
 
   HiLink cxxStlTraits      MetaFunction
   HiLink cxxMetaFunction      MetaFunction
