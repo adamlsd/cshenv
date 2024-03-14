@@ -17,6 +17,9 @@ set line_color="ansi:1"
 set prompt_color="reset"
 set depth_color="ansi:3"
 set percent_color="ansi:6"
+
+set dirs_color="ansi:12 italic"
+
 #${csi}3;4;38;2;255;192;192;58;2;255;255;255m%}
 set branch_color="underline italic ffc0c0 ul:white"
 set ahead_tracking_color="9f9"
