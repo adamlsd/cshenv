@@ -23,7 +23,7 @@ hi constant		ctermfg=magenta term=none start=<esc>[95m stop=<esc>[0m
 "hi identifier	ctermfg=cyan	cterm=NONE
 hi statement	ctermfg=202	cterm=NONE term=none start=<esc>[93m stop=<esc>[0m
 hi preproc		ctermfg=blue term=none start=<esc>[94m stop=<esc>[0m
-hi type			ctermfg=green term=none start=<esc>[92m stop=<esc>[0m
+hi type			ctermfg=darkgreen term=none start=<esc>[92m stop=<esc>[0m
 "hi type			ctermfg=green	cterm=bold
 "hi special		ctermfg=yellow
 hi Special      ctermfg=Blue guifg=Blue term=none start=<esc>[94m stop=<esc>[0m
@@ -40,12 +40,14 @@ hi ModeMsg      ctermfg=white cterm=bold term=bold start=<esc>[97m stop=<esc>[0m
 
 hi Literals     ctermfg=darkmagenta cterm=italic
 
+hi Module       ctermfg=111
+
 
 " Directory thru netrw
 hi netrwHelpCmd	ctermfg=Green
 "hi netrwClassify	ctermfg=cyan
 hi netrwHdr		ctermfg=brown
-hi netrwSrc		ctermfg=green
+hi netrwSrc		ctermfg=darkgreen
 hi netrwExe      ctermfg=Red  cterm=bold
 hi netrwSymLink ctermfg=Cyan
 
@@ -68,7 +70,7 @@ hi operator		ctermfg=202 term=none start=<esc>[93m stop=<esc>[0m
 hi clear Visual
 hi Visual		cterm=reverse term=reverse
 hi DiffChange   ctermfg=darkgreen term=none start=<esc>[32m stop=<esc>[0m
-hi DiffFile		ctermfg=green term=none start=<esc>[92m stop=<esc>[0m
+hi DiffFile		ctermfg=darkgreen term=none start=<esc>[92m stop=<esc>[0m
 hi DiffSubname    ctermfg=cyan term=none start=<esc>[96m stop=<esc>[0m
 hi DiffIndexLine    ctermfg=cyan term=none start=<esc>[96m stop=<esc>[0m
 hi diffAdded		ctermfg=blue term=none start=<esc>[94m stop=<esc>[0m
@@ -94,11 +96,11 @@ hi Object ctermfg=darkred term=none start=<esc>[91m stop=<esc>[0m
 hi Exception ctermfg=brown term=none start=<esc>[38;5;130m stop=<esc>[0m
 hi Nothrow ctermfg=215  term=none start=<esc>[38;5;130m stop=<esc>[0m
 hi Nothrow ctermfg=58  term=none start=<esc>[38;5;130m stop=<esc>[0m
-hi Service ctermfg=green start=<esc>[32m stop=<esc>[0m
+hi Service ctermfg=darkgreen start=<esc>[32m stop=<esc>[0m
 hi Error ctermbg=red ctermfg=white cterm=none term=none start=<esc>[101;97m stop=<esc>[0m
 hi Caller ctermfg=darkcyan term=NONE start=<esc>[96m stop=<esc>[0m
-hi Target ctermfg=green ctermbg=red
-hi Sync ctermfg=green ctermbg=red
+hi Target ctermfg=darkgreen ctermbg=red
+hi Sync ctermfg=darkgreen ctermbg=red
 hi Debug ctermfg=darkgreen
 hi Dangerous term=none start=<esc>[1;7;97;101;3;4;6m stop=<esc>[0m ctermfg=white ctermbg=red cterm=reverse,bold,underline,italic
 "hi Dangerous ctermfg=red ctermbg=white cterm=bold,underline,italic start=<esc>[31;47;1;5m stop=<esc>[0m
