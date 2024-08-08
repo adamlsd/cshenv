@@ -33,3 +33,5 @@ endfunction
 au BufNewFile,BufRead *.h			setf cpp.cplusplus "call CheckForADAM()
 au BufNewFile,BufRead		*.cxx,*.cpp,*.hpp,*.cc,*.h		setf cpp.cplusplus
 
+
+au BufNewFile,BufRead *.ynk setf yank
